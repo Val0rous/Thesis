@@ -10,7 +10,7 @@ use bologna_wifi_map;
 
 create table crowding_attendance (
     -- daily values for all 24 hours
-    crowding_attendance_id not null, -- Index attribute not implemented -- not null,
+    crowding_attendance_id not null, -- Index attribute not implemented
     date char(25) not null,
     day varchar(1) not null,
     avg_crowding_00 int not null,
@@ -74,7 +74,7 @@ create table area (
     constraint pk_area primary key (zone_id));
 
 create table coordinates (
-    coordinate_id not null, -- Index attribute not implemented -- not null,
+    coordinate_id not null, -- Index attribute not implemented
     latitude float(1) not null,
     longitude float(1) not null,
     order char(1) not null,
@@ -83,7 +83,7 @@ create table coordinates (
 
 create table movements (
     -- daily values for all 24 hours
-    movement_id not null, -- Index attribute not implemented -- not null,
+    movement_id not null, -- Index attribute not implemented
     date char(10) not null,
     day varchar(1) not null,
     percentile_50_00 int not null,
