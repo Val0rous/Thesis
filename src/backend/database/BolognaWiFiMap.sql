@@ -1,16 +1,19 @@
--- Database Section
--- ________________ 
-
 create database bologna_wifi_map;
 use bologna_wifi_map;
 
 
--- Tables Section
--- _____________ 
+create table area (
+    zone_id varchar(1) not null primary key,
+    zone_name varchar(1) not null,
+    geo_shape_type char(1) not null,
+    geo_shape_geometry_type char(1) not null,
+    geo_point_2d_lat char(1) not null,
+    geo_point_2d_lon char(1) not null
+);
 
 create table crowding_attendance (
     -- daily values for all 24 hours
-    crowding_attendance_id not null, -- Index attribute not implemented
+    crowding_attendance_id int unsigned auto_increment not null primary key, -- Index attribute not implemented
     date char(25) not null,
     day varchar(1) not null,
     avg_crowding_00 int not null,
@@ -62,28 +65,21 @@ create table crowding_attendance (
     avg_attendance_22 int not null,
     avg_attendance_23 int not null,
     zone_id char(1) not null,
-    constraint pk_crowding_attendance primary key (crowding_attendance_id));
-
-create table area (
-    zone_id varchar not null,
-    zone_name varchar not null,
-    geo_shape_type char(1) not null,
-    geo_shape_geometry_type char(1) not null,
-    geo_point_2d_lat char(1) not null,
-    geo_point_2d_lon char(1) not null,
-    constraint pk_area primary key (zone_id));
+    foreign key (zone_id) references area (zone_id)
+);
 
 create table coordinates (
-    coordinate_id not null, -- Index attribute not implemented
+    coordinate_id int unsigned auto_increment not null primary key, -- Index attribute not implemented
     latitude float(1) not null,
     longitude float(1) not null,
-    order char(1) not null,
+    `order` char(1) not null,
     zone_id char(1) not null,
-    constraint pk_coordinates primary key (coordinate_id));
+    foreign key (zone_id) references area (zone_id)
+);
 
 create table movements (
     -- daily values for all 24 hours
-    movement_id not null, -- Index attribute not implemented
+    movement_id int unsigned auto_increment not null primary key, -- Index attribute not implemented
     date char(10) not null,
     day varchar(1) not null,
     percentile_50_00 int not null,
@@ -136,29 +132,6 @@ create table movements (
     tot_steps_23 int not null,
     zone_id_to char(1) not null,
     zone_id_from char(1) not null,
-    constraint pk_movements primary key (movement_id));
-
-
--- Constraints Section
--- ___________________ 
-
-alter table crowding_attendance add constraint fk_area
-     foreign key (zone_id)
-     references area (zone_id);
-
-alter table coordinates add constraint fk_geometry
-     foreign key (zone_id)
-     references area (zone_id);
-
-alter table movements add constraint fk_to
-     foreign key (zone_id_to)
-     references area (zone_id);
-
-alter table movements add constraint fk_from
-     foreign key (zone_id_from)
-     references area (zone_id);
-
-
--- Index Section
--- _____________ 
-
+    foreign key (zone_id_to) references area (zone_id),
+    foreign key (zone_id_from) references area (zone_id)
+);
