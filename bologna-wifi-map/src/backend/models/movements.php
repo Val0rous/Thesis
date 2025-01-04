@@ -14,22 +14,29 @@ $fetchedCount = 0;
 
 function fetch_api_data($url): bool|string
 {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the response as a string
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // Verify SSL certificates
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-
-    $response = curl_exec($ch);
-
-    if (curl_errno($ch)) {
-        error_log('cURL error: ' . curl_error($ch));
-        curl_close($ch);
+    $response = file_get_contents($url);
+    if ($response === false) {
+        error_log("Failed to fetch data from URL: $url");
         return false;
     }
-
-    curl_close($ch);
     return $response;
+
+//    $ch = curl_init();
+//    curl_setopt($ch, CURLOPT_URL, $url);
+//    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the response as a string
+//    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // Verify SSL certificates
+//    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+//
+//    $response = curl_exec($ch);
+//
+//    if (curl_errno($ch)) {
+//        error_log('cURL error: ' . curl_error($ch));
+//        curl_close($ch);
+//        return false;
+//    }
+//
+//    curl_close($ch);
+//    return $response;
 }
 
 $response = fetch_api_data($totalCountUrl);
