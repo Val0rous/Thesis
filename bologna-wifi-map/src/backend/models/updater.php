@@ -1,4 +1,5 @@
 <?php
+require_once "../controllers/DatabaseHelper.php";
 // Database configuration
 $host = "localhost";
 $username = "root";
@@ -6,25 +7,27 @@ $password = "";
 $dbname = "bologna_wifi_map";
 
 try {
-    // Create a new PDO instance
-    $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-
-    // Set error mode to exception
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Define the query
+    $db = new DatabaseHelper();
     $query = "SELECT * FROM areas";
+    $results = $db->query($query);
 
-    // Prepare and execute the query
-    $stmt = $db->query($query);
+    if ($results !== null) {
+        // Display the results
+        foreach ($results as $row) {
+            print_r($row);
+            echo PHP_EOL; // Add a newline for better readability
+        }
+    }
 
-    // Fetch all results
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $query = "SELECT * FROM coordinates";
+    $results = $db->query($query);
 
-    // Display the results
-    foreach ($results as $row) {
-        print_r($row);
-        echo PHP_EOL; // Add a newline for better readability
+    if ($results !== null) {
+        // Display the results
+        foreach ($results as $row) {
+            print_r($row);
+            echo PHP_EOL; // Add a newline for better readability
+        }
     }
 
 } catch (PDOException $e) {
