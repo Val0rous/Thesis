@@ -1,12 +1,12 @@
 <?php
 header('Content-Type: application/json');
 // First data from April 1, 2021
-$apiUrl = "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/bolognawifi-matrice-spostamenti/"
-    . "records?order_by=data_evento%20asc&refine=data_evento%3A";
-$totalCountUrl = "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/bolognawifi-matrice-spostamenti/"
-    . "records?order_by=data_evento%20asc&limit=0";
-$startDate = new DateTime("2021-04-01");
-//$startDate = new DateTime("2024-12-01");    // debug
+$apiUrl = "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/"
+    . "bolognawifi-matrice-spostamenti/records?order_by=data_evento%20asc&refine=data_evento%3A";
+$totalCountUrl = "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/"
+    . "bolognawifi-matrice-spostamenti/records?order_by=data_evento%20asc&limit=0";
+//$startDate = new DateTime("2021-04-01");
+$startDate = new DateTime("2024-12-01");    // debug
 $endDate = new DateTime();
 $mergedList = [];
 $totalCount = 0;
@@ -67,4 +67,4 @@ for ($date = $startDate; $date <= $endDate; $date->modify("+1 day")) {
 }
 
 echo PHP_EOL . $fetchedCount . PHP_EOL;
-//echo json_encode($mergedList, JSON_PRETTY_PRINT);
+echo json_encode($mergedList, JSON_PRETTY_PRINT);

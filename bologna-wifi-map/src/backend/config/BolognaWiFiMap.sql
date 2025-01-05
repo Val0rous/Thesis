@@ -2,13 +2,22 @@ create database bologna_wifi_map;
 use bologna_wifi_map;
 
 
-create table area (
+create table areas (
     zone_id varchar(64) not null primary key,   -- 128 max
     zone_name varchar(64) not null,             -- 128 max
     geo_shape_type varchar(16) not null,            -- all have "type": "Feature"
     geo_shape_geometry_type varchar(16) not null,   -- all have "type": "Polygon"
     geo_point_2d_lat decimal(17, 15) not null,
     geo_point_2d_lon decimal(17, 15) not null
+);
+
+create table coordinates (
+    coordinate_id int unsigned auto_increment not null primary key,
+    latitude decimal(17, 15) not null,
+    longitude decimal(17, 15) not null,
+    `order` int unsigned not null,
+    zone_id varchar(64) not null,
+    foreign key (zone_id) references areas (zone_id)
 );
 
 create table crowding_attendance (
@@ -65,16 +74,7 @@ create table crowding_attendance (
     avg_attendance_22 int unsigned not null,
     avg_attendance_23 int unsigned not null,
     zone_id varchar(64) not null,
-    foreign key (zone_id) references area (zone_id)
-);
-
-create table coordinates (
-    coordinate_id int unsigned auto_increment not null primary key,
-    latitude decimal(17, 15) not null,
-    longitude decimal(17, 15) not null,
-    `order` int unsigned not null,
-    zone_id varchar(64) not null,
-    foreign key (zone_id) references area (zone_id)
+    foreign key (zone_id) references areas (zone_id)
 );
 
 create table movements (
@@ -132,6 +132,6 @@ create table movements (
     tot_steps_23 int unsigned not null,
     zone_id_to varchar(64) not null,
     zone_id_from varchar(64) not null,
-    foreign key (zone_id_to) references area (zone_id),
-    foreign key (zone_id_from) references area (zone_id)
+    foreign key (zone_id_to) references areas (zone_id),
+    foreign key (zone_id_from) references areas (zone_id)
 );
