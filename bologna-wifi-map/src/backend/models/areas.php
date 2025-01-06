@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json');
+require_once "../controllers/DatabaseHelper.php";
 $zoneIdsFromCrowdingApiUrl = "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/"
     . "iperbole-wifi-affollamento/records?select=codice_zona&group_by=codice_zona&order_by=data%20asc";
 $zoneIdsFromAttendanceApiUrl = "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/"
@@ -38,6 +39,15 @@ foreach ($crowdingList as $zoneId) {
     }
 }
 echo PHP_EOL . json_encode($areas, JSON_PRETTY_PRINT);
+
+// Add to db
+$db = new DatabaseHelper();
+foreach ($areas as $area) {
+    $db->addArea($area["codice_zona"], $area["nome_zona"], $area["geo_point_2d"]["lat"], $area["geo_point_2d"]["lon"]);
+    foreach ($area["coordinates"] as $index => $coordinate) {
+        $db->addCoordinate($coordinate[1], $coordinate[0], $index, $area["codice_zona"]);
+    }
+}
 
 
 //$attendanceResponse = file_get_contents($zoneIdsFromAttendanceApiUrl);
