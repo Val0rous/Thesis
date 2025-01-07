@@ -57,6 +57,15 @@ echo "Total count of attendance: " . $attendanceTotalCount . PHP_EOL;
     a total count of 25 yields +1
 
     Print offset on each iteration if offset is not zero, along with the date
+
+    Found out you get a -1 on spring forward day, then another -1 on fall back day,
+    which gets evened out by 2 consecutive 25-entry days right after fall back day.
+    This means we have a 1 hour offset for the entirety of summer,
+    so if offset is negative we need to consider the next day and perform yet
+    another query, or store the entire 23 values in an array which will be then
+    completed with the missing value and saved to db, and the cycle repeats;
+    if offset is positive (which shouldn't be happening here), then just store
+    the extra value in another variable.
 */
 
 
