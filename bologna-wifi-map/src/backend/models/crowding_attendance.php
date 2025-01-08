@@ -11,8 +11,8 @@ $attendanceApiUrl = "https://opendata.comune.bologna.it/api/explore/v2.1/catalog
 $attendanceTotalCountUrl = "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/"
     . "iperbole-wifi-affluenza/records?order_by=data%20asc&limit=0";
 $crowdingStartDate = new DateTime("2024-01-15");    // Affollamento
-//$attendanceStartDate = new DateTime("2024-01-01");  // Affluenza
-$attendanceStartDate = new DateTime("2025-01-01");    // debug
+$attendanceStartDate = new DateTime("2024-01-01");  // Affluenza
+//$attendanceStartDate = new DateTime("2025-01-01");    // debug
 $endDate = new DateTime();
 $crowdingTotalCount = 0;
 $crowdingFetchedCount = 0;

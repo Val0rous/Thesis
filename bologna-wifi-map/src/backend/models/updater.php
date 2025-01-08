@@ -1,8 +1,17 @@
 <?php
-require_once "../controllers/DatabaseHelper.php";
+header('Content-Type: application/json');
+require_once("../controllers/DatabaseHelper.php");
+require_once("./areas_coordinates.php");
+
+$urlsFilePath = "../utils/urls.json";
+if (!file_exists($urlsFilePath)) {
+    die("The file $urlsFilePath does not exist.");
+}
+$urls = json_decode(file_get_contents($urlsFilePath), true);
+if (json_last_error() !== JSON_ERROR_NONE) {
+    die("Failed to decode JSON: " . json_last_error_msg());
+}
 
 $db = new DatabaseHelper();
-$areas = $db->getAllAreas();
-foreach ($areas as $area) {
-    echo $area["zone_id"] . PHP_EOL;
-}
+
+fetchAreas($urls, $db);
