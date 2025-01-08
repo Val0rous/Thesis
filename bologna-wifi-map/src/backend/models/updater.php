@@ -2,6 +2,8 @@
 header('Content-Type: application/json');
 require_once("../controllers/DatabaseHelper.php");
 require_once("./areas_coordinates.php");
+require_once("./movements.php");
+require_once("../utils/utils.php");
 
 $urlsFilePath = "../utils/urls.json";
 if (!file_exists($urlsFilePath)) {
@@ -15,3 +17,4 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 $db = new DatabaseHelper();
 
 fetchAreas($urls, $db);
+fetchMovements($urls, $db);

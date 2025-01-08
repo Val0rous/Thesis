@@ -4,6 +4,7 @@ header('Content-Type: application/json');
 
 function fetchAreas(array $urls, DatabaseHelper $db): void
 {
+    $startTime = microtime(true);
     echo "Fetching areas..." . PHP_EOL;
     $zoneIdsFromCrowdingApiUrl = $urls["zone_ids_from_crowding_api"];
     $zoneIdsFromAttendanceApiUrl = $urls["zone_ids_from_attendance_api"];
@@ -22,12 +23,11 @@ function fetchAreas(array $urls, DatabaseHelper $db): void
     } else {
         error_log("Failed to fetch data for zone IDs from crowding API");
     }
-    echo "Total number of fetched zone IDs: " . count($crowdingList);
-    echo PHP_EOL;
+    echo "Total number of fetched zone IDs: " . count($crowdingList) . PHP_EOL;
 
     $alreadyFetchedAreas = $db->getAllAreas();
     $crowdingList = array_diff_key($crowdingList, $alreadyFetchedAreas);
-    echo "Number of zone IDs to add: " . count($crowdingList);
+    echo "Number of zone IDs to add: " . count($crowdingList) . PHP_EOL;
 
     // Fetch area and coordinates for each new zone ID
     foreach ($crowdingList as $zoneId) {
@@ -48,7 +48,7 @@ function fetchAreas(array $urls, DatabaseHelper $db): void
         }
     }
     // echo PHP_EOL . json_encode($areas, JSON_PRETTY_PRINT);
-    echo PHP_EOL . "Total number of fetched areas: " . count($areas) . PHP_EOL;
+    echo "Total number of fetched areas: " . count($areas) . PHP_EOL;
 
     // Add to db
     $db = new DatabaseHelper();
@@ -60,6 +60,9 @@ function fetchAreas(array $urls, DatabaseHelper $db): void
     }
 
     echo "Total number of fetched coordinates: " . $counter . PHP_EOL;
+    $endTime = microtime(true);
+    $elapsedTime = $endTime - $startTime;
+    echo "Elapsed time: " . convertToReadableTime($elapsedTime) . PHP_EOL;
     echo PHP_EOL;
 }
 

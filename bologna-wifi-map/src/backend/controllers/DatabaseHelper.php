@@ -255,23 +255,48 @@ class DatabaseHelper
         return $stmt->execute();
     }
 
-    public function getLastCrowdingAttendanceId(): int|null
+    public function getLastCrowdingAttendanceId(string $zoneId): int|null
     {
         $query = "select max(crowding_attendance_id)
-                  from crowding_attendance";
+                  from crowding_attendance
+                  where zone_id = ?";
         $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $zoneId);
         $stmt->execute();
         $stmt->bind_result($lastCrowdingAttendanceId);
         $stmt->fetch();
         return $lastCrowdingAttendanceId;
     }
 
+    public function getLastCrowdingAttendanceDate(): string|null
+    {
+        $query = "select max(date)
+                  from crowding_attendance";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $stmt->bind_result($lastDate);
+        $stmt->fetch();
+        return $lastDate;
+    }
+
+    public function getLastMovementsDate(): string|null
+    {
+        $query = "select max(date)
+                  from movements";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $stmt->bind_result($lastDate);
+        $stmt->fetch();
+        return $lastDate;
+    }
+
     public function setH22CrowdingAttendance(
-        int $avgCrowding22,
-        int $avgAttendance22
+        int    $avgCrowding22,
+        int    $avgAttendance22,
+        string $zoneId
     ): bool
     {
-        $lastCrowdingAttendanceId = $this->getLastCrowdingAttendanceId();
+        $lastCrowdingAttendanceId = $this->getLastCrowdingAttendanceId($zoneId);
         if ($lastCrowdingAttendanceId === null) {
             return false;
         }
