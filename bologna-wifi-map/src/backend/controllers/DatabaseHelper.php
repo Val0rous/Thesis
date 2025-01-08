@@ -233,4 +233,77 @@ class DatabaseHelper
         );
         return $stmt->execute();
     }
+
+    public function setH23CrowdingAttendance(
+        int $avgCrowding23,
+        int $avgAttendance23
+    ): bool
+    {
+        $lastCrowdingAttendanceId = $this->getLastCrowdingAttendanceId();
+        if ($lastCrowdingAttendanceId === null) {
+            return false;
+        }
+        $query = "update crowding_attendance
+                  set avg_crowding_23 = ?, avg_attendance_23 = ?
+                  where crowding_attendance_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param(
+            "iii",
+            $avgCrowding23, $avgAttendance23,
+            $lastCrowdingAttendanceId
+        );
+        return $stmt->execute();
+    }
+
+    public function getLastCrowdingAttendanceId(): int|null
+    {
+        $query = "select max(crowding_attendance_id)
+                  from crowding_attendance";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $stmt->bind_result($lastCrowdingAttendanceId);
+        $stmt->fetch();
+        return $lastCrowdingAttendanceId;
+    }
+
+    public function setH22CrowdingAttendance(
+        int $avgCrowding22,
+        int $avgAttendance22
+    ): bool
+    {
+        $lastCrowdingAttendanceId = $this->getLastCrowdingAttendanceId();
+        if ($lastCrowdingAttendanceId === null) {
+            return false;
+        }
+        $query = "update crowding_attendance
+                  set avg_crowding_22 = ?, avg_attendance_22 = ?
+                  where crowding_attendance_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param(
+            "iii",
+            $avgCrowding22, $avgAttendance22,
+            $lastCrowdingAttendanceId
+        );
+        return $stmt->execute();
+    }
+
+    /** Returns empty array if nothing is found */
+    public function getAllAreas(): array
+    {
+        $query = "select zone_id
+                  from areas";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /** Returns empty array if nothing is found */
+    public function getAllCrowdingAttendance(): array
+    {
+        $query = "select crowding_attendance_id
+                  from crowding_attendance";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 }
