@@ -10,9 +10,12 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
     $crowdingTotalCountUrl = $urls["crowding_total_count"];
     $attendanceApiUrl = $urls["attendance_api"];
     $attendanceTotalCountUrl = $urls["attendance_total_count"];
+    $lastDate = $db->getLastCrowdingAttendanceDate();
+    $lastDate = ($lastDate !== null) ? new DateTime($lastDate) : null;
     $crowdingStartDate = new DateTime("2024-01-15");    // Affollamento
     $attendanceStartDate = new DateTime("2024-01-01");  // Affluenza
-    //$attendanceStartDate = new DateTime("2025-01-01");    // debug
+    $startDate = ($lastDate !== null) ? $lastDate->modify("+1 day") : $attendanceStartDate;
+    //$startDate = new DateTime("2025-01-01");    // debug
     $endDate = new DateTime();
     $crowdingTotalCount = 0;
     $crowdingFetchedCount = 0;
@@ -20,8 +23,13 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
     $attendanceTotalCount = 0;
     $attendanceFetchedCount = 0;
     $attendanceCounter = 0;
+    $where = "&where=data%20%3E%3D%20%22"
+        . $startDate->format("Y-m-d")
+        . "%22%20and%20data%20%3C%3D%20%22"
+        . $endDate->format("Y-m-d")
+        . "%22";
 
-    $crowdingResponse = file_get_contents($crowdingTotalCountUrl);
+    $crowdingResponse = file_get_contents($crowdingTotalCountUrl . $where);
     if ($crowdingResponse !== false) {
         $crowdingTotalCount = json_decode($crowdingResponse, true)["total_count"];
     } else {
@@ -29,7 +37,7 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
     }
     echo "Total count of crowding: " . $crowdingTotalCount . PHP_EOL;
 
-    $attendanceResponse = file_get_contents($attendanceTotalCountUrl);
+    $attendanceResponse = file_get_contents($attendanceTotalCountUrl . $where);
     if ($attendanceResponse !== false) {
         $attendanceTotalCount = json_decode($attendanceResponse, true)["total_count"];
     } else {
@@ -71,81 +79,80 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
         the extra value in another variable.
     */
 
+    if ($attendanceTotalCount > 0 || $crowdingTotalCount > 0) {
+        // Fetch Crowding and Attendance data day by day in 100 item chunks, then add them to db
+        for ($date = $startDate; $date <= $endDate; $date->modify("+1 day")) {
+            $formattedDate = $date->format("Y-m-d");
+            echo "\r" . $formattedDate;
+            $crowdingBaseUrl = $crowdingApiUrl . $formattedDate . $where;
+            $attendanceBaseUrl = $attendanceApiUrl . $formattedDate . $where;
+            $crowdingOffset = 0;
+            $attendanceOffset = 0;
+            $crowdingTotalDailyCount = 0;
+            $attendanceTotalDailyCount = 0;
+            $crowdingIsIncreasedFetchedCount = false;
+            $attendanceIsIncreasedFetchedCount = false;
+            $crowding = [];
+            $attendance = [];
 
-    // Fetch Crowding and Attendance data day by day in 100 item chunks, then add them to db
-    for ($date = $attendanceStartDate; $date <= $endDate; $date->modify("+1 day")) {
-        $formattedDate = $date->format("Y-m-d");
-        echo "\r" . $formattedDate;
-        $crowdingBaseUrl = $crowdingApiUrl . $formattedDate;
-        $attendanceBaseUrl = $attendanceApiUrl . $formattedDate;
-        $crowdingOffset = 0;
-        $attendanceOffset = 0;
-        $crowdingTotalDailyCount = 0;
-        $attendanceTotalDailyCount = 0;
-        $crowdingIsIncreasedFetchedCount = false;
-        $attendanceIsIncreasedFetchedCount = false;
-        $crowding = [];
-        $attendance = [];
+            $isCrowding = ($date >= $crowdingStartDate);
 
-        $isCrowding = ($date >= $crowdingStartDate);
-        $crowdingHourOffset = 0;
-        $attendanceHourOffset = 0;
+            if ($isCrowding) {
+                // Crowding
+                do {
+                    $crowdingUrl = $crowdingBaseUrl . "&offset=" . $crowdingOffset;
+                    $crowdingResponse = file_get_contents($crowdingUrl);
 
-        if ($isCrowding) {
-            // Crowding
-            do {
-                $crowdingUrl = $crowdingBaseUrl . "&offset=" . $crowdingOffset;
-                $crowdingResponse = file_get_contents($crowdingUrl);
-
-                if ($crowdingResponse !== false) {
-                    $crowdingData = json_decode($crowdingResponse, true);
-                    if (is_array($crowdingData)) {
-                        if (!$crowdingIsIncreasedFetchedCount) {
-                            $crowdingTotalDailyCount = $crowdingData["total_count"];
-                            $crowdingFetchedCount += $crowdingTotalDailyCount;
+                    if ($crowdingResponse !== false) {
+                        $crowdingData = json_decode($crowdingResponse, true);
+                        if (is_array($crowdingData)) {
+                            if (!$crowdingIsIncreasedFetchedCount) {
+                                $crowdingTotalDailyCount = $crowdingData["total_count"];
+                                $crowdingFetchedCount += $crowdingTotalDailyCount;
+                            }
+                            foreach ($crowdingData["results"] as $item) {
+                                $crowding[] = $item;
+                            }
+                            $crowdingOffset += 100;
+                            $crowdingIsIncreasedFetchedCount = true;
+                        } else {
+                            error_log("Invalid crowding JSON response for date $formattedDate: $crowdingResponse");
                         }
-                        foreach ($crowdingData["results"] as $item) {
-                            $crowding[] = $item;
-                        }
-                        $crowdingOffset += 100;
-                        $crowdingIsIncreasedFetchedCount = true;
                     } else {
-                        error_log("Invalid crowding JSON response for date $formattedDate: $crowdingResponse");
+                        error_log("Failed to fetch crowding data for date $formattedDate");
                     }
-                } else {
-                    error_log("Failed to fetch crowding data for date $formattedDate");
-                }
-            } while ($crowdingOffset < $crowdingTotalDailyCount);
-        }
-
-        // Attendance
-        do {
-            $attendanceUrl = $attendanceBaseUrl . "&offset=" . $attendanceOffset;
-            $attendanceResponse = file_get_contents($attendanceUrl);
-
-            if ($attendanceResponse !== false) {
-                $attendanceData = json_decode($attendanceResponse, true);
-                if (is_array($attendanceData)) {
-                    if (!$attendanceIsIncreasedFetchedCount) {
-                        $attendanceTotalDailyCount = $attendanceData["total_count"];
-                        $attendanceFetchedCount += $attendanceTotalDailyCount;
-                    }
-                    foreach ($attendanceData["results"] as $item) {
-                        $attendance[] = $item;
-                    }
-                    $attendanceOffset += 100;
-                    $attendanceIsIncreasedFetchedCount = true;
-                } else {
-                    error_log("Invalid attendance JSON response for date $formattedDate: $attendanceResponse");
-                }
-            } else {
-                error_log("Failed to fetch attendance data for date $formattedDate");
+                } while ($crowdingOffset < $crowdingTotalDailyCount);
             }
-        } while ($attendanceOffset < $attendanceTotalDailyCount);
 
-        if ((count($crowding) > 0 || !$isCrowding)
-            && count($attendance) > 0) {
+            // Attendance
+            do {
+                $attendanceUrl = $attendanceBaseUrl . "&offset=" . $attendanceOffset;
+                $attendanceResponse = file_get_contents($attendanceUrl);
 
+                if ($attendanceResponse !== false) {
+                    $attendanceData = json_decode($attendanceResponse, true);
+                    if (is_array($attendanceData)) {
+                        if (!$attendanceIsIncreasedFetchedCount) {
+                            $attendanceTotalDailyCount = $attendanceData["total_count"];
+                            $attendanceFetchedCount += $attendanceTotalDailyCount;
+                        }
+                        foreach ($attendanceData["results"] as $item) {
+                            $attendance[] = $item;
+                        }
+                        $attendanceOffset += 100;
+                        $attendanceIsIncreasedFetchedCount = true;
+                    } else {
+                        error_log("Invalid attendance JSON response for date $formattedDate: $attendanceResponse");
+                    }
+                } else {
+                    error_log("Failed to fetch attendance data for date $formattedDate");
+                }
+            } while ($attendanceOffset < $attendanceTotalDailyCount);
+
+            if ((count($crowding) > 0 || !$isCrowding)
+                && count($attendance) > 0) {
+
+            }
         }
     }
     echo PHP_EOL;
