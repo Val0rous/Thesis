@@ -4,5 +4,9 @@
   "area_from_crowding_api": "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/iperbole-wifi-affollamento/records?select=codice_zona%2C%20nome_zona%2C%20geo_shape%2C%20geo_point_2d&order_by=data%20asc&limit=1&refine=codice_zona%3A",
   "area_from_attendance_api": "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/iperbole-wifi-affluenza/records?select=codice_zona%2C%20nome_zona%2C%20geo_shape%2C%20geo_point_2d&order_by=data%20asc&limit=1&refine=codice_zona%3A",
   "movements_api": "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/bolognawifi-matrice-spostamenti/records?select=data_evento%2C%20hour%2C%20giorno%2C%20percentile_50%2C%20tot_pass%2C%20area_from%2C%20area_to&order_by=area_from%2C%20area_to%2C%20hour%20asc&limit=100&refine=data_evento%3A",
-  "movements_total_count": "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/bolognawifi-matrice-spostamenti/records?order_by=data_evento%20asc&limit=0"
+  "movements_total_count": "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/bolognawifi-matrice-spostamenti/records?order_by=data_evento%20asc&limit=0",
+  "crowding_api": "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/iperbole-wifi-affollamento/records?select=codice_zona%2C%20data%2C%20giorno%2C%20ora%2C%20affollamento_medio&order_by=codice_zona%2C%20data%20asc&limit=100&refine=data%3A",
+  "crowding_total_count": "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/iperbole-wifi-affollamento/records?order_by=data%20asc&limit=0",
+  "attendance_api": "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/iperbole-wifi-affluenza/records?select=codice_zona%2C%20data%2C%20giorno%2C%20ora%2C%20affluenza_media&order_by=codice_zona%2C%20data%20asc&limit=100&refine=data%3A",
+  "attendance_total_count": "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/iperbole-wifi-affluenza/records?order_by=data%20asc&limit=0"
 }
