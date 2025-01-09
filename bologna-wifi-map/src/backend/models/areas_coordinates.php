@@ -47,6 +47,7 @@ function fetchAreas(array $urls, DatabaseHelper $db): void
             $counter += count($flattenedData["coordinates"]);
         }
     }
+    echo PHP_EOL;
     // echo PHP_EOL . json_encode($areas, JSON_PRETTY_PRINT);
     echo "Total number of fetched areas: " . count($areas) . PHP_EOL;
 

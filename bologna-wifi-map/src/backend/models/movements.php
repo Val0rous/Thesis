@@ -53,6 +53,9 @@ function fetchMovements(array $urls, DatabaseHelper $db): void
                             $totalDailyCount = $data["total_count"];
                             $fetchedCount += $totalDailyCount;
                         }
+                        if ($totalDailyCount > 0) {
+                            echo "\r" . $formattedDate . " - " . ($offset / 100 + 1) . "/" . (ceil($totalDailyCount / 100));
+                        }
                         //              $movements = array_merge($movements, $data["results"]);
                         foreach ($data["results"] as $item) {
                             $movements[] = $item;
