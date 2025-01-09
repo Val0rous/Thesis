@@ -1,6 +1,5 @@
 <?php
 header('Content-Type: application/json');
-//require_once "../controllers/DatabaseHelper.php";
 
 function fetchAreas(array $urls, DatabaseHelper $db): void
 {

@@ -1,12 +1,12 @@
 <?php
 header('Content-Type: application/json');
-require_once("../controllers/DatabaseHelper.php");
-require_once("./areas_coordinates.php");
-require_once("./movements.php");
-require_once("./crowding_attendance.php");
+require_once("../utils/DatabaseHelper.php");
+require_once("../api/areas_coordinates.php");
+require_once("../api/movements.php");
+require_once("../api/crowding_attendance.php");
 require_once("../utils/utils.php");
 
-$urlsFilePath = "../utils/urls.json";
+$urlsFilePath = "../routes/urls.json";
 if (!file_exists($urlsFilePath)) {
     die("The file $urlsFilePath does not exist.");
 }
