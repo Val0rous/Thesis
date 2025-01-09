@@ -43,4 +43,50 @@ trait Areas
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getCrowdingHourOffset(string $zoneId): int
+    {
+        $query = "select crowding_hour_offset
+                  from areas
+                  where zone_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $zoneId);
+        $stmt->execute();
+        $stmt->bind_result($crowdingHourOffset);
+        $stmt->fetch();
+        return $crowdingHourOffset;
+    }
+
+    public function setCrowdingHourOffset(int $crowdingHourOffset, string $zoneId): bool
+    {
+        $query = "update areas
+                  set crowding_hour_offset = ?
+                  where zone_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $crowdingHourOffset, $zoneId);
+        return $stmt->execute();
+    }
+
+    public function getAttendanceHourOffset(string $zoneId): int
+    {
+        $query = "select crowding_hour_offset
+                  from areas
+                  where zone_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $zoneId);
+        $stmt->execute();
+        $stmt->bind_result($attendanceHourOffset);
+        $stmt->fetch();
+        return $attendanceHourOffset;
+    }
+
+    public function setAttendanceHourOffset(int $attendanceHourOffset, string $zoneId): bool
+    {
+        $query = "update areas
+                  set attendance_hour_offset = ?
+                  where zone_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $attendanceHourOffset, $zoneId);
+        return $stmt->execute();
+    }
 }
