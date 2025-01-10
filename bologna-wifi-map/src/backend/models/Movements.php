@@ -2,21 +2,20 @@
 
 trait Movements
 {
+    /**
+     * @param string $date
+     * @param string $day
+     * @param int[] $fiftiethPercentile
+     * @param int[] $totPass
+     * @param string $zoneIdTo
+     * @param string $zoneIdFrom
+     * @return bool
+     */
     public function addMovement(
         string $date,
         string $day,
-        int    $fiftiethPercentile00, int $fiftiethPercentile01, int $fiftiethPercentile02, int $fiftiethPercentile03,
-        int    $fiftiethPercentile04, int $fiftiethPercentile05, int $fiftiethPercentile06, int $fiftiethPercentile07,
-        int    $fiftiethPercentile08, int $fiftiethPercentile09, int $fiftiethPercentile10, int $fiftiethPercentile11,
-        int    $fiftiethPercentile12, int $fiftiethPercentile13, int $fiftiethPercentile14, int $fiftiethPercentile15,
-        int    $fiftiethPercentile16, int $fiftiethPercentile17, int $fiftiethPercentile18, int $fiftiethPercentile19,
-        int    $fiftiethPercentile20, int $fiftiethPercentile21, int $fiftiethPercentile22, int $fiftiethPercentile23,
-        int    $totPass00, int $totPass01, int $totPass02, int $totPass03,
-        int    $totPass04, int $totPass05, int $totPass06, int $totPass07,
-        int    $totPass08, int $totPass09, int $totPass10, int $totPass11,
-        int    $totPass12, int $totPass13, int $totPass14, int $totPass15,
-        int    $totPass16, int $totPass17, int $totPass18, int $totPass19,
-        int    $totPass20, int $totPass21, int $totPass22, int $totPass23,
+        array  $fiftiethPercentile,
+        array  $totPass,
         string $zoneIdTo,
         string $zoneIdFrom
     ): bool
@@ -62,18 +61,18 @@ trait Movements
             "ssiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiss",
             $date,
             $day,
-            $fiftiethPercentile00, $fiftiethPercentile01, $fiftiethPercentile02, $fiftiethPercentile03,
-            $fiftiethPercentile04, $fiftiethPercentile05, $fiftiethPercentile06, $fiftiethPercentile07,
-            $fiftiethPercentile08, $fiftiethPercentile09, $fiftiethPercentile10, $fiftiethPercentile11,
-            $fiftiethPercentile12, $fiftiethPercentile13, $fiftiethPercentile14, $fiftiethPercentile15,
-            $fiftiethPercentile16, $fiftiethPercentile17, $fiftiethPercentile18, $fiftiethPercentile19,
-            $fiftiethPercentile20, $fiftiethPercentile21, $fiftiethPercentile22, $fiftiethPercentile23,
-            $totPass00, $totPass01, $totPass02, $totPass03,
-            $totPass04, $totPass05, $totPass06, $totPass07,
-            $totPass08, $totPass09, $totPass10, $totPass11,
-            $totPass12, $totPass13, $totPass14, $totPass15,
-            $totPass16, $totPass17, $totPass18, $totPass19,
-            $totPass20, $totPass21, $totPass22, $totPass23,
+            $fiftiethPercentile[0], $fiftiethPercentile[1], $fiftiethPercentile[2], $fiftiethPercentile[3],
+            $fiftiethPercentile[4], $fiftiethPercentile[5], $fiftiethPercentile[6], $fiftiethPercentile[7],
+            $fiftiethPercentile[8], $fiftiethPercentile[9], $fiftiethPercentile[10], $fiftiethPercentile[11],
+            $fiftiethPercentile[12], $fiftiethPercentile[13], $fiftiethPercentile[14], $fiftiethPercentile[15],
+            $fiftiethPercentile[16], $fiftiethPercentile[17], $fiftiethPercentile[18], $fiftiethPercentile[19],
+            $fiftiethPercentile[20], $fiftiethPercentile[21], $fiftiethPercentile[22], $fiftiethPercentile[23],
+            $totPass[0], $totPass[1], $totPass[2], $totPass[3],
+            $totPass[4], $totPass[5], $totPass[6], $totPass[7],
+            $totPass[8], $totPass[9], $totPass[10], $totPass[11],
+            $totPass[12], $totPass[13], $totPass[14], $totPass[15],
+            $totPass[16], $totPass[17], $totPass[18], $totPass[19],
+            $totPass[20], $totPass[21], $totPass[22], $totPass[23],
             $zoneIdTo,
             $zoneIdFrom
         );

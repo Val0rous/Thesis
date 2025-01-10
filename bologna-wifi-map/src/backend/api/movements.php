@@ -87,18 +87,8 @@ function fetchMovements(array $urls, DatabaseHelper $db): void
                         $db->addMovement(
                             $eventDate,
                             $day,
-                            $percentile50[0], $percentile50[1], $percentile50[2], $percentile50[3],
-                            $percentile50[4], $percentile50[5], $percentile50[6], $percentile50[7],
-                            $percentile50[8], $percentile50[9], $percentile50[10], $percentile50[11],
-                            $percentile50[12], $percentile50[13], $percentile50[14], $percentile50[15],
-                            $percentile50[16], $percentile50[17], $percentile50[18], $percentile50[19],
-                            $percentile50[20], $percentile50[21], $percentile50[22], $percentile50[23],
-                            $totPass[0], $totPass[1], $totPass[2], $totPass[3],
-                            $totPass[4], $totPass[5], $totPass[6], $totPass[7],
-                            $totPass[8], $totPass[9], $totPass[10], $totPass[11],
-                            $totPass[12], $totPass[13], $totPass[14], $totPass[15],
-                            $totPass[16], $totPass[17], $totPass[18], $totPass[19],
-                            $totPass[20], $totPass[21], $totPass[22], $totPass[23],
+                            $percentile50,
+                            $totPass,
                             $zoneIdTo,
                             $zoneIdFrom
                         );

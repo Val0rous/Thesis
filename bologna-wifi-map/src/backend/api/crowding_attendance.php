@@ -238,18 +238,8 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                                     $db->addCrowdingAttendance(
                                         $eventDate,
                                         $day,
-                                        $avgCrowding[0], $avgCrowding[1], $avgCrowding[2], $avgCrowding[3],
-                                        $avgCrowding[4], $avgCrowding[5], $avgCrowding[6], $avgCrowding[7],
-                                        $avgCrowding[8], $avgCrowding[9], $avgCrowding[10], $avgCrowding[11],
-                                        $avgCrowding[12], $avgCrowding[13], $avgCrowding[14], $avgCrowding[15],
-                                        $avgCrowding[16], $avgCrowding[17], $avgCrowding[18], $avgCrowding[19],
-                                        $avgCrowding[20], $avgCrowding[21], $avgCrowding[22], $avgCrowding[23],
-                                        $avgAttendance[0], $avgAttendance[1], $avgAttendance[2], $avgAttendance[3],
-                                        $avgAttendance[4], $avgAttendance[5], $avgAttendance[6], $avgAttendance[7],
-                                        $avgAttendance[8], $avgAttendance[9], $avgAttendance[10], $avgAttendance[11],
-                                        $avgAttendance[12], $avgAttendance[13], $avgAttendance[14], $avgAttendance[15],
-                                        $avgAttendance[16], $avgAttendance[17], $avgAttendance[18], $avgAttendance[19],
-                                        $avgAttendance[20], $avgAttendance[21], $avgAttendance[22], $avgAttendance[23],
+                                        $avgCrowding,
+                                        $avgAttendance,
                                         $zoneId
                                     );
                                     $eventDate = explode("T", $attendanceItem["data"])[0];
@@ -271,18 +261,8 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                             $db->addCrowdingAttendance(
                                 $eventDate,
                                 $day,
-                                $avgCrowding[0], $avgCrowding[1], $avgCrowding[2], $avgCrowding[3],
-                                $avgCrowding[4], $avgCrowding[5], $avgCrowding[6], $avgCrowding[7],
-                                $avgCrowding[8], $avgCrowding[9], $avgCrowding[10], $avgCrowding[11],
-                                $avgCrowding[12], $avgCrowding[13], $avgCrowding[14], $avgCrowding[15],
-                                $avgCrowding[16], $avgCrowding[17], $avgCrowding[18], $avgCrowding[19],
-                                $avgCrowding[20], $avgCrowding[21], $avgCrowding[22], $avgCrowding[23],
-                                $avgAttendance[0], $avgAttendance[1], $avgAttendance[2], $avgAttendance[3],
-                                $avgAttendance[4], $avgAttendance[5], $avgAttendance[6], $avgAttendance[7],
-                                $avgAttendance[8], $avgAttendance[9], $avgAttendance[10], $avgAttendance[11],
-                                $avgAttendance[12], $avgAttendance[13], $avgAttendance[14], $avgAttendance[15],
-                                $avgAttendance[16], $avgAttendance[17], $avgAttendance[18], $avgAttendance[19],
-                                $avgAttendance[20], $avgAttendance[21], $avgAttendance[22], $avgAttendance[23],
+                                $avgCrowding,
+                                $avgAttendance,
                                 $zoneId
                             );
                             $eventDate = explode("T", $attendanceItem["data"])[0];

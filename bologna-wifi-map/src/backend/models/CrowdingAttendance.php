@@ -2,21 +2,19 @@
 
 trait CrowdingAttendance
 {
+    /**
+     * @param string $date
+     * @param string $day
+     * @param int[] $avgCrowding
+     * @param int[] $avgAttendance
+     * @param string $zoneId
+     * @return bool
+     */
     public function addCrowdingAttendance(
         string $date,
         string $day,
-        int    $avgCrowding00, int $avgCrowding01, int $avgCrowding02, int $avgCrowding03,
-        int    $avgCrowding04, int $avgCrowding05, int $avgCrowding06, int $avgCrowding07,
-        int    $avgCrowding08, int $avgCrowding09, int $avgCrowding10, int $avgCrowding11,
-        int    $avgCrowding12, int $avgCrowding13, int $avgCrowding14, int $avgCrowding15,
-        int    $avgCrowding16, int $avgCrowding17, int $avgCrowding18, int $avgCrowding19,
-        int    $avgCrowding20, int $avgCrowding21, int $avgCrowding22, int $avgCrowding23,
-        int    $avgAttendance00, int $avgAttendance01, int $avgAttendance02, int $avgAttendance03,
-        int    $avgAttendance04, int $avgAttendance05, int $avgAttendance06, int $avgAttendance07,
-        int    $avgAttendance08, int $avgAttendance09, int $avgAttendance10, int $avgAttendance11,
-        int    $avgAttendance12, int $avgAttendance13, int $avgAttendance14, int $avgAttendance15,
-        int    $avgAttendance16, int $avgAttendance17, int $avgAttendance18, int $avgAttendance19,
-        int    $avgAttendance20, int $avgAttendance21, int $avgAttendance22, int $avgAttendance23,
+        array  $avgCrowding,
+        array  $avgAttendance,
         string $zoneId
     ): bool
     {
@@ -59,18 +57,18 @@ trait CrowdingAttendance
             "ssiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiis",
             $date,
             $day,
-            $avgCrowding00, $avgCrowding01, $avgCrowding02, $avgCrowding03,
-            $avgCrowding04, $avgCrowding05, $avgCrowding06, $avgCrowding07,
-            $avgCrowding08, $avgCrowding09, $avgCrowding10, $avgCrowding11,
-            $avgCrowding12, $avgCrowding13, $avgCrowding14, $avgCrowding15,
-            $avgCrowding16, $avgCrowding17, $avgCrowding18, $avgCrowding19,
-            $avgCrowding20, $avgCrowding21, $avgCrowding22, $avgCrowding23,
-            $avgAttendance00, $avgAttendance01, $avgAttendance02, $avgAttendance03,
-            $avgAttendance04, $avgAttendance05, $avgAttendance06, $avgAttendance07,
-            $avgAttendance08, $avgAttendance09, $avgAttendance10, $avgAttendance11,
-            $avgAttendance12, $avgAttendance13, $avgAttendance14, $avgAttendance15,
-            $avgAttendance16, $avgAttendance17, $avgAttendance18, $avgAttendance19,
-            $avgAttendance20, $avgAttendance21, $avgAttendance22, $avgAttendance23,
+            $avgCrowding[0], $avgCrowding[1], $avgCrowding[2], $avgCrowding[3],
+            $avgCrowding[4], $avgCrowding[5], $avgCrowding[6], $avgCrowding[7],
+            $avgCrowding[8], $avgCrowding[9], $avgCrowding[10], $avgCrowding[11],
+            $avgCrowding[12], $avgCrowding[13], $avgCrowding[14], $avgCrowding[15],
+            $avgCrowding[16], $avgCrowding[17], $avgCrowding[18], $avgCrowding[19],
+            $avgCrowding[20], $avgCrowding[21], $avgCrowding[22], $avgCrowding[23],
+            $avgAttendance[0], $avgAttendance[1], $avgAttendance[2], $avgAttendance[3],
+            $avgAttendance[4], $avgAttendance[5], $avgAttendance[6], $avgAttendance[7],
+            $avgAttendance[8], $avgAttendance[9], $avgAttendance[10], $avgAttendance[11],
+            $avgAttendance[12], $avgAttendance[13], $avgAttendance[14], $avgAttendance[15],
+            $avgAttendance[16], $avgAttendance[17], $avgAttendance[18], $avgAttendance[19],
+            $avgAttendance[20], $avgAttendance[21], $avgAttendance[22], $avgAttendance[23],
             $zoneId
         );
         return $stmt->execute();
