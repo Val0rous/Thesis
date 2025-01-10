@@ -85,9 +85,8 @@ trait CrowdingAttendance
         return $lastDate;
     }
 
-    public function setH23CrowdingAttendance(
+    public function setH23Crowding(
         int    $avgCrowding23,
-        int    $avgAttendance23,
         string $zoneId
     ): bool
     {
@@ -96,12 +95,12 @@ trait CrowdingAttendance
             return false;
         }
         $query = "update crowding_attendance
-                  set avg_crowding_23 = ?, avg_attendance_23 = ?
+                  set avg_crowding_23 = ?
                   where crowding_attendance_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param(
-            "iii",
-            $avgCrowding23, $avgAttendance23,
+            "ii",
+            $avgCrowding23,
             $lastCrowdingAttendanceId
         );
         return $stmt->execute();
@@ -120,8 +119,49 @@ trait CrowdingAttendance
         return $lastCrowdingAttendanceId;
     }
 
-    public function setH22CrowdingAttendance(
+    public function setH23Attendance(
+        int    $avgAttendance23,
+        string $zoneId
+    ): bool
+    {
+        $lastCrowdingAttendanceId = $this->getLastCrowdingAttendanceId($zoneId);
+        if ($lastCrowdingAttendanceId === null) {
+            return false;
+        }
+        $query = "update crowding_attendance
+                  set avg_attendance_23 = ?
+                  where crowding_attendance_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param(
+            "ii",
+            $avgAttendance23,
+            $lastCrowdingAttendanceId
+        );
+        return $stmt->execute();
+    }
+
+    public function setH22Crowding(
         int    $avgCrowding22,
+        string $zoneId
+    ): bool
+    {
+        $lastCrowdingAttendanceId = $this->getLastCrowdingAttendanceId($zoneId);
+        if ($lastCrowdingAttendanceId === null) {
+            return false;
+        }
+        $query = "update crowding_attendance
+                  set avg_crowding_22 = ?
+                  where crowding_attendance_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param(
+            "ii",
+            $avgCrowding22,
+            $lastCrowdingAttendanceId
+        );
+        return $stmt->execute();
+    }
+
+    public function setH22Attendance(
         int    $avgAttendance22,
         string $zoneId
     ): bool
@@ -131,12 +171,12 @@ trait CrowdingAttendance
             return false;
         }
         $query = "update crowding_attendance
-                  set avg_crowding_22 = ?, avg_attendance_22 = ?
+                  set avg_attendance_22 = ?
                   where crowding_attendance_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param(
-            "iii",
-            $avgCrowding22, $avgAttendance22,
+            "ii",
+            $avgAttendance22,
             $lastCrowdingAttendanceId
         );
         return $stmt->execute();
