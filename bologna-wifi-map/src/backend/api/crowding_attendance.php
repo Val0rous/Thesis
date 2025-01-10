@@ -35,7 +35,7 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
     } else {
         error_log("Failed to fetch data for crowding total count");
     }
-    echo "Total count of crowding: " . $crowdingTotalCount . PHP_EOL;
+    echo "Total count of crowding to add: " . $crowdingTotalCount . PHP_EOL;
 
     $attendanceResponse = file_get_contents($attendanceTotalCountUrl . $where);
     if ($attendanceResponse !== false) {
@@ -43,7 +43,7 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
     } else {
         error_log("Failed to fetch data for attendance total count");
     }
-    echo "Total count of attendance: " . $attendanceTotalCount . PHP_EOL;
+    echo "Total count of attendance to add: " . $attendanceTotalCount . PHP_EOL;
 
     /*  TODO: both start with T00:00:00+00:00, meaning from midnight GMT.
         Save all data using GMT as time zone. Just grab the first 2 numbers after T
@@ -110,6 +110,9 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                                 $crowdingTotalDailyCount = $crowdingData["total_count"];
                                 $crowdingFetchedCount += $crowdingTotalDailyCount;
                             }
+                            if ($crowdingTotalDailyCount > 0) {
+                                echo "\r" . $formattedDate . " - " . ($crowdingOffset / 100 + 1) . "/" . (ceil($crowdingTotalDailyCount / 100));
+                            }
                             foreach ($crowdingData["results"] as $item) {
                                 $crowding[] = $item;
                             }
@@ -136,6 +139,9 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                             $attendanceTotalDailyCount = $attendanceData["total_count"];
                             $attendanceFetchedCount += $attendanceTotalDailyCount;
                         }
+                        if ($attendanceTotalDailyCount > 0) {
+                            echo "\r" . $formattedDate . " - " . ($attendanceOffset / 100 + 1) . "/" . (ceil($attendanceTotalDailyCount / 100));
+                        }
                         foreach ($attendanceData["results"] as $item) {
                             $attendance[] = $item;
                         }
@@ -151,11 +157,150 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
 
             if ((count($crowding) > 0 || !$isCrowding)
                 && count($attendance) > 0) {
+                // Adding last element in both arrays so loop doesn't end prematurely
+                $attendance[] = [
+                    "data" => "",
+                    "giorno" => "",
+                    "codice_zona" => "",
+                    "affluenza_media" => -1
+                ];
+                $crowding[] = [
+                    "data" => "",
+                    "giorno" => "",
+                    "codice_zona" => "",
+                    "affollamento_medio" => -1
+                ];
+                $eventDate = explode("T", $attendance[0]["data"])[0];
+                $day = $attendance[0]["giorno"];
+                $zoneId = $attendance[0]["codice_zona"];
+                $avgAttendance = array_fill(0, 24, 0);
+                $avgCrowding = array_fill(0, 24, 0);
+                $attendanceIndex = 0;
+                $crowdingIndex = 0;
+                $attendanceHourOffset = $db->getAttendanceHourOffset($zoneId);
+                $crowdingHourOffset = $db->getCrowdingHourOffset($zoneId);
 
+                foreach ($attendance as $attendanceItem) {
+                    if (explode("T", $attendanceItem["data"])[0] === $eventDate
+                        && $attendanceItem["codice_zona"] === $zoneId) {
+                        $avgAttendance[$attendanceIndex++] = $attendanceItem["affluenza_media"];
+                    } else {
+                        if (count($crowding) > 0 && $isCrowding) {
+                            foreach ($crowding as $crowdingItem) {
+                                if (explode("T", $crowdingItem["data"])[0] === $eventDate
+                                    && $crowdingItem["codice_zona"] === $zoneId) {
+                                    $avgCrowding[$crowdingIndex++] = $crowdingItem["affollamento_medio"];
+                                } else {
+                                    $attendanceHourOffsetDelta = ($attendanceIndex - 24);
+                                    if ($attendanceHourOffsetDelta !== 0) {
+                                        $db->setAttendanceHourOffset($attendanceHourOffset + $attendanceHourOffsetDelta, $zoneId);
+                                        echo "Attendance Hour Offset changed on $eventDate to: " . ($attendanceHourOffset + $attendanceHourOffsetDelta) . PHP_EOL;
+                                    }
+                                    $attendanceH22 = null;
+                                    $attendanceH23 = null;
+                                    if ($attendanceHourOffset === -1) {
+                                        $attendanceH23 = $attendance[0];
+                                        array_shift($attendance);
+                                    } else if ($attendanceHourOffset === -2) {
+                                        $attendanceH22 = $attendance[0];
+                                        $attendanceH23 = $attendance[1];
+                                        array_splice($attendance, 0, 2);
+                                    }
+
+                                    $crowdingHourOffsetDelta = ($crowdingIndex - 24);
+                                    if ($crowdingHourOffsetDelta !== 0) {
+                                        $db->setCrowdingHourOffset($crowdingHourOffset + $crowdingHourOffsetDelta, $zoneId);
+                                        echo "Crowding Hour Offset changed on $eventDate to: " . ($crowdingHourOffset + $crowdingHourOffsetDelta) . PHP_EOL;
+                                    }
+                                    $crowdingH22 = null;
+                                    $crowdingH23 = null;
+                                    if ($crowdingOffset === -1) {
+                                        $crowdingH23 = $crowding[0];
+                                        array_shift($crowding);
+                                    } else if ($crowdingOffset === -2) {
+                                        $crowdingH22 = $crowding[0];
+                                        $crowdingH23 = $crowding[1];
+                                        array_splice($crowding, 0, 2);
+                                    }
+
+                                    // Update last 1 or 2 elements of last entry of respective zoneId
+                                    if ($attendanceH22 !== null && $crowdingH22 !== null) {
+                                        $db->setH22CrowdingAttendance($crowdingH22, $attendanceH22, $zoneId);
+                                        $attendanceH22 = null;
+                                        $crowdingH22 = null;
+                                    }
+                                    if ($attendanceH23 !== null && $crowdingH23 !== null) {
+                                        $db->setH23CrowdingAttendance($crowdingH23, $attendanceH23, $zoneId);
+                                        $attendanceH23 = null;
+                                        $crowdingH23 = null;
+                                    }
+
+                                    $db->addCrowdingAttendance(
+                                        $eventDate,
+                                        $day,
+                                        $avgCrowding[0], $avgCrowding[1], $avgCrowding[2], $avgCrowding[3],
+                                        $avgCrowding[4], $avgCrowding[5], $avgCrowding[6], $avgCrowding[7],
+                                        $avgCrowding[8], $avgCrowding[9], $avgCrowding[10], $avgCrowding[11],
+                                        $avgCrowding[12], $avgCrowding[13], $avgCrowding[14], $avgCrowding[15],
+                                        $avgCrowding[16], $avgCrowding[17], $avgCrowding[18], $avgCrowding[19],
+                                        $avgCrowding[20], $avgCrowding[21], $avgCrowding[22], $avgCrowding[23],
+                                        $avgAttendance[0], $avgAttendance[1], $avgAttendance[2], $avgAttendance[3],
+                                        $avgAttendance[4], $avgAttendance[5], $avgAttendance[6], $avgAttendance[7],
+                                        $avgAttendance[8], $avgAttendance[9], $avgAttendance[10], $avgAttendance[11],
+                                        $avgAttendance[12], $avgAttendance[13], $avgAttendance[14], $avgAttendance[15],
+                                        $avgAttendance[16], $avgAttendance[17], $avgAttendance[18], $avgAttendance[19],
+                                        $avgAttendance[20], $avgAttendance[21], $avgAttendance[22], $avgAttendance[23],
+                                        $zoneId
+                                    );
+                                    $eventDate = explode("T", $attendanceItem["data"])[0];
+                                    $day = $attendanceItem["giorno"];
+                                    $zoneId = $attendanceItem["codice_zona"];
+                                    $avgAttendance = array_fill(0, 24, 0);
+                                    $avgCrowding = array_fill(0, 24, 0);
+                                    $attendanceIndex = 0;
+                                    $crowdingIndex = 0;
+                                    $avgAttendance[$attendanceIndex++] = $attendanceItem["affluenza_media"];
+                                    $avgCrowding[$crowdingIndex++] = $crowdingItem["affollamento_medio"];
+                                    $attendanceHourOffset = $db->getAttendanceHourOffset($zoneId);
+                                    $crowdingHourOffset = $db->getCrowdingHourOffset($zoneId);
+                                }
+                            }
+                            $crowdingCounter++;
+                        } else {
+                            // No crowding, only occurs from Jan 1, 2024 to Jan 14, 2024
+                            $db->addCrowdingAttendance(
+                                $eventDate,
+                                $day,
+                                $avgCrowding[0], $avgCrowding[1], $avgCrowding[2], $avgCrowding[3],
+                                $avgCrowding[4], $avgCrowding[5], $avgCrowding[6], $avgCrowding[7],
+                                $avgCrowding[8], $avgCrowding[9], $avgCrowding[10], $avgCrowding[11],
+                                $avgCrowding[12], $avgCrowding[13], $avgCrowding[14], $avgCrowding[15],
+                                $avgCrowding[16], $avgCrowding[17], $avgCrowding[18], $avgCrowding[19],
+                                $avgCrowding[20], $avgCrowding[21], $avgCrowding[22], $avgCrowding[23],
+                                $avgAttendance[0], $avgAttendance[1], $avgAttendance[2], $avgAttendance[3],
+                                $avgAttendance[4], $avgAttendance[5], $avgAttendance[6], $avgAttendance[7],
+                                $avgAttendance[8], $avgAttendance[9], $avgAttendance[10], $avgAttendance[11],
+                                $avgAttendance[12], $avgAttendance[13], $avgAttendance[14], $avgAttendance[15],
+                                $avgAttendance[16], $avgAttendance[17], $avgAttendance[18], $avgAttendance[19],
+                                $avgAttendance[20], $avgAttendance[21], $avgAttendance[22], $avgAttendance[23],
+                                $zoneId
+                            );
+                            $eventDate = explode("T", $attendanceItem["data"])[0];
+                            $day = $attendanceItem["giorno"];
+                            $zoneId = $attendanceItem["codice_zona"];
+                            $avgAttendance = array_fill(0, 24, 0);
+                            $attendanceIndex = 0;
+                            $avgAttendance[$attendanceIndex++] = $attendanceItem["affluenza_media"];
+                        }
+                    }
+                    $attendanceCounter++;
+                }
             }
         }
     }
     echo PHP_EOL;
+    echo "Total number of crowding elements added to db: " . $crowdingCounter . PHP_EOL;
+    echo "Total number of attendance elements added to db: " . $attendanceCounter . PHP_EOL;
     echo "Fetched crowding list count: " . $crowdingFetchedCount . PHP_EOL;
     echo "Fetched attendance list count: " . $attendanceFetchedCount . PHP_EOL;
     $endTime = microtime(true);
