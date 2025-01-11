@@ -158,15 +158,15 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
 
             if ((count($crowding) > 0 || !$isCrowding)
                 && count($attendance) > 0) {
-                $eventDate = explode("T", $attendance->top()["data"])[0];
-                $day = $attendance->top()["giorno"];
+                $eventDate = explode("T", $attendance->bottom()["data"])[0];
+                $day = $attendance->bottom()["giorno"];
                 $zoneIdList = new ArrayObject();
                 foreach ($areas as $area) {
                     $zoneIdList->append($area);
                 }
 
                 while ($zoneIdList->count() > 0) {
-                    $zoneId = $attendance->top()["codice_zona"];
+                    $zoneId = $attendance->bottom()["codice_zona"];
                     foreach ($zoneIdList as $key => $item) {
                         if ($item["zone_id"] === $zoneId) {
                             unset($zoneIdList[$key]);
@@ -189,17 +189,17 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                     $excessAvgCrowdingH01 = $db->getAvgCrowdingExcessH01($zoneId);
 
                     while (!$attendance->isEmpty()
-                        && $attendance->top()["codice_zona"] === $zoneId) {
+                        && $attendance->bottom()["codice_zona"] === $zoneId) {
                         // Add items to array
-                        $avgAttendance[$attendanceIndex++] = $attendance->top()["affluenza_media"];
+                        $avgAttendance[$attendanceIndex++] = $attendance->bottom()["affluenza_media"];
                         $attendance->dequeue();
                     }
 
                     if ($isCrowding) {
                         while (!$crowding->isEmpty()
-                            && $crowding->top()["codice_zona"] === $zoneId) {
+                            && $crowding->bottom()["codice_zona"] === $zoneId) {
                             // Add items to array
-                            $avgCrowding[$crowdingIndex++] = $crowding->top()["affollamento_medio"];
+                            $avgCrowding[$crowdingIndex++] = $crowding->bottom()["affollamento_medio"];
                             $crowding->dequeue();
                         }
                     }

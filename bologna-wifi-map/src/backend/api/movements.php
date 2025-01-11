@@ -70,20 +70,20 @@ function fetchMovements(array $urls, DatabaseHelper $db): void
             } while ($offset < $totalDailyCount);
 
             if (count($movements) > 0) {
-                $eventDate = $movements->top()["data_evento"];
-                $day = $movements->top()["giorno"];
+                $eventDate = $movements->bottom()["data_evento"];
+                $day = $movements->bottom()["giorno"];
 
                 while (!$movements->isEmpty()) {
-                    $zoneIdFrom = $movements->top()["area_from"];
-                    $zoneIdTo = $movements->top()["area_to"];
+                    $zoneIdFrom = $movements->bottom()["area_from"];
+                    $zoneIdTo = $movements->bottom()["area_to"];
                     $percentile50 = array_fill(0, 24, 0);
                     $totPass = array_fill(0, 24, 0);
 
                     while (!$movements->isEmpty()
-                        && $movements->top()["area_from"] === $zoneIdFrom
-                        && $movements->top()["area_to"] === $zoneIdTo) {
+                        && $movements->bottom()["area_from"] === $zoneIdFrom
+                        && $movements->bottom()["area_to"] === $zoneIdTo) {
                         // Add items to array
-                        $item = $movements->top();
+                        $item = $movements->bottom();
                         $percentile50[$item["hour"]] = $item["percentile_50"];
                         $totPass[$item["hour"]] = $item["tot_pass"];
                         $movements->dequeue();
