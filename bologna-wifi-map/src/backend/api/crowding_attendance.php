@@ -184,6 +184,10 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                     $attendanceH23 = null;
                     $crowdingH22 = null;
                     $crowdingH23 = null;
+                    $excessAvgAttendanceH00 = $db->getAvgAttendanceExcessH00($zoneId);
+                    $excessAvgAttendanceH01 = $db->getAvgAttendanceExcessH01($zoneId);
+                    $excessAvgCrowdingH00 = $db->getAvgCrowdingExcessH00($zoneId);
+                    $excessAvgCrowdingH01 = $db->getAvgCrowdingExcessH01($zoneId);
 
                     while (!$attendance->isEmpty()
                         && $attendance[0]["codice_zona"] === $zoneId) {
@@ -201,18 +205,54 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                         }
                     }
 
+                    if ($excessAvgAttendanceH00 !== null) {
+                        if ($excessAvgAttendanceH01 !== null) {
+                            array_unshift($avgAttendance, $excessAvgAttendanceH01);
+                        }
+                        array_unshift($avgAttendance, $excessAvgAttendanceH00);
+                    }
+
+                    if ($excessAvgCrowdingH00 !== null) {
+                        if ($excessAvgCrowdingH01 !== null) {
+                            array_unshift($avgCrowding, $excessAvgCrowdingH01);
+                        }
+                        array_unshift($avgCrowding, $excessAvgCrowdingH00);
+                    }
+
                     $attendanceHourOffsetDelta = ($attendanceIndex - 24);
                     if ($attendanceHourOffsetDelta !== 0) {
                         $db->setAttendanceHourOffset(($attendanceHourOffset + $attendanceHourOffsetDelta), $zoneId);
                         echo "Attendance Hour Offset changed for area $zoneId on $eventDate to: " . ($attendanceHourOffset + $attendanceHourOffsetDelta) . PHP_EOL;
                     }
-                    if ($attendanceHourOffset === -1) {
-                        $attendanceH23 = $avgAttendance[0];
-                        array_shift($avgAttendance);
-                    } else if ($attendanceHourOffset === -2) {
-                        $attendanceH22 = $avgAttendance[0];
-                        $attendanceH23 = $avgAttendance[1];
-                        array_splice($avgAttendance, 0, 2);
+                    switch ($attendanceHourOffsetDelta) {
+                        case 1:
+                            $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                            break;
+                        case 2:
+                            $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                            $db->setAvgAttendanceExcessH01($avgAttendance[25], $zoneId);
+                            break;
+                    }
+                    
+                    switch ($attendanceHourOffset) {
+                        // Excess
+                        case 1:
+                            $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                            break;
+                        case 2:
+                            $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                            $db->setAvgAttendanceExcessH01($avgAttendance[25], $zoneId);
+                            break;
+                        // Deficit
+                        case -1:
+                            $attendanceH23 = $avgAttendance[0];
+                            array_shift($avgAttendance);
+                            break;
+                        case -2:
+                            $attendanceH22 = $avgAttendance[0];
+                            $attendanceH23 = $avgAttendance[1];
+                            array_splice($avgAttendance, 0, 2);
+                            break;
                     }
 
                     if ($isCrowding) {
@@ -221,13 +261,23 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                             $db->setCrowdingHourOffset(($crowdingHourOffset + $crowdingHourOffsetDelta), $zoneId);
                             echo "Crowding Hour Offset changed for area $zoneId on $eventDate to: " . ($crowdingHourOffset + $crowdingHourOffsetDelta) . PHP_EOL;
                         }
-                        if ($crowdingOffset === -1) {
-                            $crowdingH23 = $avgCrowding[0];
-                            array_shift($avgCrowding);
-                        } else if ($crowdingOffset === -2) {
-                            $crowdingH22 = $avgCrowding[0];
-                            $crowdingH23 = $avgCrowding[1];
-                            array_splice($avgCrowding, 0, 2);
+                        switch ($crowdingHourOffset) {
+                            case 1:
+                                $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
+                                break;
+                            case 2:
+                                $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
+                                $db->setAvgCrowdingExcessH01($avgCrowding[25], $zoneId);
+                                break;
+                            case -1:
+                                $crowdingH23 = $avgCrowding[0];
+                                array_shift($avgCrowding);
+                                break;
+                            case -2:
+                                $crowdingH22 = $avgCrowding[0];
+                                $crowdingH23 = $avgCrowding[1];
+                                array_splice($avgCrowding, 0, 2);
+                                break;
                         }
                     }
 

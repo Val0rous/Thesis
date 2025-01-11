@@ -89,4 +89,96 @@ trait Areas
         $stmt->bind_param("is", $attendanceHourOffset, $zoneId);
         return $stmt->execute();
     }
+
+    public function getAvgCrowdingExcessH00(string $zoneId): ?int
+    {
+        $query = "select avg_crowding_excess_00
+                  from areas
+                  where zone_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $zoneId);
+        $stmt->execute();
+        $stmt->bind_result($avgCrowdingExcess);
+        $stmt->fetch();
+        return $avgCrowdingExcess;
+    }
+
+    public function setAvgCrowdingExcessH00(?int $avgCrowdingExcess00, string $zoneId): bool
+    {
+        $query = "update areas
+                  set avg_crowding_excess_00 = ?
+                  where zone_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $avgCrowdingExcess00, $zoneId);
+        return $stmt->execute();
+    }
+
+    public function getAvgCrowdingExcessH01(string $zoneId): ?int
+    {
+        $query = "select avg_crowding_excess_01
+                  from areas
+                  where zone_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $zoneId);
+        $stmt->execute();
+        $stmt->bind_result($avgCrowdingExcess);
+        $stmt->fetch();
+        return $avgCrowdingExcess;
+    }
+
+    public function setAvgCrowdingExcessH01(?int $avgCrowdingExcess01, string $zoneId): bool
+    {
+        $query = "update areas
+                  set avg_crowding_excess_01 = ?
+                  where zone_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $avgCrowdingExcess01, $zoneId);
+        return $stmt->execute();
+    }
+
+    public function getAvgAttendanceExcessH00(string $zoneId): ?int
+    {
+        $query = "select avg_attendance_excess_00
+                  from areas
+                  where zone_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $zoneId);
+        $stmt->execute();
+        $stmt->bind_result($avgAttendanceExcess);
+        $stmt->fetch();
+        return $avgAttendanceExcess;
+    }
+
+    public function setAvgAttendanceExcessH00(?int $avgAttendanceExcess00, string $zoneId): bool
+    {
+        $query = "update areas
+                  set avg_attendance_excess_00 = ?
+                  where zone_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $avgAttendanceExcess00, $zoneId);
+        return $stmt->execute();
+    }
+
+    public function getAvgAttendanceExcessH01(string $zoneId): ?int
+    {
+        $query = "select avg_attendance_excess_01
+                  from areas
+                  where zone_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $zoneId);
+        $stmt->execute();
+        $stmt->bind_result($avgAttendanceExcess);
+        $stmt->fetch();
+        return $avgAttendanceExcess;
+    }
+
+    public function setAvgAttendanceExcessH01(?int $avgAttendanceExcess01, string $zoneId): bool
+    {
+        $query = "update areas
+                  set avg_attendance_excess_01 = ?
+                  where zone_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $avgAttendanceExcess01, $zoneId);
+        return $stmt->execute();
+    }
 }

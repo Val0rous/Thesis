@@ -4,14 +4,18 @@ use bologna_wifi_map;
 
 create table areas
 (
-    zone_id                 varchar(64)     not null primary key, -- 128 max
-    zone_name               varchar(64)     not null,             -- 128 max
-    geo_shape_type          varchar(16)     not null,             -- all have "type": "Feature"
-    geo_shape_geometry_type varchar(16)     not null,             -- all have "type": "Polygon"
-    geo_point_2d_lat        decimal(17, 15) not null,
-    geo_point_2d_lon        decimal(17, 15) not null,
-    crowding_hour_offset    int             not null,
-    attendance_hour_offset  int             not null
+    zone_id                  varchar(64)     not null primary key, -- 128 max
+    zone_name                varchar(64)     not null,             -- 128 max
+    geo_shape_type           varchar(16)     not null,             -- all have "type": "Feature"
+    geo_shape_geometry_type  varchar(16)     not null,             -- all have "type": "Polygon"
+    geo_point_2d_lat         decimal(17, 15) not null,
+    geo_point_2d_lon         decimal(17, 15) not null,
+    crowding_hour_offset     int             not null,
+    attendance_hour_offset   int             not null,
+    avg_crowding_excess_00   int,
+    avg_crowding_excess_01   int,
+    avg_attendance_excess_00 int,
+    avg_attendance_excess_01 int
 );
 
 create table coordinates
