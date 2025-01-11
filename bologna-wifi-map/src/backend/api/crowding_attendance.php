@@ -158,16 +158,15 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
 
             if ((count($crowding) > 0 || !$isCrowding)
                 && count($attendance) > 0) {
-                $eventDate = explode("T", $attendance[0]["data"])[0];
-                $day = $attendance[0]["giorno"];
-//                $zoneId = $attendance[0]["codice_zona"];
+                $eventDate = explode("T", $attendance->top()["data"])[0];
+                $day = $attendance->top()["giorno"];
                 $zoneIdList = new ArrayObject();
                 foreach ($areas as $area) {
                     $zoneIdList->append($area);
                 }
 
                 while ($zoneIdList->count() > 0) {
-                    $zoneId = $attendance[0]["codice_zona"];
+                    $zoneId = $attendance->top()["codice_zona"];
                     foreach ($zoneIdList as $key => $item) {
                         if ($item["zone_id"] === $zoneId) {
                             unset($zoneIdList[$key]);
@@ -190,17 +189,17 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                     $excessAvgCrowdingH01 = $db->getAvgCrowdingExcessH01($zoneId);
 
                     while (!$attendance->isEmpty()
-                        && $attendance[0]["codice_zona"] === $zoneId) {
+                        && $attendance->top()["codice_zona"] === $zoneId) {
                         // Add items to array
-                        $avgAttendance[$attendanceIndex++] = $attendance[0]["affluenza_media"];
+                        $avgAttendance[$attendanceIndex++] = $attendance->top()["affluenza_media"];
                         $attendance->dequeue();
                     }
 
                     if ($isCrowding) {
                         while (!$crowding->isEmpty()
-                            && $crowding[0]["codice_zona"] === $zoneId) {
+                            && $crowding->top()["codice_zona"] === $zoneId) {
                             // Add items to array
-                            $avgCrowding[$crowdingIndex++] = $crowding[0]["affollamento_medio"];
+                            $avgCrowding[$crowdingIndex++] = $crowding->top()["affollamento_medio"];
                             $crowding->dequeue();
                         }
                     }
@@ -226,14 +225,32 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                     }
                     switch ($attendanceHourOffsetDelta) {
                         case 1:
-                            $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                            switch ($attendanceHourOffset) {
+                                case 0:
+                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                                    echo "Attendance of $zoneId: 1 in excess";
+                                    break;
+                                case 1:
+                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                                    $db->setAvgAttendanceExcessH01($avgAttendance[25], $zoneId);
+                                    echo "Attendance of $zoneId: 2 in excess";
+                                    break;
+                            }
                             break;
-                        case 2:
-                            $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
-                            $db->setAvgAttendanceExcessH01($avgAttendance[25], $zoneId);
+                        case -1:
+                            switch ($attendanceHourOffset) {
+                                case 1:
+                                    $db->setAvgAttendanceExcessH00(null, $zoneId);
+                                    echo "Attendance of $zoneId: no excess anymore";
+                                    break;
+                                case 2:
+                                    $db->setAvgAttendanceExcessH01(null, $zoneId);
+                                    echo "Attendance of $zoneId: 1 in excess";
+                                    break;
+                            }
                             break;
                     }
-                    
+
                     switch ($attendanceHourOffset) {
                         // Excess
                         case 1:
@@ -261,7 +278,35 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                             $db->setCrowdingHourOffset(($crowdingHourOffset + $crowdingHourOffsetDelta), $zoneId);
                             echo "Crowding Hour Offset changed for area $zoneId on $eventDate to: " . ($crowdingHourOffset + $crowdingHourOffsetDelta) . PHP_EOL;
                         }
+                        switch ($crowdingHourOffsetDelta) {
+                            case 1:
+                                switch ($crowdingHourOffset) {
+                                    case 0:
+                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
+                                        echo "Crowding of $zoneId: 1 in excess";
+                                        break;
+                                    case 1:
+                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
+                                        $db->setAvgCrowdingExcessH01($avgCrowding[25], $zoneId);
+                                        echo "Crowding of $zoneId: 2 in excess";
+                                        break;
+                                }
+                                break;
+                            case -1:
+                                switch ($crowdingHourOffset) {
+                                    case 1:
+                                        $db->setAvgCrowdingExcessH00(null, $zoneId);
+                                        echo "Crowding of $zoneId: no excess anymore";
+                                        break;
+                                    case 2:
+                                        $db->setAvgCrowdingExcessH01(null, $zoneId);
+                                        echo "Crowding of $zoneId: 1 in excess";
+                                        break;
+                                }
+                                break;
+                        }
                         switch ($crowdingHourOffset) {
+                            // Excess
                             case 1:
                                 $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
                                 break;
@@ -269,6 +314,7 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                                 $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
                                 $db->setAvgCrowdingExcessH01($avgCrowding[25], $zoneId);
                                 break;
+                            // Deficit
                             case -1:
                                 $crowdingH23 = $avgCrowding[0];
                                 array_shift($avgCrowding);

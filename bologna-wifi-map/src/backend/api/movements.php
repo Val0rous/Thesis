@@ -39,7 +39,7 @@ function fetchMovements(array $urls, DatabaseHelper $db): void
             $offset = 0;
             $totalDailyCount = 0;
             $isIncreasedFetchedCount = false;
-            $movements = [];
+            $movements = new SplQueue();
 
             do {
                 $url = $baseUrl . "&offset=" . $offset;
@@ -70,37 +70,60 @@ function fetchMovements(array $urls, DatabaseHelper $db): void
             } while ($offset < $totalDailyCount);
 
             if (count($movements) > 0) {
-                $eventDate = $movements[0]["data_evento"];
-                $day = $movements[0]["giorno"];
-                $zoneIdFrom = $movements[0]["area_from"];
-                $zoneIdTo = $movements[0]["area_to"];
-                $percentile50 = array_fill(0, 24, 0);
-                $totPass = array_fill(0, 24, 0);
+                $eventDate = $movements->top()["data_evento"];
+                $day = $movements->top()["giorno"];
 
-                foreach ($movements as $item) {
-                    if ($item["data_evento"] === $eventDate
-                        && $item["area_from"] === $zoneIdFrom
-                        && $item["area_to"] === $zoneIdTo) {
+                while (!$movements->isEmpty()) {
+                    $zoneIdFrom = $movements->top()["area_from"];
+                    $zoneIdTo = $movements->top()["area_to"];
+                    $percentile50 = array_fill(0, 24, 0);
+                    $totPass = array_fill(0, 24, 0);
+
+                    while (!$movements->isEmpty()
+                        && $movements->top()["area_from"] === $zoneIdFrom
+                        && $movements->top()["area_to"] === $zoneIdTo) {
+                        // Add items to array
+                        $item = $movements->top();
                         $percentile50[$item["hour"]] = $item["percentile_50"];
                         $totPass[$item["hour"]] = $item["tot_pass"];
-                    } else {
-                        $db->addMovement(
-                            $eventDate,
-                            $day,
-                            $percentile50,
-                            $totPass,
-                            $zoneIdTo,
-                            $zoneIdFrom
-                        );
-                        $eventDate = $item["data_evento"];
-                        $day = $item["giorno"];
-                        $zoneIdFrom = $item["area_from"];
-                        $zoneIdTo = $item["area_to"];
-                        $percentile50 = array_fill(0, 24, 0);
-                        $totPass = array_fill(0, 24, 0);
+                        $movements->dequeue();
+                        $counter++;
                     }
-                    $counter++;
+
+                    $db->addMovement(
+                        $eventDate,
+                        $day,
+                        $percentile50,
+                        $totPass,
+                        $zoneIdTo,
+                        $zoneIdFrom
+                    );
                 }
+
+//                foreach ($movements as $item) {
+//                    if ($item["data_evento"] === $eventDate
+//                        && $item["area_from"] === $zoneIdFrom
+//                        && $item["area_to"] === $zoneIdTo) {
+//                        $percentile50[$item["hour"]] = $item["percentile_50"];
+//                        $totPass[$item["hour"]] = $item["tot_pass"];
+//                    } else {
+//                        $db->addMovement(
+//                            $eventDate,
+//                            $day,
+//                            $percentile50,
+//                            $totPass,
+//                            $zoneIdTo,
+//                            $zoneIdFrom
+//                        );
+//                        $eventDate = $item["data_evento"];
+//                        $day = $item["giorno"];
+//                        $zoneIdFrom = $item["area_from"];
+//                        $zoneIdTo = $item["area_to"];
+//                        $percentile50 = array_fill(0, 24, 0);
+//                        $totPass = array_fill(0, 24, 0);
+//                    }
+//                    $counter++;
+//                }
             }
         }
     }
