@@ -50,7 +50,7 @@ trait Areas
                   from areas
                   where zone_id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $zoneId);
+        $stmt->bind_param("s", $zoneId);
         $stmt->execute();
         $stmt->bind_result($crowdingHourOffset);
         $stmt->fetch();
@@ -73,7 +73,7 @@ trait Areas
                   from areas
                   where zone_id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $zoneId);
+        $stmt->bind_param("s", $zoneId);
         $stmt->execute();
         $stmt->bind_result($attendanceHourOffset);
         $stmt->fetch();
@@ -96,7 +96,7 @@ trait Areas
                   from areas
                   where zone_id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $zoneId);
+        $stmt->bind_param("s", $zoneId);
         $stmt->execute();
         $stmt->bind_result($avgCrowdingExcess);
         $stmt->fetch();
@@ -119,7 +119,7 @@ trait Areas
                   from areas
                   where zone_id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $zoneId);
+        $stmt->bind_param("s", $zoneId);
         $stmt->execute();
         $stmt->bind_result($avgCrowdingExcess);
         $stmt->fetch();
@@ -142,7 +142,7 @@ trait Areas
                   from areas
                   where zone_id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $zoneId);
+        $stmt->bind_param("s", $zoneId);
         $stmt->execute();
         $stmt->bind_result($avgAttendanceExcess);
         $stmt->fetch();
@@ -165,7 +165,7 @@ trait Areas
                   from areas
                   where zone_id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $zoneId);
+        $stmt->bind_param("s", $zoneId);
         $stmt->execute();
         $stmt->bind_result($avgAttendanceExcess);
         $stmt->fetch();

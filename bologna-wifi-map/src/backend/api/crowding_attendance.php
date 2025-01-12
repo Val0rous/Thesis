@@ -112,7 +112,7 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                                 $crowdingFetchedCount += $crowdingTotalDailyCount;
                             }
                             if ($crowdingTotalDailyCount > 0) {
-                                echo "\r" . $formattedDate . " - " . ($crowdingOffset / 100 + 1) . "/" . (ceil($crowdingTotalDailyCount / 100));
+                                echo "\r" . $formattedDate . " - " . ($crowdingOffset / 100 + 1) . "/" . (ceil($crowdingTotalDailyCount / 100)) . " - crowding";
                             }
                             foreach ($crowdingData["results"] as $item) {
                                 $crowding->enqueue($item);
@@ -141,7 +141,7 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                             $attendanceFetchedCount += $attendanceTotalDailyCount;
                         }
                         if ($attendanceTotalDailyCount > 0) {
-                            echo "\r" . $formattedDate . " - " . ($attendanceOffset / 100 + 1) . "/" . (ceil($attendanceTotalDailyCount / 100));
+                            echo "\r" . $formattedDate . " - " . ($attendanceOffset / 100 + 1) . "/" . (ceil($attendanceTotalDailyCount / 100)) . " - attendance";
                         }
                         foreach ($attendanceData["results"] as $item) {
                             $attendance->enqueue($item);
@@ -169,6 +169,7 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                     $zoneId = $attendance->bottom()["codice_zona"];
                     foreach ($zoneIdList as $key => $item) {
                         if ($item["zone_id"] === $zoneId) {
+                            // Remove current zoneId from list
                             unset($zoneIdList[$key]);
                             break;
                         }
@@ -204,6 +205,7 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                         }
                     }
 
+                    // Add excess items to avg attendance array start
                     if ($excessAvgAttendanceH00 !== null) {
                         if ($excessAvgAttendanceH01 !== null) {
                             array_unshift($avgAttendance, $excessAvgAttendanceH01);
@@ -211,6 +213,7 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                         array_unshift($avgAttendance, $excessAvgAttendanceH00);
                     }
 
+                    // Add excess items to avg crowding array start
                     if ($excessAvgCrowdingH00 !== null) {
                         if ($excessAvgCrowdingH01 !== null) {
                             array_unshift($avgCrowding, $excessAvgCrowdingH01);
@@ -223,52 +226,71 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                         $db->setAttendanceHourOffset(($attendanceHourOffset + $attendanceHourOffsetDelta), $zoneId);
                         echo "Attendance Hour Offset changed for area $zoneId on $eventDate to: " . ($attendanceHourOffset + $attendanceHourOffsetDelta) . PHP_EOL;
                     }
-                    switch ($attendanceHourOffsetDelta) {
-                        case 1:
-                            switch ($attendanceHourOffset) {
-                                case 0:
-                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
-                                    echo "Attendance of $zoneId: 1 in excess";
-                                    break;
-                                case 1:
-                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
-                                    $db->setAvgAttendanceExcessH01($avgAttendance[25], $zoneId);
-                                    echo "Attendance of $zoneId: 2 in excess";
-                                    break;
-                            }
-                            break;
-                        case -1:
-                            switch ($attendanceHourOffset) {
-                                case 1:
-                                    $db->setAvgAttendanceExcessH00(null, $zoneId);
-                                    echo "Attendance of $zoneId: no excess anymore";
-                                    break;
-                                case 2:
-                                    $db->setAvgAttendanceExcessH01(null, $zoneId);
-                                    echo "Attendance of $zoneId: 1 in excess";
-                                    break;
-                            }
-                            break;
-                    }
 
                     switch ($attendanceHourOffset) {
+                        case 0:
+                            switch ($attendanceHourOffsetDelta) {
+                                case 0:
+                                    // Do nothing
+                                    break;
+                                case 1:
+                                    // 1 new excess item
+                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                                    echo "Attendance of $zoneId: 1 in excess (increase)" . PHP_EOL;
+                                    break;
+//                                case -1:
+//                                    // 1 less item
+//                                    break;
+                            }
+                            break;
                         // Excess
                         case 1:
-                            $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                            switch ($attendanceHourOffsetDelta) {
+                                case 0:
+                                    // Still 1 excess item, but nothing new. Replace and update excess item
+                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                                    break;
+                                case 1:
+                                    // Already 1 excess item (to update), but here's a new second excess item
+                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                                    $db->setAvgAttendanceExcessH01($avgAttendance[25], $zoneId);
+                                    echo "Attendance of $zoneId: 2 in excess (increase)" . PHP_EOL;
+                                    break;
+                                case -1:
+                                    // Excess will go from one item to zero items
+                                    $db->setAvgAttendanceExcessH00(null, $zoneId);
+                                    echo "Attendance of $zoneId: no excess anymore (decrease)" . PHP_EOL;
+                                    break;
+                            }
                             break;
                         case 2:
-                            $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
-                            $db->setAvgAttendanceExcessH01($avgAttendance[25], $zoneId);
+                            switch ($attendanceHourOffsetDelta) {
+                                case 0:
+                                    // Still 2 excess items, but nothing new. Replace and update both excess items
+                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                                    $db->setAvgAttendanceExcessH01($avgAttendance[25], $zoneId);
+                                    break;
+//                                case 1:
+//                                    break;
+                                case -1:
+                                    // Excess will go from two items to one item
+                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
+                                    $db->setAvgAttendanceExcessH01(null, $zoneId);
+                                    echo "Attendance of $zoneId: 1 in excess (decrease)" . PHP_EOL;
+                                    break;
+                            }
                             break;
                         // Deficit
                         case -1:
                             $attendanceH23 = $avgAttendance[0];
                             array_shift($avgAttendance);
+                            echo "Attendance of $zoneId: 1 in deficit" . PHP_EOL;
                             break;
                         case -2:
                             $attendanceH22 = $avgAttendance[0];
                             $attendanceH23 = $avgAttendance[1];
                             array_splice($avgAttendance, 0, 2);
+                            echo "Attendance of $zoneId: 2 in deficit" . PHP_EOL;
                             break;
                     }
 
@@ -278,51 +300,71 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                             $db->setCrowdingHourOffset(($crowdingHourOffset + $crowdingHourOffsetDelta), $zoneId);
                             echo "Crowding Hour Offset changed for area $zoneId on $eventDate to: " . ($crowdingHourOffset + $crowdingHourOffsetDelta) . PHP_EOL;
                         }
-                        switch ($crowdingHourOffsetDelta) {
-                            case 1:
-                                switch ($crowdingHourOffset) {
-                                    case 0:
-                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
-                                        echo "Crowding of $zoneId: 1 in excess";
-                                        break;
-                                    case 1:
-                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
-                                        $db->setAvgCrowdingExcessH01($avgCrowding[25], $zoneId);
-                                        echo "Crowding of $zoneId: 2 in excess";
-                                        break;
-                                }
-                                break;
-                            case -1:
-                                switch ($crowdingHourOffset) {
-                                    case 1:
-                                        $db->setAvgCrowdingExcessH00(null, $zoneId);
-                                        echo "Crowding of $zoneId: no excess anymore";
-                                        break;
-                                    case 2:
-                                        $db->setAvgCrowdingExcessH01(null, $zoneId);
-                                        echo "Crowding of $zoneId: 1 in excess";
-                                        break;
-                                }
-                                break;
-                        }
+
                         switch ($crowdingHourOffset) {
+                            case 0:
+                                switch ($crowdingHourOffsetDelta) {
+                                    case 0:
+                                        // Do nothing
+                                        break;
+                                    case 1:
+                                        // 1 new excess item
+                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
+                                        echo "Crowding of $zoneId: 1 in excess (increase)" . PHP_EOL;
+                                        break;
+//                                    case -1:
+//                                        // 1 less item
+//                                        break;
+                                }
+                                break;
                             // Excess
                             case 1:
-                                $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
+                                switch ($crowdingHourOffsetDelta) {
+                                    case 0:
+                                        // Still 1 excess item, but nothing new. Replace and update excess item
+                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
+                                        break;
+                                    case 1:
+                                        // Already 1 excess item (to update), but here's a new second excess item
+                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
+                                        $db->setAvgCrowdingExcessH01($avgCrowding[25], $zoneId);
+                                        echo "Crowding of $zoneId: 2 in excess (increase)" . PHP_EOL;
+                                        break;
+                                    case -1:
+                                        // Excess will go from one item to zero items
+                                        $db->setAvgCrowdingExcessH00(null, $zoneId);
+                                        echo "Crowding of $zoneId: no excess anymore (decrease)" . PHP_EOL;
+                                        break;
+                                }
                                 break;
                             case 2:
-                                $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
-                                $db->setAvgCrowdingExcessH01($avgCrowding[25], $zoneId);
+                                switch ($crowdingHourOffsetDelta) {
+                                    case 0:
+                                        // Still 2 excess items, but nothing new. Replace and update both excess items
+                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
+                                        $db->setAvgCrowdingExcessH01($avgCrowding[25], $zoneId);
+                                        break;
+//                                    case 1:
+//                                        break;
+                                    case -1:
+                                        // Excess will go from two items to one item
+                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
+                                        $db->setAvgCrowdingExcessH01(null, $zoneId);
+                                        echo "Crowding of $zoneId: 1 in excess (decrease)" . PHP_EOL;
+                                        break;
+                                }
                                 break;
                             // Deficit
                             case -1:
                                 $crowdingH23 = $avgCrowding[0];
                                 array_shift($avgCrowding);
+                                echo "Crowding of $zoneId: 1 in deficit" . PHP_EOL;
                                 break;
                             case -2:
                                 $crowdingH22 = $avgCrowding[0];
                                 $crowdingH23 = $avgCrowding[1];
                                 array_splice($avgCrowding, 0, 2);
+                                echo "Crowding of $zoneId: 2 in deficit" . PHP_EOL;
                                 break;
                         }
                     }
