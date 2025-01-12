@@ -227,6 +227,11 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                         echo "Attendance Hour Offset changed for area $zoneId on $eventDate to: " . ($attendanceHourOffset + $attendanceHourOffsetDelta) . PHP_EOL;
                     }
 
+                    // TODO: always use 24 values and place them in array based on the hour you get from date string
+                    // TODO: if there are 23 values, fill the missing one with zero
+                    // TODO: if there are 25 values, keep the max of the two values of the hour having double entries
+                    // TODO: remove indexes from database, it's much simpler this way
+
                     switch ($attendanceHourOffset) {
                         case 0:
                             switch ($attendanceHourOffsetDelta) {
