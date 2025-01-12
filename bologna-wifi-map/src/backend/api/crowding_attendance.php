@@ -231,6 +231,7 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                     // TODO: if there are 23 values, fill the missing one with zero
                     // TODO: if there are 25 values, keep the max of the two values of the hour having double entries
                     // TODO: remove indexes from database, it's much simpler this way
+                    // TODO: this is because basically all values from extra entries are just zeros
 
                     switch ($attendanceHourOffset) {
                         case 0:

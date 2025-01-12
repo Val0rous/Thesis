@@ -9,6 +9,12 @@ function convertToReadableTime(float $seconds): string
     return sprintf("%02dh %02dm %06.3fs", $hours, $minutes, $seconds);
 }
 
+function extractHourFromTimestamp(string $timestamp): int
+{
+    // Extract the hour part between 'T' and the first ':'
+    return (int)substr($timestamp, strpos($timestamp, 'T') + 1, 2);
+}
+
 function normalizeArrayTo24(array $input): array
 {
     $targetLength = 24;
