@@ -8,3 +8,19 @@ function convertToReadableTime(float $seconds): string
 
     return sprintf("%02dh %02dm %06.3fs", $hours, $minutes, $seconds);
 }
+
+function normalizeArrayTo24(array $input): array
+{
+    $targetLength = 24;
+    $currentLength = count($input);
+
+    if ($currentLength < $targetLength) {
+        // Fill empty positions with zeros
+        $input = array_merge($input, array_fill(0, $targetLength - $currentLength, 0));
+    } elseif ($currentLength > $targetLength) {
+        // Remove extra elements
+        $input = array_slice($input, 0, $targetLength);
+    }
+
+    return $input;
+}

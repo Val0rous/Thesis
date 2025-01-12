@@ -18,6 +18,12 @@ trait CrowdingAttendance
         string $zoneId
     ): bool
     {
+        if (count($avgCrowding) !== 24) {
+            throw new InvalidArgumentException("avgCrowding array length must be 24. Current length: " . count($avgCrowding));
+        }
+        if (count($avgAttendance) !== 24) {
+            throw new InvalidArgumentException("avgAttendance array length must be 24. Current length: " . count($avgAttendance));
+        }
         $query = "insert into crowding_attendance(
                         date, 
                         day, 

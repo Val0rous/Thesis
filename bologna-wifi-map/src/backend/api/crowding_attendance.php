@@ -387,6 +387,9 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                         $crowdingH23 = null;
                     }
 
+                    $avgAttendance = normalizeArrayTo24($avgAttendance);
+                    $avgCrowding = normalizeArrayTo24($avgCrowding);
+
                     $db->addCrowdingAttendance(
                         $eventDate,
                         $day,
