@@ -69,7 +69,7 @@ trait Areas
 
     public function getAttendanceHourOffset(string $zoneId): int
     {
-        $query = "select crowding_hour_offset
+        $query = "select attendance_hour_offset
                   from areas
                   where zone_id = ?";
         $stmt = $this->db->prepare($query);
