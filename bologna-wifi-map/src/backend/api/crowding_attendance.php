@@ -167,6 +167,7 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
 
                 while ($zoneIdList->count() > 0) {
                     $zoneId = $attendance->bottom()["codice_zona"];
+                    // Necessary as zoneIds are not in the exact order as database
                     foreach ($zoneIdList as $key => $item) {
                         if ($item["zone_id"] === $zoneId) {
                             // Remove current zoneId from list
@@ -174,57 +175,27 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                             break;
                         }
                     }
-                    $attendanceHourOffset = $db->getAttendanceHourOffset($zoneId);
-                    $crowdingHourOffset = $db->getCrowdingHourOffset($zoneId);
-                    $attendanceIndex = 0;
-                    $crowdingIndex = 0;
                     $avgAttendance = array_fill(0, 24, 0);
                     $avgCrowding = array_fill(0, 24, 0);
-                    $attendanceH22 = null;
-                    $attendanceH23 = null;
-                    $crowdingH22 = null;
-                    $crowdingH23 = null;
-                    $excessAvgAttendanceH00 = $db->getAvgAttendanceExcessH00($zoneId);
-                    $excessAvgAttendanceH01 = $db->getAvgAttendanceExcessH01($zoneId);
-                    $excessAvgCrowdingH00 = $db->getAvgCrowdingExcessH00($zoneId);
-                    $excessAvgCrowdingH01 = $db->getAvgCrowdingExcessH01($zoneId);
 
                     while (!$attendance->isEmpty()
                         && $attendance->bottom()["codice_zona"] === $zoneId) {
                         // Add items to array
-                        $avgAttendance[$attendanceIndex++] = $attendance->bottom()["affluenza_media"];
+                        $index = extractHourFromTimestamp($attendance->bottom()["data"]);
+                        $avgAttendance[$index] = max($attendance->bottom()["affluenza_media"], $avgAttendance[$index]);
                         $attendance->dequeue();
+                        $attendanceCounter++;
                     }
 
                     if ($isCrowding) {
                         while (!$crowding->isEmpty()
                             && $crowding->bottom()["codice_zona"] === $zoneId) {
                             // Add items to array
-                            $avgCrowding[$crowdingIndex++] = $crowding->bottom()["affollamento_medio"];
+                            $index = extractHourFromTimestamp($crowding->bottom()["data"]);
+                            $avgCrowding[$index] = max($crowding->bottom()["affollamento_medio"], $avgCrowding[$index]);
                             $crowding->dequeue();
+                            $crowdingCounter++;
                         }
-                    }
-
-                    // Add excess items to avg attendance array start
-                    if ($excessAvgAttendanceH00 !== null) {
-                        if ($excessAvgAttendanceH01 !== null) {
-                            array_unshift($avgAttendance, $excessAvgAttendanceH01);
-                        }
-                        array_unshift($avgAttendance, $excessAvgAttendanceH00);
-                    }
-
-                    // Add excess items to avg crowding array start
-                    if ($excessAvgCrowdingH00 !== null) {
-                        if ($excessAvgCrowdingH01 !== null) {
-                            array_unshift($avgCrowding, $excessAvgCrowdingH01);
-                        }
-                        array_unshift($avgCrowding, $excessAvgCrowdingH00);
-                    }
-
-                    $attendanceHourOffsetDelta = ($attendanceIndex - 24);
-                    if ($attendanceHourOffsetDelta !== 0) {
-                        $db->setAttendanceHourOffset(($attendanceHourOffset + $attendanceHourOffsetDelta), $zoneId);
-                        echo "Attendance Hour Offset changed for area $zoneId on $eventDate to: " . ($attendanceHourOffset + $attendanceHourOffsetDelta) . PHP_EOL;
                     }
 
                     // TODO: always use 24 values and place them in array based on the hour you get from date string
@@ -233,169 +204,6 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                     // TODO: remove indexes from database, it's much simpler this way
                     // TODO: this is because basically all values from extra entries are just zeros
 
-                    switch ($attendanceHourOffset) {
-                        case 0:
-                            switch ($attendanceHourOffsetDelta) {
-                                case 0:
-                                    // Do nothing
-                                    break;
-                                case 1:
-                                    // 1 new excess item
-                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
-                                    echo "Attendance of $zoneId: 1 in excess (increase)" . PHP_EOL;
-                                    break;
-//                                case -1:
-//                                    // 1 less item
-//                                    break;
-                            }
-                            break;
-                        // Excess
-                        case 1:
-                            switch ($attendanceHourOffsetDelta) {
-                                case 0:
-                                    // Still 1 excess item, but nothing new. Replace and update excess item
-                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
-                                    break;
-                                case 1:
-                                    // Already 1 excess item (to update), but here's a new second excess item
-                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
-                                    $db->setAvgAttendanceExcessH01($avgAttendance[25], $zoneId);
-                                    echo "Attendance of $zoneId: 2 in excess (increase)" . PHP_EOL;
-                                    break;
-                                case -1:
-                                    // Excess will go from one item to zero items
-                                    $db->setAvgAttendanceExcessH00(null, $zoneId);
-                                    echo "Attendance of $zoneId: no excess anymore (decrease)" . PHP_EOL;
-                                    break;
-                            }
-                            break;
-                        case 2:
-                            switch ($attendanceHourOffsetDelta) {
-                                case 0:
-                                    // Still 2 excess items, but nothing new. Replace and update both excess items
-                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
-                                    $db->setAvgAttendanceExcessH01($avgAttendance[25], $zoneId);
-                                    break;
-//                                case 1:
-//                                    break;
-                                case -1:
-                                    // Excess will go from two items to one item
-                                    $db->setAvgAttendanceExcessH00($avgAttendance[24], $zoneId);
-                                    $db->setAvgAttendanceExcessH01(null, $zoneId);
-                                    echo "Attendance of $zoneId: 1 in excess (decrease)" . PHP_EOL;
-                                    break;
-                            }
-                            break;
-                        // Deficit
-                        case -1:
-                            $attendanceH23 = $avgAttendance[0];
-                            array_shift($avgAttendance);
-                            echo "Attendance of $zoneId: 1 in deficit" . PHP_EOL;
-                            break;
-                        case -2:
-                            $attendanceH22 = $avgAttendance[0];
-                            $attendanceH23 = $avgAttendance[1];
-                            array_splice($avgAttendance, 0, 2);
-                            echo "Attendance of $zoneId: 2 in deficit" . PHP_EOL;
-                            break;
-                    }
-
-                    if ($isCrowding) {
-                        $crowdingHourOffsetDelta = ($crowdingIndex - 24);
-                        if ($crowdingHourOffsetDelta !== 0) {
-                            $db->setCrowdingHourOffset(($crowdingHourOffset + $crowdingHourOffsetDelta), $zoneId);
-                            echo "Crowding Hour Offset changed for area $zoneId on $eventDate to: " . ($crowdingHourOffset + $crowdingHourOffsetDelta) . PHP_EOL;
-                        }
-
-                        switch ($crowdingHourOffset) {
-                            case 0:
-                                switch ($crowdingHourOffsetDelta) {
-                                    case 0:
-                                        // Do nothing
-                                        break;
-                                    case 1:
-                                        // 1 new excess item
-                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
-                                        echo "Crowding of $zoneId: 1 in excess (increase)" . PHP_EOL;
-                                        break;
-//                                    case -1:
-//                                        // 1 less item
-//                                        break;
-                                }
-                                break;
-                            // Excess
-                            case 1:
-                                switch ($crowdingHourOffsetDelta) {
-                                    case 0:
-                                        // Still 1 excess item, but nothing new. Replace and update excess item
-                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
-                                        break;
-                                    case 1:
-                                        // Already 1 excess item (to update), but here's a new second excess item
-                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
-                                        $db->setAvgCrowdingExcessH01($avgCrowding[25], $zoneId);
-                                        echo "Crowding of $zoneId: 2 in excess (increase)" . PHP_EOL;
-                                        break;
-                                    case -1:
-                                        // Excess will go from one item to zero items
-                                        $db->setAvgCrowdingExcessH00(null, $zoneId);
-                                        echo "Crowding of $zoneId: no excess anymore (decrease)" . PHP_EOL;
-                                        break;
-                                }
-                                break;
-                            case 2:
-                                switch ($crowdingHourOffsetDelta) {
-                                    case 0:
-                                        // Still 2 excess items, but nothing new. Replace and update both excess items
-                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
-                                        $db->setAvgCrowdingExcessH01($avgCrowding[25], $zoneId);
-                                        break;
-//                                    case 1:
-//                                        break;
-                                    case -1:
-                                        // Excess will go from two items to one item
-                                        $db->setAvgCrowdingExcessH00($avgCrowding[24], $zoneId);
-                                        $db->setAvgCrowdingExcessH01(null, $zoneId);
-                                        echo "Crowding of $zoneId: 1 in excess (decrease)" . PHP_EOL;
-                                        break;
-                                }
-                                break;
-                            // Deficit
-                            case -1:
-                                $crowdingH23 = $avgCrowding[0];
-                                array_shift($avgCrowding);
-                                echo "Crowding of $zoneId: 1 in deficit" . PHP_EOL;
-                                break;
-                            case -2:
-                                $crowdingH22 = $avgCrowding[0];
-                                $crowdingH23 = $avgCrowding[1];
-                                array_splice($avgCrowding, 0, 2);
-                                echo "Crowding of $zoneId: 2 in deficit" . PHP_EOL;
-                                break;
-                        }
-                    }
-
-                    // Update last 1 or 2 elements of last entry of respective zoneId
-                    if ($attendanceH22 !== null) {
-                        $db->setH22Attendance($attendanceH22, $zoneId);
-                        $attendanceH22 = null;
-                    }
-                    if ($crowdingH22 !== null) {
-                        $db->setH22Crowding($crowdingH22, $zoneId);
-                        $crowdingH22 = null;
-                    }
-                    if ($attendanceH23 !== null) {
-                        $db->setH23Attendance($attendanceH23, $zoneId);
-                        $attendanceH23 = null;
-                    }
-                    if ($crowdingH23 !== null) {
-                        $db->setH23Crowding($crowdingH23, $zoneId);
-                        $crowdingH23 = null;
-                    }
-
-                    $avgAttendance = normalizeArrayTo24($avgAttendance);
-                    $avgCrowding = normalizeArrayTo24($avgCrowding);
-
                     $db->addCrowdingAttendance(
                         $eventDate,
                         $day,
@@ -403,11 +211,6 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                         $avgAttendance,
                         $zoneId
                     );
-
-                    $attendanceCounter += $attendanceIndex;
-                    if ($isCrowding) {
-                        $crowdingCounter += $crowdingIndex;
-                    }
                 }
             }
         }
