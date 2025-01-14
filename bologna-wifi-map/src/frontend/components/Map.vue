@@ -10,6 +10,7 @@ const mapContainer = ref()
 onMounted(() => {
   map.value = L.map(mapContainer.value).setView([44.4949, 11.3426], 13);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    minZoom: 2,
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map.value);
