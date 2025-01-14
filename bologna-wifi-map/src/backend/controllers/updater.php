@@ -1,9 +1,9 @@
 <?php
 header('Content-Type: application/json');
 require_once("../utils/DatabaseHelper.php");
-require_once("../api/areas_coordinates.php");
-require_once("../api/movements.php");
-require_once("../api/crowding_attendance.php");
+require_once("../integrations/areas_coordinates.php");
+require_once("../integrations/movements.php");
+require_once("../integrations/crowding_attendance.php");
 require_once("../utils/utils.php");
 
 $urlsFilePath = "../routes/urls.json";
