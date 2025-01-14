@@ -1,47 +1,46 @@
 <script setup>
-import HelloWorld from '@/frontend/components/HelloWorld.vue'
-import TheWelcome from '@/frontend/components/TheWelcome.vue'
+
+import {onMounted, ref} from "vue"
+import L from "leaflet"
+
+const lat = ref(0)
+const lng = ref(0)
+const map = ref()
+const mapContainer = ref()
+
+onMounted(() => {
+  map.value = L.map(mapContainer.value).setView([51.505, -0.09], 13);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map.value);
+})
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(position => {
+      lat.value = position.coords.latitude;
+      lng.value = position.coords.longitude;
+      map.value.setView([lat.value, lng.value, 13]);
+
+      L.marker([lat.value, lng.value], {draggable: false})
+          .addTo(map.value)
+          .on("dragend", (e) => {
+            console.log(e);
+          })
+    })
+  }
+}
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./frontend/assets/logo.svg" width="125" height="125" />
+  <button @click="getLocation">Get Location</button>
+  {{ lat }} , {{ lng }}
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div ref="mapContainer" style="width: 400px; height: 400px;"></div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
