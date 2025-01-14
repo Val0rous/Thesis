@@ -28,7 +28,7 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
         . "%22%20and%20data%20%3C%3D%20%22"
         . $endDate->format("Y-m-d")
         . "%22";
-    $areas = $db->getAllAreas();
+    $areas = $db->getAllZoneIds();
 
     $crowdingResponse = file_get_contents($crowdingTotalCountUrl . $where);
     if ($crowdingResponse !== false) {

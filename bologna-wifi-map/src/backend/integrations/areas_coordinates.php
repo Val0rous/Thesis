@@ -24,7 +24,7 @@ function fetchAreas(array $urls, DatabaseHelper $db): void
     }
     echo "Total number of fetched zone IDs: " . count($crowdingList) . PHP_EOL;
 
-    $alreadyFetchedAreas = $db->getAllAreas();
+    $alreadyFetchedAreas = $db->getAllZoneIds();
     $crowdingList = array_diff_key($crowdingList, $alreadyFetchedAreas);
     echo "Number of zone IDs to add: " . count($crowdingList) . PHP_EOL;
 
