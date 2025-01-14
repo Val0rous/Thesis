@@ -14,16 +14,17 @@ onMounted(() => {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map.value);
+  let options = {
+    color: "red",
+    fillColor: "red",
+    fillOpacity: 0.2,
+  };
   L.polygon([
     [44.495, 11.34],
     [44.497, 11.35],
     [44.493, 11.36],
     [44.495, 11.34],
-  ], {
-    color: "red",
-    fillColor: "red",
-    fillOpacity: 0.2,
-  }).addTo(map.value);
+  ], options).addTo(map.value);
 })
 
 function getLocation() {
@@ -52,7 +53,9 @@ function getLocation() {
 
 <style scoped>
 .map {
-  width: 960px;
-  height: 540px;
+  width: 100vw;
+  height: 100vh;
+  /* border-radius: 14px; */
+  padding: 16px;
 }
 </style>

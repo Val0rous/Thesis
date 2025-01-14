@@ -4,7 +4,9 @@ import Map from "@/frontend/components/Map.vue";
 </script>
 
 <template>
-  <Map/>
+  <main>
+    <Map/>
+  </main>
 </template>
 
 <style scoped>
