@@ -1,6 +1,8 @@
 <script setup>
 import {onMounted, ref} from "vue"
 import L from "leaflet"
+import "leaflet-polylineoffset";
+import "leaflet-polylinedecorator";
 
 /**
  * @typedef {Object} Area
@@ -12,6 +14,7 @@ import L from "leaflet"
  * @type {import("vue").Ref<Area[]>}
  */
 const areas = ref([]);
+const polygons = ref([]);
 
 const fetchAreas = async () => {
   try {
@@ -42,29 +45,71 @@ onMounted(async () => {
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     minZoom: 2,
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map.value);
-  let options = {
+
+  let defaultOptions = {
     color: "blue",
     fillColor: "blue",
     fillOpacity: 0.3,
   };
+
+  let hoverOptions = {
+    color: "red",
+    fillColor: "red",
+    fillOpacity: 0.5,
+  }
+
+  let lineOptions = {
+    color: "orange",
+    fillColor: "orange",
+    fillOpacity: 0.8,
+    weight: 8,
+  }
+
   await fetchAreas();
   if (areas.value.length > 0) {
-    areas.value.forEach((area) => {
-      const polygon = L.polygon(area.coordinates, options).addTo(map.value);
+    areas.value.forEach((/** @type {Area} */ area) => {
+      const polygon = L.polygon(area.coordinates, defaultOptions).addTo(map.value);
+      polygons.value[area.zone_id] = polygon;
       polygon.bindPopup(`
       <b>${area.zone_name}</b></br>
       Coordinates: ${area.latitude},${area.longitude}
       `)
+      // Add mouseover event to change style on hover
+      polygon.on("mouseover", () => {
+        polygon.setStyle(hoverOptions);
+      });
+
+      // Add mouseout event to reset style when hover ends
+      polygon.on("mouseout", () => {
+        polygon.setStyle(defaultOptions);
+      });
     })
   }
-  // L.polygon([
-  //   [44.495, 11.34],
-  //   [44.497, 11.35],
-  //   [44.493, 11.36],
-  //   [44.495, 11.34],
-  // ], options).addTo(map.value);
+  L.polyline([
+    [44.495, 11.34],
+    [44.497, 11.35],
+    [44.493, 11.36],
+    [44.495, 11.34],
+  ], defaultOptions)
+      .addTo(map.value);
+
+  const polyline1 = L.polyline([
+    [44.492098584136370, 11.343701612218704],
+    [44.492918958032725, 11.344249912107363]
+  ], lineOptions).addTo(map.value)
+
+  const polyline2 = L.polyline([
+    [44.492918958032725, 11.344249912107363],
+    [44.492098584136370, 11.343701612218704]
+  ], {
+    color: "yellow",
+    fillColor: "yellow",
+    fillOpacity: 0.8,
+    weight: 8,
+    dashArray: "5, 10",
+  }).addTo(map.value)
 })
 
 function getLocation() {
