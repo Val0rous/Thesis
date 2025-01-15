@@ -2,6 +2,15 @@
 import {onMounted, ref} from "vue"
 import L from "leaflet"
 
+/**
+ * @typedef {Object} Area
+ * @property {string} zone_id - ID of the area
+ * @property {string} zone_name - Name of the area
+ * @property {number} latitude - Latitude of the area
+ * @property {number} longitude - Longitude of the area
+ * @property {[number, number][]} coordinates - Coordinates of the area polygon
+ * @type {import("vue").Ref<Area[]>}
+ */
 const areas = ref([]);
 
 const fetchAreas = async () => {
@@ -38,12 +47,16 @@ onMounted(async () => {
   let options = {
     color: "blue",
     fillColor: "blue",
-    fillOpacity: 0.2,
+    fillOpacity: 0.3,
   };
   await fetchAreas();
   if (areas.value.length > 0) {
     areas.value.forEach((area) => {
-      L.polygon(area.coordinates, options).addTo(map.value);
+      const polygon = L.polygon(area.coordinates, options).addTo(map.value);
+      polygon.bindPopup(`
+      <b>${area.zone_name}</b></br>
+      Coordinates: ${area.latitude},${area.longitude}
+      `)
     })
   }
   // L.polygon([
