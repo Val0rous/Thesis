@@ -80,7 +80,7 @@ trait CrowdingAttendance
         return $stmt->execute();
     }
 
-    public function getCrowdingAttendance($date): array
+    public function getCrowdingAttendance(string $date): array
     {
         $query = "select zone_id,
                   avg_crowding_00, avg_crowding_01, avg_crowding_02, avg_crowding_03,

@@ -79,6 +79,47 @@ trait Movements
         return $stmt->execute();
     }
 
+    public function getMovements(string $date): array
+    {
+        $query = "select zone_id_from, zone_id_to,
+                  percentile_50_00, percentile_50_01, percentile_50_02, percentile_50_03,
+                  percentile_50_04, percentile_50_05, percentile_50_06, percentile_50_07,
+                  percentile_50_08, percentile_50_09, percentile_50_10, percentile_50_11,
+                  percentile_50_12, percentile_50_13, percentile_50_14, percentile_50_15,
+                  percentile_50_16, percentile_50_17, percentile_50_18, percentile_50_19,
+                  percentile_50_20, percentile_50_21, percentile_50_22, percentile_50_23,
+                  tot_pass_00, tot_pass_01, tot_pass_02, tot_pass_03,
+                  tot_pass_04, tot_pass_05, tot_pass_06, tot_pass_07,
+                  tot_pass_08, tot_pass_09, tot_pass_10, tot_pass_11,
+                  tot_pass_12, tot_pass_13, tot_pass_14, tot_pass_15,
+                  tot_pass_16, tot_pass_17, tot_pass_18, tot_pass_19,
+                  tot_pass_20, tot_pass_21, tot_pass_22, tot_pass_23
+                  from movements
+                  where date = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $percentile50 = [];
+        $totPass = [];
+        while ($row = $result->fetch_assoc()) {
+            $zoneIdFrom = $row["zone_id_from"];
+            $zoneIdTo = $row["zone_id_to"];
+            $percentile50[$zoneIdFrom][$zoneIdTo] = array_map(
+                fn($hour) => (int)$row[sprintf("percentile_50_%02d", $hour)],
+                range(0, 23)
+            );
+            $totPass[$zoneIdFrom][$zoneIdTo] = array_map(
+                fn($hour) => (int)$row[sprintf("tot_pass_%02d", $hour)],
+                range(0, 23)
+            );
+        }
+        return [
+            "percentile_50" => $percentile50,
+            "tot_pass" => $totPass
+        ];
+    }
+
     public function getLastMovementsDate(): string|null
     {
         $query = "select max(date)
