@@ -80,6 +80,46 @@ trait CrowdingAttendance
         return $stmt->execute();
     }
 
+    public function getCrowdingAttendance($date): array
+    {
+        $query = "select zone_id,
+                  avg_crowding_00, avg_crowding_01, avg_crowding_02, avg_crowding_03,
+                  avg_crowding_04, avg_crowding_05, avg_crowding_06, avg_crowding_07,
+                  avg_crowding_08, avg_crowding_09, avg_crowding_10, avg_crowding_11,
+                  avg_crowding_12, avg_crowding_13, avg_crowding_14, avg_crowding_15,
+                  avg_crowding_16, avg_crowding_17, avg_crowding_18, avg_crowding_19,
+                  avg_crowding_20, avg_crowding_21, avg_crowding_22, avg_crowding_23,
+                  avg_attendance_00, avg_attendance_01, avg_attendance_02, avg_attendance_03,
+                  avg_attendance_04, avg_attendance_05, avg_attendance_06, avg_attendance_07,
+                  avg_attendance_08, avg_attendance_09, avg_attendance_10, avg_attendance_11,
+                  avg_attendance_12, avg_attendance_13, avg_attendance_14, avg_attendance_15,
+                  avg_attendance_16, avg_attendance_17, avg_attendance_18, avg_attendance_19,
+                  avg_attendance_20, avg_attendance_21, avg_attendance_22, avg_attendance_23
+                  from crowding_attendance
+                  where date = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $crowding = [];
+        $attendance = [];
+        while ($row = $result->fetch_assoc()) {
+            $zoneId = $row["zone_id"];
+            $crowding[$zoneId] = array_map(
+                fn($hour) => (int)$row["avg_crowding_" . str_pad($hour, 2, "0", STR_PAD_LEFT)],
+                range(0, 23)
+            );
+            $attendance[$zoneId] = array_map(
+                fn($hour) => (int)$row["avg_attendance_" . str_pad($hour, 2, "0", STR_PAD_LEFT)],
+                range(0, 23)
+            );
+        }
+        return [
+            "crowding" => $crowding,
+            "attendance" => $attendance
+        ];
+    }
+
     public function getLastCrowdingAttendanceDate(): string|null
     {
         $query = "select max(date)
