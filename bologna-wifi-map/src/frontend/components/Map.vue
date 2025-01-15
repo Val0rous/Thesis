@@ -18,7 +18,9 @@ const clickedPolygon = ref(null);
 
 const fetchAreas = async () => {
   try {
-    const response = await fetch("http://localhost/backend/api/areas.php", {
+    const baseURL = `${window.location.protocol}//${window.location.hostname}`;
+    const url = `${baseURL}/backend/api/areas.php`
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -158,8 +160,11 @@ function getLocation() {
 
 <style scoped>
 .map {
-  width: 100vw;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  /* width: 100%;
+  height: 100%; */
   /* border-radius: 14px; */
   padding: 16px;
 }

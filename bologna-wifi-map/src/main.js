@@ -1,6 +1,6 @@
-import '@/frontend/assets/main.css'
+import '@/frontend/assets/main.scss'
 
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 
 createApp(App).mount('#app')

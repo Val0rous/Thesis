@@ -4,6 +4,7 @@ import Map from "@/frontend/components/Map.vue";
 </script>
 
 <template>
+  <Header/>
   <main>
     <Map/>
   </main>
