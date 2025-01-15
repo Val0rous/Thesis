@@ -106,11 +106,11 @@ trait CrowdingAttendance
         while ($row = $result->fetch_assoc()) {
             $zoneId = $row["zone_id"];
             $crowding[$zoneId] = array_map(
-                fn($hour) => (int)$row["avg_crowding_" . str_pad($hour, 2, "0", STR_PAD_LEFT)],
+                fn($hour) => (int)$row[sprintf("avg_crowding_%02d", $hour)],
                 range(0, 23)
             );
             $attendance[$zoneId] = array_map(
-                fn($hour) => (int)$row["avg_attendance_" . str_pad($hour, 2, "0", STR_PAD_LEFT)],
+                fn($hour) => (int)$row[sprintf("avg_attendance_%02d", $hour)],
                 range(0, 23)
             );
         }

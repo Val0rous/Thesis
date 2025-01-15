@@ -2,5 +2,5 @@
 require_once("../utils/DatabaseHelper.php");
 $db = new DatabaseHelper();
 
-$test = $db->getCrowdingAttendance("2024-01-01");
+$test = $db->getCrowdingAttendance("2025-01-01");
 echo "Ok";
