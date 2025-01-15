@@ -27,6 +27,8 @@
   .menu {
     display: flex;
     align-items: center;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .logo {
@@ -40,7 +42,6 @@
 
   .material-symbols-rounded {
     padding: 0 16px;
-    user-select: none;
     cursor: pointer;
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
@@ -71,6 +72,23 @@ html, body {
   width: 100%;
   box-sizing: border-box;
 }
+
+//@media (prefers-color-scheme: dark) {
+//  .header {
+//    background-color: #212121;
+//
+//    .menu {
+//      color: var(--gray-50);
+//    }
+//
+//    .logo {
+//      // Make logo more visible in dark mode
+//    }
+//  }
+//  .map {
+//    filter: invert(90%) hue-rotate(180deg) brightness(0.8); /* Adjust filter to mimic dark mode */
+//  }
+//}
 
 @media (hover: hover) {
   a:hover {
