@@ -12,16 +12,12 @@ trait Areas
         $query = "insert into areas(
                           zone_id, 
                           zone_name, 
-                          geo_shape_type, 
-                          geo_shape_geometry_type, 
                           geo_point_2d_lat, 
                           geo_point_2d_lon
                   ) 
                   values (
                           ?,
                           ?,
-                          'Feature',
-                          'Polygon',
                           ?,
                           ?
                   )";

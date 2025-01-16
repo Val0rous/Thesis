@@ -22,6 +22,7 @@ function fetchMovements(array $urls, DatabaseHelper $db): void
         . $endDate->format("Y-m-d")
         . "%22";
 
+    // Fetch total movements to process
     $response = file_get_contents($totalCountUrl . $where);
     if ($response !== false) {
         $totalCount = json_decode($response, true)["total_count"];
@@ -57,7 +58,7 @@ function fetchMovements(array $urls, DatabaseHelper $db): void
                         }
                         //              $movements = array_merge($movements, $data["results"]);
                         foreach ($data["results"] as $item) {
-                            $movements[] = $item;
+                            $movements->enqueue($item);
                         }
                         $offset += 100;
                         $isIncreasedFetchedCount = true;

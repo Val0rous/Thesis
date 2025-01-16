@@ -5,10 +5,10 @@ require_once("../integrations/areas_coordinates.php");
 require_once("../integrations/movements.php");
 require_once("../integrations/crowding_attendance.php");
 require_once("../utils/utils.php");
-require_once("../vendor/autoload.php");
-
-use GuzzleHttp\Client;
-use GuzzleHttp\Promise\Utils;
+//require_once("../vendor/autoload.php");
+//
+//use GuzzleHttp\Client;
+//use GuzzleHttp\Promise\Utils;
 
 $urlsFilePath = "../routes/urls.json";
 if (!file_exists($urlsFilePath)) {
