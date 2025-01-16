@@ -2,6 +2,8 @@
 import {defineProps, defineEmits} from "vue";
 import CrowdingIcon from "./icons/IconCrowding.vue";
 import AttendanceIcon from "./icons/IconAttendance.vue";
+import MovementsIcon from "./icons/IconMovements.vue";
+
 
 defineProps({
   currentView: String,
@@ -29,6 +31,15 @@ const changeView = (view) => {
       </slot>
         </span>
       Attendance
+    </button>
+
+    <button class="map-button" @click="changeView('Movements')">
+      <span class="icon">
+      <slot>
+        <MovementsIcon/>
+      </slot>
+        </span>
+      Movements
     </button>
   </div>
 </template>

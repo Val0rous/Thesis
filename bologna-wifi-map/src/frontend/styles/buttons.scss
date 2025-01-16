@@ -4,12 +4,12 @@ $z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
 
 .view-buttons {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 12px;
+  left: 16px;
   display: flex;
   align-items: center;
   gap: 8px;
-  height: 32px;
+  height: 48px;
   z-index: $z-index;
   cursor: default;
 
@@ -20,10 +20,13 @@ $z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
     align-items: center;
     justify-content: center;
     gap: 4px;
-    padding: 4px 8px;
+    padding: 6px 12px;
+    margin: 8px 0;
+    height: 32px;
     border-radius: 16px;
     cursor: pointer;
     color: colors.$gray-900;
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
 
     &:hover {
       border-color: colors.$gray-100;
