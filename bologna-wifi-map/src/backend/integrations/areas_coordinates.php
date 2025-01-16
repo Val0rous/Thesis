@@ -65,14 +65,3 @@ function fetchAreas(array $urls, DatabaseHelper $db): void
     echo "Elapsed time: " . convertToReadableTime($elapsedTime) . PHP_EOL;
     echo PHP_EOL;
 }
-
-//$attendanceResponse = file_get_contents($zoneIdsFromAttendanceApiUrl);
-//if ($attendanceResponse !== false) {
-//    $attendanceList = array_column(json_decode($attendanceResponse, true)["results"], "codice_zona");
-//} else {
-//    error_log("Failed to fetch data for zone IDs from attendance API");
-//}
-//echo json_encode(count($attendanceList), JSON_PRETTY_PRINT);
-//if ($crowdingList === $attendanceList) {
-//    echo PHP_EOL . "Both arrays are the same";  // Turns out they are, so let's keep just one
-//}

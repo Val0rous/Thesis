@@ -46,40 +46,6 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
     }
     echo "Total count of attendance to add: " . $attendanceTotalCount . PHP_EOL;
 
-    /*  TODO: both start with T00:00:00+00:00, meaning from midnight GMT.
-        Save all data using GMT as time zone. Just grab the first 2 numbers after T
-
-        Day before spring forward: March 30, 2024 -> 24 items
-        Day of spring forward: March 31, 2024 -> 24 or 25 items
-        Day after spring forward: April 1, 2024 -> 24 items
-
-        Day before fall back: October 26, 2024 -> 24 items
-        Day of fall back: October 27, 2024 -> 23 items
-        Day after fall back: October 28, 2024 -> 25 items
-        2 days later: October 29, 2024 -> 25 items
-        3 days later: October 30, 2024 -> 24 items
-
-        Gotta save an offset for both crowding and attendance,
-        in two different arrays both indexed by association of zoneId
-        (aeroporto, archiginnasio, ...), as you'll need it through the entire
-        DST duration
-
-        hourOffset = totalCountForEachZoneId - 24
-        a total count of 23 yields -1
-        a total count of 25 yields +1
-
-        Print offset on each iteration if offset is not zero, along with the date
-
-        Found out you get a -1 on spring forward day, then another -1 on fall back day,
-        which gets evened out by 2 consecutive 25-entry days right after fall back day.
-        This means we have a 1 hour offset for the entirety of summer,
-        so if offset is negative we need to consider the next day and perform yet
-        another query, or store the entire 23 values in an array which will be then
-        completed with the missing value and saved to db, and the cycle repeats;
-        if offset is positive (which shouldn't be happening here), then just store
-        the extra value in another variable.
-    */
-
     if ($attendanceTotalCount > 0 || $crowdingTotalCount > 0) {
         // Fetch Crowding and Attendance data day by day in 100 item chunks, then add them to db
         for ($date = $startDate; $date <= $endDate; $date->modify("+1 day")) {
@@ -197,12 +163,6 @@ function fetchCrowdingAttendance(array $urls, DatabaseHelper $db): void
                             $crowdingCounter++;
                         }
                     }
-
-                    // TODO: always use 24 values and place them in array based on the hour you get from date string
-                    // TODO: if there are 23 values, fill the missing one with zero
-                    // TODO: if there are 25 values, keep the max of the two values of the hour having double entries
-                    // TODO: remove indexes from database, it's much simpler this way
-                    // TODO: this is because basically all values from extra entries are just zeros
 
                     $db->addCrowdingAttendance(
                         $eventDate,

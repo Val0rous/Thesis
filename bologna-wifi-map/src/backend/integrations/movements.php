@@ -99,31 +99,6 @@ function fetchMovements(array $urls, DatabaseHelper $db): void
                         $zoneIdFrom
                     );
                 }
-
-//                foreach ($movements as $item) {
-//                    if ($item["data_evento"] === $eventDate
-//                        && $item["area_from"] === $zoneIdFrom
-//                        && $item["area_to"] === $zoneIdTo) {
-//                        $percentile50[$item["hour"]] = $item["percentile_50"];
-//                        $totPass[$item["hour"]] = $item["tot_pass"];
-//                    } else {
-//                        $db->addMovement(
-//                            $eventDate,
-//                            $day,
-//                            $percentile50,
-//                            $totPass,
-//                            $zoneIdTo,
-//                            $zoneIdFrom
-//                        );
-//                        $eventDate = $item["data_evento"];
-//                        $day = $item["giorno"];
-//                        $zoneIdFrom = $item["area_from"];
-//                        $zoneIdTo = $item["area_to"];
-//                        $percentile50 = array_fill(0, 24, 0);
-//                        $totPass = array_fill(0, 24, 0);
-//                    }
-//                    $counter++;
-//                }
             }
         }
     }
