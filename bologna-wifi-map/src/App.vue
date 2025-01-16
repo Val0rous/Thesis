@@ -2,6 +2,13 @@
 
 import Map from "@/frontend/components/Map.vue";
 import TopBar from "@/frontend/components/TopBar.vue";
+
+import {ref} from "vue";
+
+const view = ref("none");
+const updateView = (newView) => {
+  view.value = newView;
+};
 </script>
 
 <template>
@@ -9,7 +16,8 @@ import TopBar from "@/frontend/components/TopBar.vue";
     <TopBar/>
   </header>
   <main>
-    <Map/>
+    <Map :view="view" @update:view="updateView"/>
+    {{ console.log(view) }}
   </main>
 </template>
 

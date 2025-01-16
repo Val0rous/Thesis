@@ -5,13 +5,11 @@
 <template>
   <div class="header">
     <div class="menu">
-    <span class="material-symbols-rounded">
-      menu
-    </span>
+      <span class="material-symbols-rounded">&#xe5d2;</span>
       Bologna WiFi Map
     </div>
     <div class="logo">
-      <img alt="OpenData" src="../assets/opendata.png"/>
+      <img alt="OpenData" src="@/frontend/assets/opendata.png"/>
     </div>
   </div>
 </template>

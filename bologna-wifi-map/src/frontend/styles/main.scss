@@ -1,4 +1,6 @@
-//@import 'base.scss';
+//@use "base";
+@use "buttons";
+@use "./colors";
 
 #app {
   /*max-width: 1280px;*/
@@ -12,17 +14,17 @@
 
 :root {
   --header-height: 48px;
-  --gray-50: #fafafa
 }
 
 .header {
   height: var(--header-height);
   z-index: 1000;
-  background-color: var(--gray-50);
+  background-color: colors.$gray-50;
   display: flex;
   align-items: center;
   font: 400 20px "Helvetica Neue", Arial, Helvetica, sans-serif;
   justify-content: space-between;
+  border-bottom: 1px solid colors.$gray-200;
 
   .menu {
     display: flex;

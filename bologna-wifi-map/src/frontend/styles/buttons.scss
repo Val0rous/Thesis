@@ -1,0 +1,37 @@
+@use "colors";
+
+$z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
+
+.view-buttons {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  z-index: $z-index;
+  cursor: default;
+
+  .map-button {
+    background-color: colors.$gray-50;
+    border: 1px solid colors.$gray-50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 16px;
+    cursor: pointer;
+    color: colors.$gray-900;
+
+    &:hover {
+      border-color: colors.$gray-100;
+      background-color: colors.$gray-100;
+    }
+
+    .icon {
+      color: colors.$gray-800;
+    }
+  }
+}

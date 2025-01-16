@@ -1,46 +1,41 @@
 <script setup>
-import "../utils/types.js";
-import {onMounted, ref} from "vue";
+import "@/frontend/utils/types.js";
+import {onMounted, ref, defineProps, defineEmits} from "vue";
 import L from "leaflet";
+import ViewButtons from "@/frontend/components/ViewButtons.vue"
 import {
   defaultOptions,
   hoverOptions,
   clickOptions,
   lineOptions,
-} from "../utils/mapOptions.js";
+} from "@/frontend/utils/mapOptions.js";
+import {fetchAreas, fetchCrowdingAttendance} from "@/frontend/scripts/api.js";
 // import "leaflet-polylineoffset";
 // import "leaflet-polylinedecorator";
 
+defineProps({
+  view: String, // Receive current view as a prop
+})
+
+const emit = defineEmits(["update:view"]);
+
 /** @type {Ref<Area[]>} */
 const areas = ref([]);
+/** @type {Ref<Crowding[]>} */
+const crowding = ref([]);
+/** @type {Ref<Attendance[]>} */
+const attendance = ref([]);
 const polygons = ref([]);
 const clickedPolygon = ref(null);
-
-const fetchAreas = async () => {
-  try {
-    const baseURL = `${window.location.protocol}//${window.location.hostname}`;
-    const url = `${baseURL}/backend/api/areas.php`
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      }
-    });
-    const data = await response.json();
-    if (data.success) {
-      areas.value = data.results;
-    } else {
-      console.error("Failed to fetch areas: ", data.message)
-    }
-  } catch (error) {
-    console.error("Failed to fetch areas: an error occurred.\n");
-  }
-}
 
 const lat = ref(0);
 const lng = ref(0);
 const map = ref();
 const mapContainer = ref();
+
+const setView = (newView) => {
+  emit("update:view", newView);
+}
 
 onMounted(async () => {
   map.value = L.map(mapContainer.value).setView([44.4949, 11.3426], 13);
@@ -50,9 +45,13 @@ onMounted(async () => {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map.value);
 
-  await fetchAreas();
+  map.value.zoomControl.setPosition("bottomright");
+
+  await fetchAreas(areas);
+  await fetchCrowdingAttendance("2025-01-01", crowding, attendance);
+
   if (areas.value.length > 0) {
-    areas.value.forEach((/** @type {Area} */ area) => {
+    areas.value.forEach((area) => {
       const polygon = L.polygon(area.coordinates, defaultOptions).addTo(map.value);
       polygons.value[area.zone_id] = polygon;
       polygon.bindPopup(`
@@ -155,10 +154,12 @@ function getLocation() {
   <!--    <button @click="getLocation">Get Location</button>-->
   <!--  {{ lat }} , {{ lng }}-->
 
-  <div ref="mapContainer" class="map"></div>
+  <div ref="mapContainer" class="map">
+    <ViewButtons @viewChange="setView"/>
+  </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .map {
   height: 100%;
   width: 100%;
