@@ -108,6 +108,11 @@ onMounted(async () => {
       });
     })
   }
+
+  // Prevent scroll propagation for buttons
+  const buttonContainer = document.querySelector(".view-buttons");
+  L.DomEvent.disableScrollPropagation(buttonContainer);
+
   // L.polyline([
   //   [44.495, 11.34],
   //   [44.497, 11.35],
@@ -167,6 +172,6 @@ function getLocation() {
   /* width: 100%;
   height: 100%; */
   /* border-radius: 14px; */
-  padding: 16px;
+  //padding: 16px;
 }
 </style>

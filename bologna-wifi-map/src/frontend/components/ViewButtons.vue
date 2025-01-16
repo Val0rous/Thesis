@@ -15,7 +15,7 @@ const changeView = (view) => {
 </script>
 
 <template>
-  <div class="view-buttons">
+  <div class="view-buttons" @touchstart.stop @touchmove.stop>
     <button class="map-button" @click="changeView('Crowding')">
       <span class="icon">
         <slot>
