@@ -185,16 +185,27 @@ watch(
     () => props.view,
     (newValue) => {
       // updatePolygons(polygons.value, newValue)
-      areas.value.forEach((area) => {
-        const polygon = polygons.value[area.zone_id];
-        polygon.setStyle(mapOptionsFactory(newValue, getViewData(newValue)[date.value][area.zone_id][hour.value]));
-        let popupContent = `<b>${area.zone_name}</b></br>`;
-        if (newValue === View.Crowding || newValue === View.Attendance) {
+      if (newValue === View.Crowding || newValue === View.Attendance) {
+        areas.value.forEach((area) => {
+          const polygon = polygons.value[area.zone_id];
+          let popupContent = `<b>${area.zone_name}</b></br>`;
+          polygon.setStyle(mapOptionsFactory(newValue, getViewData(newValue)[date.value][area.zone_id][hour.value]));
           popupContent += `Value: ${getViewData(newValue)[date.value][area.zone_id][hour.value]} / ${maxValues[newValue]}`;
+          polygon.setPopupContent(popupContent);
+          // console.log(area, getViewData(newValue)[date.value][area.zone_id][hour.value]);
+        });
+      } else if (newValue === View.Movements || newValue === View.Medians) {
+        // TODO: still iterate over all polygons
+        const list = getViewData(newValue)[date.value];
+        for (const zoneIdFrom in list) {
+          const subList = list[zoneIdFrom];
+          const polygon = polygons.value[zoneIdFrom];
+          polygon.setStyle(mapOptionsFactory(newValue, 2000));
+          for (const zoneIdTo in subList) {
+            const value = subList[zoneIdTo][hour.value];
+          }
         }
-        polygon.setPopupContent(popupContent);
-        // console.log(area, getViewData(newValue)[date.value][area.zone_id][hour.value]);
-      });
+      }
     }
 )
 
