@@ -6,7 +6,7 @@ const shades = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "9
 
 /**
  *
- * @param {"Crowding" | "Attendance" | "Movements" | "Medians"} view
+ * @param {View} view
  * @param {number} value
  */
 const mapOptionsFactory = (view, value) => {
@@ -23,7 +23,7 @@ export default mapOptionsFactory;
 const colorFactory = (view) => {
   switch (view) {
     case View.Crowding:
-      return "Amber";
+      return "DeepOrange";
     case View.Attendance:
       return "Red";
     case View.Movements:
@@ -36,6 +36,9 @@ const colorFactory = (view) => {
 }
 
 const shadeFactory = (view, value) => {
+  if (view === View.Areas) {
+    return "Blue600";
+  }
   const maxValue = maxValues[view];
   if (value === 0) {
     return "Gray500";

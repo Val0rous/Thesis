@@ -1,9 +1,9 @@
 import Colors from "@/frontend/utils/colors.js";
 
 export const defaultOptions = {
-  color: Colors.Blue500,
-  fillColor: Colors.Blue500,
-  fillOpacity: 0.3,
+  color: Colors.Blue600,
+  fillColor: Colors.Blue600,
+  fillOpacity: 0.4,
 };
 
 export const hoverOptions = {
@@ -15,7 +15,7 @@ export const hoverOptions = {
 export const clickOptions = {
   color: Colors.Red500,
   fillColor: Colors.Red500,
-  fillOpacity: 0.8,
+  fillOpacity: 0.6,
 }
 
 export const lineOptions = {

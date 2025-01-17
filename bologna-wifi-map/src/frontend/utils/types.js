@@ -52,3 +52,8 @@
  * - Keys are area IDs
  * - Values are arrays of hourly data, of size 24
  */
+
+/**
+ * @typedef {"Areas" | "Crowding" | "Attendance" | "Movements" | "Medians"} View
+ * - Types of Map View
+ */

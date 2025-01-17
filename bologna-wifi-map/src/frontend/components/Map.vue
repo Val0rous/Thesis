@@ -1,8 +1,9 @@
 <script setup>
 import "@/frontend/utils/types.js";
-import {onMounted, ref, defineProps, defineEmits} from "vue";
+import {onMounted, ref, defineProps, defineEmits, watch} from "vue";
 import L from "leaflet";
 import ViewButtons from "@/frontend/components/ViewButtons.vue"
+import View from "@/frontend/utils/views.js";
 import {
   defaultOptions,
   hoverOptions,
@@ -10,14 +11,19 @@ import {
   lineOptions,
 } from "@/frontend/utils/mapOptions.js";
 import {fetchAreas, fetchCrowdingAttendance} from "@/frontend/scripts/api.js";
+import mapOptionsFactory from "@/frontend/scripts/mapOptionsFactory.js";
 // import "leaflet-polylineoffset";
 // import "leaflet-polylinedecorator";
 
-defineProps({
-  view: String, // Receive current view as a prop
+const props = defineProps({
+  view: View, // Receive current view as a prop
 })
 
 const emit = defineEmits(["update:view"]);
+
+const setView = (newView) => {
+  emit("update:view", newView);
+}
 
 /** @type {Ref<Area[]>} */
 const areas = ref([]);
@@ -25,17 +31,14 @@ const areas = ref([]);
 const crowding = ref([]);
 /** @type {Ref<Attendance[]>} */
 const attendance = ref([]);
+/** @type { Ref<Polygon<any>[]>} */
 const polygons = ref([]);
-const clickedPolygon = ref(null);
 
+const clickedPolygon = ref(null);
 const lat = ref(0);
 const lng = ref(0);
 const map = ref();
 const mapContainer = ref();
-
-const setView = (newView) => {
-  emit("update:view", newView);
-}
 
 onMounted(async () => {
   map.value = L.map(mapContainer.value).setView([44.4949, 11.3426], 13);
@@ -52,7 +55,7 @@ onMounted(async () => {
 
   if (areas.value.length > 0) {
     areas.value.forEach((area) => {
-      const polygon = L.polygon(area.coordinates, defaultOptions).addTo(map.value);
+      const polygon = L.polygon(area.coordinates, mapOptionsFactory(props.view, 2000)).addTo(map.value);
       polygons.value[area.zone_id] = polygon;
       polygon.bindPopup(`
       <b>${area.zone_name}</b></br>
@@ -68,7 +71,7 @@ onMounted(async () => {
       // Add mouseout event to reset style when hover ends
       polygon.on("mouseout", () => {
         if (clickedPolygon.value !== polygon) {
-          polygon.setStyle(defaultOptions);
+          polygon.setStyle(mapOptionsFactory(props.view, 2000));
         }
       });
 
@@ -137,6 +140,24 @@ onMounted(async () => {
   //   dashArray: "5, 10",
   // }).addTo(map.value)
 })
+
+const updatePolygons = (polygons, view) => {
+  polygons.forEach((polygon) => {
+    polygon.setStyle(mapOptionsFactory(view, 2000));
+  })
+}
+
+watch(
+    () => props.view,
+    (newValue, oldValue) => {
+      console.log(`view changed from ${oldValue} to ${newValue}`);
+      // updatePolygons(polygons.value, newValue)
+      areas.value.forEach((area) => {
+        polygons.value[area.zone_id].setStyle(mapOptionsFactory(newValue, 2000));
+      });
+    }
+)
+
 
 function getLocation() {
   if (navigator.geolocation) {
