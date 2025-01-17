@@ -149,8 +149,7 @@ const updatePolygons = (polygons, view) => {
 
 watch(
     () => props.view,
-    (newValue, oldValue) => {
-      console.log(`view changed from ${oldValue} to ${newValue}`);
+    (newValue) => {
       // updatePolygons(polygons.value, newValue)
       areas.value.forEach((area) => {
         polygons.value[area.zone_id].setStyle(mapOptionsFactory(newValue, 2000));
