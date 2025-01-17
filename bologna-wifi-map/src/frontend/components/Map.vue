@@ -4,13 +4,14 @@ import {onMounted, ref, defineProps, defineEmits, watch} from "vue";
 import L from "leaflet";
 import ViewButtons from "@/frontend/components/ViewButtons.vue"
 import View from "@/frontend/utils/views.js";
+import maxValues from "@/frontend/utils/maxValues.json";
 import {
   defaultOptions,
   hoverOptions,
   clickOptions,
   lineOptions,
 } from "@/frontend/utils/mapOptions.js";
-import {fetchAreas, fetchCrowdingAttendance} from "@/frontend/scripts/api.js";
+import {fetchAreas, fetchCrowdingAttendance, fetchMovements} from "@/frontend/scripts/api.js";
 import mapOptionsFactory from "@/frontend/scripts/mapOptionsFactory.js";
 // import "leaflet-polylineoffset";
 // import "leaflet-polylinedecorator";
@@ -31,8 +32,17 @@ const areas = ref([]);
 const crowding = ref([]);
 /** @type {Ref<Attendance[]>} */
 const attendance = ref([]);
+/** @type {Ref<Movements[]>} */
+const movements = ref([]);
+/** @type {Ref<Medians[]>} */
+const medians = ref([]);
 /** @type { Ref<Polygon<any>[]>} */
 const polygons = ref([]);
+
+/** @type {Ref<string>} */
+const date = ref("2024-04-22");
+/** @type {Ref<number>} */
+const hour = ref(13);
 
 const clickedPolygon = ref(null);
 const lat = ref(0);
@@ -51,37 +61,45 @@ onMounted(async () => {
   map.value.zoomControl.setPosition("bottomright");
 
   await fetchAreas(areas);
-  await fetchCrowdingAttendance("2025-01-01", crowding, attendance);
+  await fetchCrowdingAttendance(date.value, crowding, attendance);
+  await fetchMovements(date.value, movements, medians);
+  console.log(crowding[date.value]);
 
   if (areas.value.length > 0) {
     areas.value.forEach((area) => {
       const polygon = L.polygon(area.coordinates, mapOptionsFactory(props.view, 2000)).addTo(map.value);
       polygons.value[area.zone_id] = polygon;
-      polygon.bindPopup(`
-      <b>${area.zone_name}</b></br>
-      Coordinates: ${area.latitude},${area.longitude}
-      `)
+
+      console.log(getViewData(props.view))
+
+      let popupContent = `<b>${area.zone_name}</b></br>`
+
+      // if (props.view === View.Crowding || props.view === View.Attendance) {
+      //   popupContent += `Value: ${getViewData(props.view)[date.value][area.zone_id][hour.value]} / ${maxValues[props.view]}`
+      // }
+
+      polygon.bindPopup(popupContent)
       // Add mouseover event to change style on hover
-      polygon.on("mouseover", () => {
-        if (clickedPolygon.value !== polygon) {
-          polygon.setStyle(hoverOptions);
-        }
-      });
+      // polygon.on("mouseover", () => {
+      //   if (clickedPolygon.value !== polygon) {
+      //     polygon.setStyle(hoverOptions);
+      //   }
+      // });
 
       // Add mouseout event to reset style when hover ends
-      polygon.on("mouseout", () => {
-        if (clickedPolygon.value !== polygon) {
-          polygon.setStyle(mapOptionsFactory(props.view, 2000));
-        }
-      });
+      // polygon.on("mouseout", () => {
+      //   if (clickedPolygon.value !== polygon) {
+      //     polygon.setStyle(mapOptionsFactory(props.view, 2000));
+      //   }
+      // });
 
       // Add click event to zoom in on the polygon
       polygon.on("click", () => {
-        if (clickedPolygon.value) {
-          clickedPolygon.value.setStyle(defaultOptions);
-        }
+        // if (clickedPolygon.value) {
+        //   clickedPolygon.value.setStyle(defaultOptions);
+        // }
         clickedPolygon.value = polygon;
-        polygon.setStyle(clickOptions);
+        // polygon.setStyle(clickOptions);
         // Get the bounds of the polygon and zoom to it
         const bounds = polygon.getBounds();
         // Calculate area of the bounds (approximation based on lat/lng difference)
@@ -90,6 +108,7 @@ onMounted(async () => {
             (bounds.getNorthEast().lng - bounds.getSouthWest().lng)
         );
         console.log(area * 1000000);
+        // console.log(getViewData(props.view)[date.value][area.zone_id][hour.value])
 
         // Determine the zoom level based on the area
         let targetZoom;
@@ -147,12 +166,34 @@ const updatePolygons = (polygons, view) => {
   })
 }
 
+const getViewData = (view) => {
+  switch (view) {
+    case View.Crowding:
+      return crowding;
+    case View.Attendance:
+      return attendance;
+    case View.Movements:
+      return movements;
+    case View.Medians:
+      return medians;
+    default:
+      return;
+  }
+}
+
 watch(
     () => props.view,
     (newValue) => {
       // updatePolygons(polygons.value, newValue)
       areas.value.forEach((area) => {
-        polygons.value[area.zone_id].setStyle(mapOptionsFactory(newValue, 2000));
+        const polygon = polygons.value[area.zone_id];
+        polygon.setStyle(mapOptionsFactory(newValue, getViewData(newValue)[date.value][area.zone_id][hour.value]));
+        let popupContent = `<b>${area.zone_name}</b></br>`;
+        if (newValue === View.Crowding || newValue === View.Attendance) {
+          popupContent += `Value: ${getViewData(newValue)[date.value][area.zone_id][hour.value]} / ${maxValues[newValue]}`;
+        }
+        polygon.setPopupContent(popupContent);
+        // console.log(area, getViewData(newValue)[date.value][area.zone_id][hour.value]);
       });
     }
 )

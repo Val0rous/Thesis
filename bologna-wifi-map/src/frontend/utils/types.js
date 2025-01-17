@@ -36,9 +36,9 @@
  */
 
 /**
- * @typedef {Object} Movements
+ * @typedef {Object} MovementsMedians
+ * @property {Movements} tot_pass - Total Passengers data, indexed by area
  * @property {Medians} percentile_50 - Medians data (aka 50th Percentile), indexed by area
- * @property {Passengers} tot_pass - Total Passengers data, indexed by area
  */
 
 /**
@@ -48,7 +48,7 @@
  */
 
 /**
- * @typedef {Object.<string, HourlyData>} Passengers
+ * @typedef {Object.<string, HourlyData>} Movements
  * - Keys are area IDs
  * - Values are arrays of hourly data, of size 24
  */

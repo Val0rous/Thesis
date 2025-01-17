@@ -49,6 +49,7 @@ export const fetchCrowdingAttendance = async (date, crowding, attendance) => {
       /** @type {CrowdingAttendance} */
       let results = data.results;
       addObjectToKey(crowding, date, results.crowding);
+      console.log(results.crowding["ateliersaperi"]);
       addObjectToKey(attendance, date, results.attendance);
     } else {
       console.error("Failed to fetch crowding and attendance: ", data.message);
@@ -61,11 +62,11 @@ export const fetchCrowdingAttendance = async (date, crowding, attendance) => {
 /**
  * Fetch all movements from server for a specific day
  * @param {string} date
- * @param {Ref<Passengers[]>} passengers
+ * @param {Ref<Movements[]>} movements
  * @param {Ref<Medians[]>} medians
  * @returns {Promise<void>}
  */
-export const fetchMovements = async (date, passengers, medians) => {
+export const fetchMovements = async (date, movements, medians) => {
   try {
     const url = `${baseURL}/backend/api/movements.php`;
     const response = await fetch(url, {
@@ -77,9 +78,10 @@ export const fetchMovements = async (date, passengers, medians) => {
     });
     const data = await response.json();
     if (data.success) {
-      /** @type {Movements} */
+      /** @type {MovementsMedians} */
       let results = data.results;
-      addObjectToKey(passengers, date, results.tot_pass);
+      console.log(results.tot_pass);
+      addObjectToKey(movements, date, results.tot_pass);
       addObjectToKey(medians, date, results.percentile_50);
     } else {
       console.error("Failed to fetch movements: ", data.message);
