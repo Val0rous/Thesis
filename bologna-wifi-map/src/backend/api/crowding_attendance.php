@@ -8,14 +8,14 @@ $rawPostData = file_get_contents("php://input");
 // Check for JSON input
 if (!empty($rawPostData)) {
     $decodedData = json_decode($rawPostData, true);
-    if (isset($decodedData['date'])) {
-        $date = $decodedData['date'];
+    if (isset($decodedData["date"])) {
+        $date = $decodedData["date"];
     }
 }
 
 // Check for form-encoded input (optional fallback)
-if (isset($_POST['date'])) {
-    $date = $_POST['date'];
+if (isset($_POST["date"])) {
+    $date = $_POST["date"];
 }
 
 if (isset($date)) {

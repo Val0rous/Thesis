@@ -57,3 +57,34 @@ export const fetchCrowdingAttendance = async (date, crowding, attendance) => {
     console.error("Failed to fetch crowding and attendance: an error occurred.\n");
   }
 }
+
+/**
+ * Fetch all movements from server for a specific day
+ * @param {string} date
+ * @param {Ref<Passengers[]>} passengers
+ * @param {Ref<Medians[]>} medians
+ * @returns {Promise<void>}
+ */
+export const fetchMovements = async (date, passengers, medians) => {
+  try {
+    const url = `${baseURL}/backend/api/movements.php`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({date}),
+    });
+    const data = await response.json();
+    if (data.success) {
+      /** @type {Movements} */
+      let results = data.results;
+      addObjectToKey(passengers, date, results.tot_pass);
+      addObjectToKey(medians, date, results.percentile_50);
+    } else {
+      console.error("Failed to fetch movements: ", data.message);
+    }
+  } catch (error) {
+    console.error("Failed to fetch movements: an error occurred.\n");
+  }
+}

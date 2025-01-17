@@ -34,3 +34,21 @@
  * @typedef {number[]} HourlyData
  * - An array containing 24 integers, one for each hour
  */
+
+/**
+ * @typedef {Object} Movements
+ * @property {Medians} percentile_50 - Medians data (aka 50th Percentile), indexed by area
+ * @property {Passengers} tot_pass - Total Passengers data, indexed by area
+ */
+
+/**
+ * @typedef {Object.<string, HourlyData>} Medians
+ * - Keys are area IDs
+ * - Values are arrays of hourly data, of size 24
+ */
+
+/**
+ * @typedef {Object.<string, HourlyData>} Passengers
+ * - Keys are area IDs
+ * - Values are arrays of hourly data, of size 24
+ */
