@@ -3,6 +3,8 @@ import {defineProps, defineEmits, ref, watch} from "vue";
 import CrowdingIcon from "./icons/IconCrowding.vue";
 import AttendanceIcon from "./icons/IconAttendance.vue";
 import MovementsIcon from "./icons/IconMovements.vue";
+import PassengersIcon from "./icons/IconPassengers.vue";
+import MediansIcon from "./icons/IconMedians.vue";
 import View from "@/frontend/utils/views.js";
 
 
@@ -38,6 +40,7 @@ const changeView = (newView) => {
       </span>
       <span class="label">Crowding</span>
     </button>
+
     <button :class="{ selected: selectedView === View.Attendance }"
             class="map-button attendance"
             @click="changeView(View.Attendance)">
@@ -51,9 +54,18 @@ const changeView = (newView) => {
             class="map-button movements"
             @click="changeView(View.Movements)">
       <span class="icon">
-        <MovementsIcon/>
+        <PassengersIcon/>
       </span>
-      <span class="label">Movements</span>
+      <span class="label">Movements: Passengers</span>
+    </button>
+
+    <button :class="{ selected: selectedView === View.Medians }"
+            class="map-button medians"
+            @click="changeView(View.Medians)">
+      <span class="icon">
+        <MediansIcon/>
+      </span>
+      <span class="label">Movements: Medians</span>
     </button>
   </div>
 </template>

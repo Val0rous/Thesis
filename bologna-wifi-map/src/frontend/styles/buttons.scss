@@ -46,6 +46,7 @@ $z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
     height: 32px;
     border-radius: 16px;
     cursor: pointer;
+    white-space: nowrap;
     color: colors.$gray-900;
     scroll-snap-align: center;
     box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
@@ -64,6 +65,11 @@ $z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
       &.movements {
         background-color: colors.$deep-purple-200;
         border: 1px solid colors.$deep-purple-300;
+      }
+
+      &.medians {
+        background-color: colors.$purple-200;
+        border: 1px solid colors.$purple-300;
       }
 
       //.label {

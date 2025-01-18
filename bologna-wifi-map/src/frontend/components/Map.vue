@@ -202,6 +202,10 @@ watch(
         });
       } else if (newValue === View.Movements || newValue === View.Medians) {
         // TODO: still iterate over all polygons
+        polylines.value.forEach((polyline) => {
+          polyline.remove();
+        })
+        polylines.value = [];
         const list = getViewData(newValue)[date.value];
         areas.value.forEach((area) => {
           if (list[area.zone_id] !== undefined) {
