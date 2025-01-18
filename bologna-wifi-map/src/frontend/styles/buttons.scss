@@ -52,25 +52,27 @@ $z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
 
     &.selected {
       &.crowding {
-        background-color: colors.$deep-orange-400;
-        border-color: colors.$deep-orange-400;
+        background-color: colors.$orange-200;
+        border: 1px solid colors.$orange-300;
       }
 
       &.attendance {
-        background-color: colors.$red-400;
-        border-color: colors.$red-400;
+        background-color: colors.$red-200;
+        border: 1px solid colors.$red-300;
       }
 
       &.movements {
-        background-color: colors.$deep-purple-400;
-        border-color: colors.$deep-purple-400;
+        background-color: colors.$deep-purple-200;
+        border: 1px solid colors.$deep-purple-300;
       }
 
-      color: white;
-
-      .icon {
-        color: colors.$gray-50;
-      }
+      //.label {
+      //  color: white;
+      //}
+      //
+      //.icon {
+      //  color: colors.$gray-50;
+      //}
     }
 
     //&:first-of-type {

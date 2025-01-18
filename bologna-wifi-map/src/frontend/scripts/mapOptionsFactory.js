@@ -23,7 +23,7 @@ const mapOptionsFactory = (view, value) => {
 export default mapOptionsFactory;
 
 const colorMapping = {
-  [View.Crowding]: "DeepOrange",
+  [View.Crowding]: "Orange",
   [View.Attendance]: "Red",
   [View.Movements]: "DeepPurple",
   [View.Medians]: "Purple",

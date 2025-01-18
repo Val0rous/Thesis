@@ -36,28 +36,24 @@ const changeView = (newView) => {
       <span class="icon">
         <CrowdingIcon/>
       </span>
-      Crowding
+      <span class="label">Crowding</span>
     </button>
     <button :class="{ selected: selectedView === View.Attendance }"
             class="map-button attendance"
             @click="changeView(View.Attendance)">
       <span class="icon">
-      <slot>
         <AttendanceIcon/>
-      </slot>
-        </span>
-      Attendance
+      </span>
+      <span class="label">Attendance</span>
     </button>
 
     <button :class="{ selected: selectedView === View.Movements }"
             class="map-button movements"
             @click="changeView(View.Movements)">
       <span class="icon">
-      <slot>
         <MovementsIcon/>
-      </slot>
-        </span>
-      Movements
+      </span>
+      <span class="label">Movements</span>
     </button>
   </div>
 </template>
