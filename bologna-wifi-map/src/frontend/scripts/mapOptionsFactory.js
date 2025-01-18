@@ -3,16 +3,28 @@ import maxValues from "@/frontend/utils/maxValues.json";
 import Colors from "@/frontend/utils/colors.js";
 
 const shades = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"];
+const lineShades = ["A100", "A200", "A400", "A700"];
 
 /**
  * Generates map options with the appropriate color and shade.
  *
  * @param {View} view - The type of view (e.g., Crowding, Attendance).
  * @param {number} value - The numeric value to determine the shade.
+ * @param {boolean} isPolyline - Polygon if false (default), Polyline if true
  * @returns {{ color: string, fillColor: string, fillOpacity: number }} - The map options.
  */
-const mapOptionsFactory = (view, value) => {
-  const shade = Colors[shadeFactory(view, value)];
+const mapOptionsFactory = (view, value, isPolyline = false) => {
+  const shade = Colors[shadeFactory(view, value, isPolyline)];
+
+  if (isPolyline) {
+    return {
+      color: shade,
+      fillColor: shade,
+      fillOpacity: 1,
+      weight: weightFactory(view, value),
+    }
+  }
+
   return {
     color: shade,
     fillColor: shade,
@@ -36,7 +48,7 @@ const colorFactory = (view) => {
   return colorMapping[view];
 }
 
-const shadeFactory = (view, value) => {
+const shadeFactory = (view, value, isPolyline = false) => {
   if (view === View.Areas) {
     return "Blue600";
   }
@@ -50,11 +62,23 @@ const shadeFactory = (view, value) => {
 
   const normalizedValue = value / maxValue; // Scale to [0, 1]
   const pseudoLogValue = Math.sqrt(normalizedValue);  // Adjust for smaller differences at low values
-  const index = Math.floor(pseudoLogValue * (shades.length - 1)); // Map to shade index
 
   // // Linear
   // const interval = maxValue / (shades.length);
   // const index = Math.floor(value / interval);
 
+  if (isPolyline) {
+    const index = Math.floor(pseudoLogValue * (lineShades.length));
+    return colorFactory(view) + lineShades[index];
+  }
+
+  const index = Math.floor(pseudoLogValue * (shades.length)); // Map to shade index
   return colorFactory(view) + shades[index];
+}
+
+const weightFactory = (view, value) => {
+  const maxValue = maxValues[view];
+  const normalizedValue = value / maxValue;
+  const pseudoLogValue = Math.sqrt(normalizedValue);
+  return (Math.floor(pseudoLogValue * (lineShades.length)) + 1) * 1.5;
 }

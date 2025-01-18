@@ -205,22 +205,29 @@ watch(
         const list = getViewData(newValue)[date.value];
         areas.value.forEach((area) => {
           if (list[area.zone_id] !== undefined) {
-            const polygon = polygons.value[area.zone_id];
-            polygon.setStyle(mapOptionsFactory(newValue, 2000));
+            let isNonZero = false;
             for (const zoneIdTo in list[area.zone_id]) {
               /** @type {Area} */
               const areaTo = areas.value.find((it) => it.zone_id === zoneIdTo);
+              const value = list[area.zone_id][zoneIdTo][hour.value];
+              if (value === 0) {
+                continue;
+              }
+              isNonZero = true;
               const polyline = L.polyline([
                 [area.latitude, area.longitude],
                 [areaTo.latitude, areaTo.longitude]
-              ], lineOptions);
+              ], mapOptionsFactory(newValue, value, true));
               polyline.addTo(map.value);
-              polylineset
+              const popupContent = value.toString();
+              polyline.bindPopup(popupContent);
               polylines.value.push(polyline);
               // const polygon = polygons.value[zoneIdTo];
               // polygon.setStyle(mapOptionsFactory(newValue, 2000));
-              const value = list[area.zone_id][zoneIdTo][hour.value];
             }
+            const polygonValue = isNonZero ? 2000 : 0;
+            const polygon = polygons.value[area.zone_id];
+            polygon.setStyle(mapOptionsFactory(newValue, polygonValue));
           } else {
             const polygon = polygons.value[area.zone_id];
             let popupContent = `<b>${area.zone_name}</b></br>`;
