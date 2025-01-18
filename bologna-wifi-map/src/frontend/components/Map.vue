@@ -205,6 +205,12 @@ watch(
             const value = subList[zoneIdTo][hour.value];
           }
         }
+      } else {
+        areas.value.forEach((area) => {
+          const polygon = polygons.value[area.zone_id];
+          let popupContent = `<b>${area.zone_name}</b></br>`;
+          polygon.setStyle(mapOptionsFactory(newValue, NaN));
+        })
       }
     }
 )

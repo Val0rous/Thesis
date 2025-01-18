@@ -6,6 +6,7 @@ import TopBar from "@/frontend/components/TopBar.vue";
 import {ref} from "vue";
 import View from "@/frontend/utils/views.js";
 
+/** @type {Ref<View>} */
 const view = ref(View.Areas);
 const updateView = (newView) => {
   view.value = newView;
@@ -18,7 +19,6 @@ const updateView = (newView) => {
   </header>
   <main>
     <Map :view="view" @update:view="updateView"/>
-    {{ console.log(view) }}
   </main>
 </template>
 

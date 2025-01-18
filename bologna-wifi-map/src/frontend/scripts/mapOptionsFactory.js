@@ -42,7 +42,7 @@ const shadeFactory = (view, value) => {
   }
   const maxValue = maxValues[view];
   if (value === 0) {
-    return "Gray600";
+    return "Gray500";
   }
   if (value >= maxValue) {
     return colorFactory(view) + "900";
