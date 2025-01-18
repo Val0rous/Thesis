@@ -38,6 +38,8 @@ const movements = ref([]);
 const medians = ref([]);
 /** @type { Ref<Polygon<any>[]>} */
 const polygons = ref([]);
+/** @type {Ref<Polyline<LineString | MultiLineString, any>[]>} */
+const polylines = ref([]);
 
 /** @type {Ref<string>} */
 const date = ref("2024-04-22");
@@ -186,31 +188,67 @@ watch(
     (newValue) => {
       // updatePolygons(polygons.value, newValue)
       if (newValue === View.Crowding || newValue === View.Attendance) {
+        polylines.value.forEach((polyline) => {
+          polyline.remove();
+        })
+        polylines.value = [];
         areas.value.forEach((area) => {
           const polygon = polygons.value[area.zone_id];
           let popupContent = `<b>${area.zone_name}</b></br>`;
-          polygon.setStyle(mapOptionsFactory(newValue, getViewData(newValue)[date.value][area.zone_id][hour.value]));
           popupContent += `Value: ${getViewData(newValue)[date.value][area.zone_id][hour.value]} / ${maxValues[newValue]}`;
+          polygon.setStyle(mapOptionsFactory(newValue, getViewData(newValue)[date.value][area.zone_id][hour.value]));
           polygon.setPopupContent(popupContent);
           // console.log(area, getViewData(newValue)[date.value][area.zone_id][hour.value]);
         });
       } else if (newValue === View.Movements || newValue === View.Medians) {
         // TODO: still iterate over all polygons
         const list = getViewData(newValue)[date.value];
-        for (const zoneIdFrom in list) {
-          const subList = list[zoneIdFrom];
-          const polygon = polygons.value[zoneIdFrom];
-          polygon.setStyle(mapOptionsFactory(newValue, 2000));
-          for (const zoneIdTo in subList) {
-            const value = subList[zoneIdTo][hour.value];
+        areas.value.forEach((area) => {
+          if (list[area.zone_id] !== undefined) {
+            const polygon = polygons.value[area.zone_id];
+            polygon.setStyle(mapOptionsFactory(newValue, 2000));
+            for (const zoneIdTo in list[area.zone_id]) {
+              /** @type {Area} */
+              const areaTo = areas.value.find((it) => it.zone_id === zoneIdTo);
+              const polyline = L.polyline([
+                [area.latitude, area.longitude],
+                [areaTo.latitude, areaTo.longitude]
+              ], lineOptions);
+              polyline.addTo(map.value);
+              polylineset
+              polylines.value.push(polyline);
+              // const polygon = polygons.value[zoneIdTo];
+              // polygon.setStyle(mapOptionsFactory(newValue, 2000));
+              const value = list[area.zone_id][zoneIdTo][hour.value];
+            }
+          } else {
+            const polygon = polygons.value[area.zone_id];
+            let popupContent = `<b>${area.zone_name}</b></br>`;
+            polygon.setStyle(mapOptionsFactory(newValue, 0));
+            polygon.setPopupContent(popupContent);
           }
-        }
+        });
+
+        // for (const zoneIdFrom in list) {
+        //   const subList = list[zoneIdFrom];
+        //   const polygon = polygons.value[zoneIdFrom];
+        //   polygon.setStyle(mapOptionsFactory(newValue, 2000));
+        //   for (const zoneIdTo in subList) {
+        //     const value = subList[zoneIdTo][hour.value];
+        //   }
+        // }
+
       } else {
+        polylines.value.forEach((polyline) => {
+          polyline.remove();
+        })
+        polylines.value = [];
         areas.value.forEach((area) => {
           const polygon = polygons.value[area.zone_id];
           let popupContent = `<b>${area.zone_name}</b></br>`;
           polygon.setStyle(mapOptionsFactory(newValue, NaN));
-        })
+          polygon.setPopupContent(popupContent);
+        });
       }
     }
 )

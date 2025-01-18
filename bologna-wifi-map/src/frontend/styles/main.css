@@ -22,7 +22,7 @@
 }
 .view-buttons .map-button {
   background-color: #FAFAFA;
-  border: 1px solid #FAFAFA;
+  border: 1px solid #F5F5F5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,8 +48,11 @@
   background-color: #B39DDB;
   border: 1px solid #9575CD;
 }
+.view-buttons .map-button.selected .icon {
+  color: #212121;
+}
 .view-buttons .map-button:hover {
-  border-color: #F5F5F5;
+  border-color: #EEEEEE;
   background-color: #F5F5F5;
 }
 .view-buttons .map-button .icon {

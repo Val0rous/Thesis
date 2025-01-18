@@ -19,8 +19,9 @@ export const clickOptions = {
 }
 
 export const lineOptions = {
-  color: Colors.Purple500,
-  fillColor: Colors.Purple500,
+  color: Colors.DeepPurple500,
+  fillColor: Colors.DeepPurple500,
   fillOpacity: 0.8,
-  weight: 8,
+  weight: 1.5,
+  // dashArray: "5, 10",
 }
