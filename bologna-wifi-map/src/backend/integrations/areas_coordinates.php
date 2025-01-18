@@ -24,8 +24,14 @@ function fetchAreas(array $urls, DatabaseHelper $db): void
     }
     echo "Total number of fetched zone IDs: " . count($crowdingList) . PHP_EOL;
 
-    $alreadyFetchedAreas = $db->getAllZoneIds();
-    $crowdingList = array_diff_key($crowdingList, $alreadyFetchedAreas);
+    $alreadyFetchedAreas = array_column($db->getAllZoneIds(), "zone_id");
+    $diff = [];
+    foreach ($crowdingList as $crowding) {
+        if (!in_array($crowding, $alreadyFetchedAreas)) {
+            $diff[] = $crowding;
+        }
+    }
+    $crowdingList = $diff;
     echo "Number of zone IDs to add: " . count($crowdingList) . PHP_EOL;
 
     // Fetch area and coordinates for each new zone ID
