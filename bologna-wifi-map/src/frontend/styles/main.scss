@@ -20,7 +20,7 @@
 main {
   margin: 0;
   width: 100%;
-  height: calc(100% - var(--header-height));
+  height: calc(100% - 2 * var(--header-height));
   box-sizing: border-box;
   padding: 0;
 }

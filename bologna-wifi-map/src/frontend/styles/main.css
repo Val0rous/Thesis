@@ -72,6 +72,7 @@
 
 header {
   background-color: #F5F5F5;
+  box-sizing: border-box;
 }
 header .header {
   height: var(--header-height);
@@ -80,7 +81,8 @@ header .header {
   align-items: center;
   font: 400 20px "Helvetica Neue", Arial, Helvetica, sans-serif;
   justify-content: space-between;
-  border-bottom: 1px solid #EEEEEE;
+  border-bottom: 1px solid #E0E0E0;
+  box-sizing: border-box;
 }
 header .header .menu {
   display: flex;
@@ -95,10 +97,9 @@ header .header .logo {
 header .header .logo img {
   height: 31px;
 }
-header .header .material-symbols-rounded {
+header .header .icon {
   padding: 0 16px;
   cursor: pointer;
-  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 header .datetime-setup {
   height: 48px;
@@ -106,12 +107,43 @@ header .datetime-setup {
   align-items: center;
   justify-content: space-evenly;
   font: 400 16px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  border-bottom: 1px solid #E0E0E0;
 }
 header .datetime-setup .date-setup, header .datetime-setup .time-setup {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  gap: 8px;
+  justify-content: flex-start;
+  width: 100%;
+  height: 48px;
+  flex: 1;
+}
+header .datetime-setup .icon {
+  padding: 0 16px;
+  color: #424242;
+}
+header .datetime-setup .variation-icon {
+  padding: 0;
+  background-color: #757575;
+  color: #FAFAFA;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  height: 16px;
+  width: 16px;
+}
+header .datetime-setup .variation-icon.minus {
+  margin-left: 4px;
+  margin-right: 12px;
+}
+header .datetime-setup .variation-icon.plus {
+  margin-left: 12px;
+  margin-right: 12px;
+}
+header .datetime-setup .variation-icon:hover {
+  background-color: #616161;
+}
+header .datetime-setup .variation-icon:focus, header .datetime-setup .variation-icon:active {
+  background-color: #424242;
 }
 header .datetime-setup input {
   border: 1px solid #BDBDBD;
@@ -150,7 +182,7 @@ header .datetime-setup input:focus {
 main {
   margin: 0;
   width: 100%;
-  height: calc(100% - var(--header-height));
+  height: calc(100% - 2 * var(--header-height));
   box-sizing: border-box;
   padding: 0;
 }
