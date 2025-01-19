@@ -1,6 +1,7 @@
 //@use "base";
 @use "buttons";
-@use "./colors";
+@use "topbar";
+@use "colors";
 
 #app {
   /*max-width: 1280px;*/
@@ -16,40 +17,6 @@
   --header-height: 48px;
 }
 
-.header {
-  height: var(--header-height);
-  z-index: 1000;
-  background-color: colors.$gray-50;
-  display: flex;
-  align-items: center;
-  font: 400 20px "Helvetica Neue", Arial, Helvetica, sans-serif;
-  justify-content: space-between;
-  border-bottom: 1px solid colors.$gray-200;
-
-  .menu {
-    display: flex;
-    align-items: center;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .logo {
-    padding: 0 16px;
-    height: 31px;
-
-    img {
-      height: 31px;
-    }
-  }
-
-  .material-symbols-rounded {
-    padding: 0 16px;
-    cursor: pointer;
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  }
-}
-
-
 main {
   margin: 0;
   width: 100%;
@@ -57,7 +24,6 @@ main {
   box-sizing: border-box;
   padding: 0;
 }
-
 
 a,
 .green {

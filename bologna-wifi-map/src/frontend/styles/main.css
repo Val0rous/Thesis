@@ -70,6 +70,70 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+header {
+  background-color: #F5F5F5;
+}
+header .header {
+  height: var(--header-height);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  font: 400 20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  justify-content: space-between;
+  border-bottom: 1px solid #EEEEEE;
+}
+header .header .menu {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+header .header .logo {
+  padding: 0 16px;
+  height: 31px;
+}
+header .header .logo img {
+  height: 31px;
+}
+header .header .material-symbols-rounded {
+  padding: 0 16px;
+  cursor: pointer;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+header .datetime-setup {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font: 400 16px "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+header .datetime-setup .date-setup, header .datetime-setup .time-setup {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 8px;
+}
+header .datetime-setup input {
+  border: 1px solid #BDBDBD;
+  border-radius: 16px;
+  height: 28px;
+  background-color: #FAFAFA;
+  padding: 2px 12px;
+  outline: none;
+}
+header .datetime-setup input#date {
+  max-width: 100px;
+}
+header .datetime-setup input#hour, header .datetime-setup input::-webkit-inner-spin-button {
+  max-width: 17px;
+  appearance: none;
+  -webkit-appearance: none; /* For Chrome, Safari, Edge */
+  -moz-appearance: textfield; /* For Firefox */
+}
+header .datetime-setup input:focus {
+  border-color: #9E9E9E;
+}
+
 #app {
   /*max-width: 1280px;*/
   /*margin: 0 auto;*/
@@ -81,35 +145,6 @@
 
 :root {
   --header-height: 48px;
-}
-
-.header {
-  height: var(--header-height);
-  z-index: 1000;
-  background-color: #FAFAFA;
-  display: flex;
-  align-items: center;
-  font: 400 20px "Helvetica Neue", Arial, Helvetica, sans-serif;
-  justify-content: space-between;
-  border-bottom: 1px solid #EEEEEE;
-}
-.header .menu {
-  display: flex;
-  align-items: center;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-.header .logo {
-  padding: 0 16px;
-  height: 31px;
-}
-.header .logo img {
-  height: 31px;
-}
-.header .material-symbols-rounded {
-  padding: 0 16px;
-  cursor: pointer;
-  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
 main {

@@ -105,6 +105,7 @@ export const updatePolygons = async (props, data, map, newView, newDate, newHour
   }
   const viewData = getViewData(newView, data);
   if (newView === View.Crowding || newView === View.Attendance) {
+    console.log(viewData);
     data.polylines.value.forEach((polyline) => {
       polyline.remove();
     })
@@ -112,8 +113,10 @@ export const updatePolygons = async (props, data, map, newView, newDate, newHour
     data.areas.value.forEach((area) => {
       const polygon = data.polygons.value[area.zone_id];
       let popupContent = `<b>${area.zone_name}</b></br>`;
-      popupContent += `Value: ${viewData[props.date][area.zone_id][props.hour]} / ${maxValues[newView]}`;
-      polygon.setStyle(mapOptionsFactory(newView, viewData[props.date][area.zone_id][props.hour]));
+      const dailyValues = viewData[props.date][area.zone_id];
+      const value = (dailyValues !== undefined) ? dailyValues[props.hour] : NaN;
+      popupContent += `Value: ${value} / ${maxValues[newView]}`;
+      polygon.setStyle(mapOptionsFactory(newView, value));
       polygon.setPopupContent(popupContent);
       // console.log(area, viewData[date.value][area.zone_id][hour.value]);
     });

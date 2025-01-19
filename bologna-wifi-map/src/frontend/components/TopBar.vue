@@ -32,10 +32,14 @@ const updateHour = () => {
     </div>
   </div>
   <div class="datetime-setup">
-    <label for="date">Date:</label>
-    <input id="date" v-model="date" type="date" @change="updateDate"/>
+    <div class="date-setup">
+      <label for="date">Date:</label>
+      <input id="date" v-model="date" type="date" @change="updateDate"/>
+    </div>
 
-    <label for="hour">Hour:</label>
-    <input id="hour" v-model.number="hour" max="23" min="0" type="number" @change="updateHour"/>
+    <div class="time-setup">
+      <label for="hour">Hour:</label>
+      <input id="hour" v-model.number="hour" max="23" min="0" type="number" @change="updateHour"/>
+    </div>
   </div>
 </template>
