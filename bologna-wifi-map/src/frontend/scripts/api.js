@@ -49,7 +49,6 @@ export const fetchCrowdingAttendance = async (date, crowding, attendance) => {
       /** @type {CrowdingAttendance} */
       let results = data.results;
       addObjectToKey(crowding, date, results.crowding);
-      console.log(results.crowding["ateliersaperi"]);
       addObjectToKey(attendance, date, results.attendance);
     } else {
       console.error("Failed to fetch crowding and attendance: ", data.message);
@@ -80,7 +79,6 @@ export const fetchMovements = async (date, movements, medians) => {
     if (data.success) {
       /** @type {MovementsMedians} */
       let results = data.results;
-      console.log(results.tot_pass);
       addObjectToKey(movements, date, results.tot_pass);
       addObjectToKey(medians, date, results.percentile_50);
     } else {

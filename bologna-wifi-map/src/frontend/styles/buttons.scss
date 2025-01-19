@@ -72,10 +72,6 @@ $z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
         border: 1px solid colors.$purple-300;
       }
 
-      //.label {
-      //  color: white;
-      //}
-      //
       .icon {
         color: colors.$gray-900;
       }
@@ -96,6 +92,13 @@ $z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
 
     .icon {
       color: colors.$gray-800;
+      display: flex;
+      align-items: center;
+    }
+
+    .label {
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
   }
 }

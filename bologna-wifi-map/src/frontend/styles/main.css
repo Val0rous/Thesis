@@ -62,6 +62,12 @@
 }
 .view-buttons .map-button .icon {
   color: #424242;
+  display: flex;
+  align-items: center;
+}
+.view-buttons .map-button .label {
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #app {
