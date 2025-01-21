@@ -1,0 +1,102 @@
+\documentclass[12pt, a4paper, openright, twoside]{report} % Use report or book for thesis style, default style was article
+\usepackage{graphicx} % Required to import external graphics files
+\graphicspath{ {./images/} }
+\usepackage[italian]{babel} % Set document language
+\usepackage{xcolor} % Text color (use [dvipsnames] for additional colors, with different naming)
+\usepackage{tabularx} % Tables with auto-sizing columns
+\usepackage{multirow} % Tables with headers spanning multiple columns
+\def\code#1{\texttt{#1}} % Monospace code font with a nicer name than the default texttt, which TBH just looks like a typo
+\usepackage{float} % Makes you able to display a figure exactly where you place it, thanks to attribute [H]
+\usepackage{enumitem} % Makes it possible to remove indentation from lists
+\usepackage[utf8]{inputenc} % Set document encoding to UTF-8. You could also use \usepackage[T1]{fontenc}, but it would increase compile time
+\definecolor{MaterialBlue}{HTML}{0843D8} % Material Design Blue, using it for hyperlinks
+\usepackage{indentfirst} % Indent first line in chapters
+\usepackage{titlesec}
+\titleformat{\chapter}{}{}{0em}{\bf\Huge} % Remove "Chapter N" heading, leaving chapter title only at its default font size and style
+
+\usepackage{fancyhdr}   % Set document
+\usepackage{newlfont}   % Use specific fonts, such as \textsc{}
+
+% Math libraries
+\usepackage{amssymb}
+\usepackage{amsmath} % Create matrices
+\usepackage{latexsym}
+\usepackage{amsthm}
+\usepackage{cite}
+\usepackage{listings}
+\usepackage{hyperref} % Hyperlinks for websites
+\usepackage[square, numbers, sort]{natbib}
+
+\oddsidemargin = 30pt % Vertical margin
+\evensidemargin = 20pt % Horizontal margin
+
+\linespread{1.3} % Set line height
+
+\lstset{
+	frame=single,
+	breaklines=true
+}
+
+\hyphenation{sil-la-ba-zio-ne pa-ren-te-si} % Hyphenation within parentheses: insert each word that LaTeX can't break correctly into a newline
+
+% Page setup using fancyhdr library
+\pagestyle{fancy}\addtolength{\headwidth}{20pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\cfoot{}
+
+% \maketitle
+
+\newcommand{\xsupervisor}{Giovanni Delnevo}
+\newcommand{\xstudent}{Francesco Valentini}
+
+
+\begin{document}
+
+% Choose page size
+%\setlength{\textwidth}{13.5cm}
+%\setlength{\textheight}{19cm}
+%\setlength{\footskip}{3cm}
+
+\input{front/Frontespizio.tex}
+\input{front/Dedica.tex}
+\input{front/Introduzione.tex}
+
+\tableofcontents    % Create index of contents
+\newpage
+% Set page header
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
+INDICE}}
+% No numbering on last page on left side
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\listoffigures  % Create index of figures
+\newpage
+% No numbering on last page on left side
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\listoftables   % List of tables
+\newpage
+
+\input{main/Chapter1.tex}
+\input{main/Chapter2.tex}
+\input{main/Chapter3.tex}
+
+\input{back/Conclusioni.tex}
+
+%\input{./Appendice/appendice.tex}
+
+\input{back/Ringraziamenti.tex}
+
+\input{back/Bibliografia.tex}
+
+
+\nocite{*}
+
+%\cleardoublepage
+
+%\listoffigures
+%\listoftables
+
+
+\end{document}

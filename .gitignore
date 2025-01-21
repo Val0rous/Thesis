@@ -1,2 +1,11 @@
 .idea/
 /package-lock.json
+*.out
+*.log
+*.fls
+*.fdb_latexmk
+*.aux
+*.synctex.gz
+*.toc
+*.lof
+*.lot
