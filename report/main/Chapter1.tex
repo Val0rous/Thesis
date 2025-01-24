@@ -3,7 +3,8 @@
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}
 \pagenumbering{arabic}
 
-TODO: descrizione di una pagina sugli argomenti che andremo a trattare in questo capitolo \newpage
+In questo capitolo andremo a esplorare alcune delle tecnologie emergenti nel settore digitale che stanno inesorabilmente trasformando il mondo che ci circonda, lasciando un impatto sulla realtà. Vedremo i soggetti chiave di questo cambiamento, sia a livello globale parlando di \textit{Open Data} in generale, sia trattando gli impatti che questi ultimi stanno lasciando a livello locale sul nostro territorio, con progetti come \textit{BolognaWiFi} del Comune di Bologna. Quindi, solleveremo la questione di come questi dati possano essere visualizzati per riuscire a trarne il maggior beneficio, e infine analizzeremo gli impatti di queste iniziative sulla realtà, considerandone sia le sfide che le opportunità offerte.
+% TODO: descrizione di una pagina sugli argomenti che andremo a trattare in questo capitolo \newpage
 
 \section{Open Data} % : definizione e contesto
 Le nuove tecnologie permettono di creare servizi in grado di migliorare la vita dei cittadini e di far funzionare più efficientemente governi e società. Molti dei dati necessari a raggiungere questi obiettivi sono prodotti da organismi pubblici, tuttavia spesso tali dati non sono disponibili in formati che li rendano facili da manipolare. Per questo motivo, da diversi anni si utilizza la nozione di \textit{open data}, i cosiddetti dati aperti, e più specificamente gli \textit{open government data}, ovvero quelli riguardanti il settore pubblico del governo, intesi come informazione, pubblica o privata, accessibile e riutilizzabile da chiunque e per qualsiasi fine. Come possiamo vedere in Figura~\ref{fig:open_data_google_trends}, l'uso comune del termine inizia nel 2009, quando diversi governi hanno annunciato nuove iniziative per l'apertura della loro informazione pubblica, tra cui quelli di Stati Uniti, Regno Unito, Canada e Nuova Zelanda \cite{OpenDataHandbook_Introduction}.
@@ -158,11 +159,27 @@ Lo scopo principale del progetto BolognaWiFi è quello di abbattere il \textit{d
 
 
 \subsubsection{Tipologie di dati raccolti}
-Flussi utenti
+% Flussi utenti
+% Accessi WiFi
+% Affluenza in aree urbane
+Il servizio BolognaWiFi, come gli altri servizi di EmiliaRomagnaWiFi, nel corso del suo funzionamento raccoglie automaticamente alcuni dati personali dell'utente necessariamente correlati alle attività tecniche strumentali alla resa del servizio in questione. In particolare, sono trattati:
+\begin{itemize}
+    \item Timestamp di richiesta o di rinnovo o di cessazione dell'indirizzo IP alla rete da parte del dispositivo mobile.
+    \item Indirizzo IP intranet assegnato al dispositivo mobile dalla rete.
+    \item Identificativo MAC address del dispositivo mobile immediatamente pseudonimizzato con opportuni algoritmi non invertibili.
+\end{itemize}
+L'indirizzo IP intranet assegnato viene utilizzato in tutti i punti di accesso che fanno capo ad una stessa rete. La dimensione di una rete varia a seconda dei territori, ma tipicamente è costruita in modo da includere almeno tre diversi punti di accesso.
+Il trattamento dei dati è necessario per l'esecuzione di compiti di interesse pubblico o connessi all'esercizio di pubblici poteri di cui è investita la regione Emilia-Romagna e non necessita di un consenso. Nello specifico, all'interno del servizio BolognaWiFi (EmiliaRomagnaWiFi) i dati personali acquisiti vengono trattati per lo svolgimento di funzioni istituzionali e, in particolare, è finalizzato a offrire il servizio di WiFi a banda ultra larga, pubblico, libero, senza autenticazione e gratuito, monitorandone il corretto funzionamento al fine di assicurarne qualità, continuità e accessibilità.
+I dati personali acquisiti sono trattati, con strumenti informatici, rispettando i principi stabiliti dalla normativa vigente, attraverso modalità idonee a garantire la riservatezza e la sicurezza dei dati. In particolare, vengono rispettati i principi di liceità, correttezza, trasparenza, limitazione delle finalità, minimizzazione dei dati, esattezza, limitazione della conservazione, integrità e riservatezza, e responsabilizzazione stabiliti dal GDPR. Il trattamento di aggregazione ed elaborazione per fini statistici viene effettuato su dati pseudonimizzati e qualsiasi statistica puntuale viene prodotta se coinvolge almeno tre diversi dispositivi mobili. I dati raccolti non consentono di identificare la posizione del dispositivo mobile tra i punti di accesso che fanno parte della stessa rete. Diventa quindi impossibile procedere a una reidentificazione dell'interessato, a meno che tale soggetto non lo richieda direttamente, indicando il proprio MAC address. Anche in questo caso, ciò è possibile solamente se tale indirizzo non è stato rigenerato casualmente dal sistema operativo del dispositivo mobile. I dati personali non sono oggetto di comunicazione o diffusione e non sono mai trasferiti al di fuori dell'Unione Europea. Rimane il fatto che il conferimento dei dati non sia obbligatorio \cite{Informativa_EmiliaRomagnaWiFi}.
 
-Accessi WiFi
-
-Affluenza in aree urbane
+A partire da questi dati grezzi vengono poi ricavati dati più elaborati in forma aggregata su base giornaliera, come:
+\begin{itemize}
+    \item Matrice spostamenti: totale degli spostamenti orari delle persone da e verso ciascuna zona coperta da WiFi pubblico \cite{BolognaWiFi_Spostamenti}.
+    \item Affluenza: viene registrato il numero di dispositivi che sono entrati in una data area coperta da WiFi pubblico, per ogni ora del giorno \cite{BolognaWiFi_Affluenza}.
+    \item Affollamento: viene registrato il numero di dispositivi che sono presenti in una certa zona coperta da WiFi pubblico, per ogni ora del giorno \cite{BolognaWiFi_Affollamento}.
+    \item Connessioni giornaliere: viene registrato il totale di connessioni giornaliere al servizio di WiFi pubblico BolognaWiFi. Uno stesso dispositivo che si collega più volte al servizio nell'arco di 24 ore viene contato una volta sola \cite{BolognaWiFi_Connessioni_Giornaliere}.
+\end{itemize}
+Oltre a questi dati, vengono salvati anche l'elenco di hotspot \cite{BolognaWiFi_Elenco_Hotspot} assieme all'elenco di aree coperte da segnale del BolognaWiFi \cite{BolognaWiFi_Elenco_Aree_Segnale}.
 
 \subsubsection{Statistiche recenti}
 Dati sull'uso del WiFi pubblico a Bologna
@@ -175,6 +192,21 @@ Report e analisi pubblicati dal Comune
 
 \section{Visualizzazione dei dati}  % Analisi e
 \subsection{Importanza della visualizzazione}
+La \textit{data visualization} consente alle Città di comunicare facilmente con i Cittadini, visualizzando le città e le loro dinamiche attraverso strumenti capaci di trasformarle in rappresentazioni grafiche o schematiche. In questo modo, si offrono ai cittadini informazioni rapide ed esaustive per costruire un dialogo con l'amministrazione, facendo della Data Visualization una grande opportunità per città sempre più smart.
+Nel mondo, il 90\% dei dati circolanti è stato generato negli ultimi due anni. Ogni giorno generiamo globlamente 2.5 EB (Exabytes) di nuovi dati e colleghiamo alla rete circa 1000 miliardi di dispositivi e oggetti a livello globale, creando un ambiente davvero favorevole all'Internet of Things (IoT).
+La data visualization, detta anche visualizzazione dati, è la rappresentazione dei dati in formato grafico o comunque visivo, la quale permette di analizzare grandi quantità di dati, ovvero i Big Data, in modo semplice, tramite grafici e rappresentazioni più comprensibili di una lista grezza di dati. Data la nostra scarsissima soglia di attenzione, che secondo gli ultimi rilievi si attesta a circa 8 secondi, questa tecnica diventa importantissima data la grande disponibilità di informazioni che possediamo. Le rappresentazioni grafiche più semplici sono anche quelle più riuscite, e al contempo le più potenti.
+Le nostre città generano continuamente dei dati, basta considerare la tradizionale urbanistica, i flussi di traffico, la disponibilità di parcheggio, la qualità dell'aria, la gestione energetica e la sensoristica avanzata. I sistemi informativi territoriali offrono da molto tempo un sistema per analizzare velocemente questi dati, capaci di evolvere velocemente nel tempo e fornire agli amministratori delle informazioni in modo rapido ed efficace. Tra tutte queste tecniche di elaborazione di dati e visualizzazione, alcune sono ormai canonizzate e considerabili \textit{commodity}, ma dall'arrivo di Google Maps e della presenza ubiquitaria di strumenti di localizzazione abbiamo una nuova ondata di \textit{location awareness} da parte degli utenti finali, siano essi cittadin residenti, turisti o businessmen, che può essere utilizzata dalle amministrazioni per migliorare il dialogo tra pubblico e privato.
+Per esempio, affermare che l'impatto del cambiamento climatico stia rendendo più complessa la vivibilità delle città, o che entro 30 anni le città accoglieranno più di 2.5 miliardi di persone, è diverso dal mostrare una mappa della stessa città con l'andamento delle temperature medie nel tempo per ogni zona, o una mappa dell'Italia avente i flussi migratori in entrata e uscita, sia interni che esterni.
+Riguardo alle applicazioni \textit{business to business}, o B2B, la data visualization ha un forte impatto in quanto permette di analizzare i fenomeni in modo multidimensionale dove la localizzazione geografica può avere un forte impatto e consente quindi la comprensione di situazioni che sarebbero difficili da analizzare mediante una visione tabellare del fenomeno.
+Inoltre, per via del modo in cui il cervello umano elabora le informazioni, per visualizzare grandi moli di dati è più efficace e comprensibile impiegare mappe, grafici, illustrazioni o combinazioni di questi, rispetto all'utilizzo di fogli di calcolo o report.
+La data visualization, oltre alla facilità di comprensione, permette:
+\begin{itemize}
+    \item Riconoscimento di pattern nei dati in modo intuitivo e veloce.
+    \item Rapida identificazione degli outlier, ossia gli elementi che non seguono nessun trend particolare.
+    \item Comprensione di fattori che influenzano i fenomeni.
+    \item Predizione di fenomeni e trend \cite{DataVisualization_Citta}.
+\end{itemize}
+
 \subsubsection{Analisi dei dati urbani}
 Esempi pratici e benefici
 
@@ -182,9 +214,39 @@ Esempi pratici e benefici
 Impatti sulle amministrazioni pubbliche
 
 \subsection{Caratteristiche di una buona visualizzazione}
-Chiarezza e semplicità
-
-Interattività e Accessibilità
+% Chiarezza e semplicità
+% Interattività e Accessibilità
+La disciplina della Visualizzazione Dati è in continua evoluzione, dato l'uso sempre più ampio in un numero di campi sempre maggiore. All'inizio era solamente possibile trasformare i dati in grafici statici, ma oggi l'evoluzione ha portato a possiblità straordinarie.
+Per costruire una buona visualizzazione dati, ci sono tre aspetti fondamentali:
+\begin{enumerate}
+    \item La visualizzazione deve essere efficace.
+    \item Deve evidenziare ed esplicare i dati e le connessioni tra dati troppo difficili da spiegare con sole parole.
+    \item Deve rendere facilmente comprensibili a chiunque sia le informazioni presentate, sia le possibili soluzioni al problema che si sta presentando.
+\end{enumerate}
+Ne è un esempio la seguente visualizzazione in Figura~\ref{fig:nintendo_sales} relativa alle vendite della console Nintendo Switch \texttrademark nel corso del tempo, ripartite tra software e hardware.
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{nintendo_sales.png}
+    \caption[Dataviz: vendite di console Nintendo Switch]{Quando pensiamo alla Nintendo Switch \texttrademark, la prima cosa che viene in mente è la console stessa. Tuttavia, i dati ci mostrano che l'89\% delle vendite nel 2020 hanno riguardato software compatibile con la console, e non il relativo hardware \cite{DataVisualization_Caratteristiche}.}
+    \label{fig:nintendo_sales}
+\end{figure}
+Queste regole di base sono molto generiche, ma devono restare una necessità sia quando di dati da gestire e presentare sono tanti, sia quando sono pochi. La complessità del lavoro non deve far desistere dal seguire queste linee guida, al contrario, maggiore è la mole di dati e più si rivela necessario seguire queste regole per arrivare a un buon risultato.
+La prima cosa da fare quando si pensa a una visualizzazione dati è capire esattamente qual è il messaggio che vogliamo trasmettere, e con quali dati. Inoltre, è molto importante avere chiaro qual è il tipo di utente che utilizzerà la nostra dashboard, per evitare di presentare informazioni giuste alle persone sbagliate, e viceversa. Per esempio, all'interno di un'azienda è molto difficile il direttore finanziario sia interessato ai \textit{conversion rate} delle ultime campagne di marketing, ma è molto più probabile che sia interessato alla spesa di queste campagne messa in relazione con i profitti che ha generato.
+Solitamente la complessità del lavoro deriva dal numero di variabili che entrano in gioco, di conseguenza è cruciale scegliere il tipo di grafico giusto.
+In generale, i grafici a torta o a ciambella sono da evitare se le variabili sono più di 3, poiché si arriva a un punto dove la visualizzazione non è più efficace e non riesce a trasmettere in modo chiaro il messaggio. Una distribuzione statistica di alcune variabili rappresentata con un tale grafico a torta, per esempio, sarebbe pressoché inutile, dato che l'utente non riuscirebbe a capire il messaggio. AL contrario, per la stessa visualizzazione della distribuzione statistica su dati numerici, sarebbe molto più adatto un istogramma, o un box plot, se abbiamo interesse nelle sue modalità e valori anomali.
+Riguardo ai colori, è significativo utilizzarli nel modo appropriato: nbel caso di una distribuzione statistica, in presenza di valori anomali o \textit{outliers}, per metterli in evidenza è consigliabile utilizzare dei colori accesi, così da farli risaltare e permettergli di comunicare già dei concetti in maniera autonoma. Per esempio, un mese dell'anno avente ricavi al di sopra della media potrebbe essere evidenziato in verde, colore che richiama un'idea positiva, mentre un mese avente costi fuori dalla media potrebnbe essere etichettato in rosso, per indicarne la negatività. In alternativa, potremmo anche utilizzare diverse sfumature dello stesso colore, assegnando una sfumatura intensa per i dati maggiori e una più tenue per quelli minori.
+Un'ottima visualizzazione dovrebbe ridurre la complessità insita nelle tante variabili dei dati e, nel caso si dovessero compiere delle scelte, queste devono sempre aiutare il processo decisionale. In un progetto complesso invece è ancora più indicato se i dati vengono presentati in modo gerarchico, seguendo le priorità aziendali.
+In generale, a prescindere dalle variabili e dalle osservazioni disponibili, basta seguire alcune regole pratiche per trasformare le visualizzazioni in un mezzo potente per illustrare il concetto alla base dei dati. Ne esistono tantissime, ma queste sono quelle principali:
+\begin{itemize}
+    \item Il colore del grafico non deve essere in contrasto con il background.
+    Lo sfondo dovrebbe essere abbastanza neutro, così da garantire la massima libertà in termini di sfumature e colori per i grafici. Bisogna inoltre tenere in mente il fatto che le dashboard potrebbero venire stampare, quindi un utilizzo eccessivo del nero sullo sfondo potrebbe essere controindicato.
+    \item Ogni variabile dovrebbe avere dei punti di riferimento, quando necessario.
+    Per esempio, se forniamo i dati in termini di vendita per l'anno corrente, non tutti potrebbero essere in grado di discernere se si tratti di performance buone o cattive, indipendentemente dal fatto che la curva sia in crescita o in decrescita. Se invece mostriamo anche i dati delle vendite dello scorso anno, possiamo creare un punto di riferimento in grado di aiutare chiunque a capire meglio il significato del grafico.
+    \item I grafici a barre vanno etichettati con i numeri, ma non eccessivamente.
+    Bisogna aggiungere solo le indicazioni strettamente necessarie per far comprendere, tenendo a mente che i numeri lunghi sono generalmente difficili da visualizzare e che, se la precisione del dato non è indispensabile, è consentito e anzi consigliato arrotondare. Ad esempio, il valore \textit{10 523} può essere arrotondato a \textit{10K}, incrementando la chiarezza e riducendo la complessità.
+    \item I dati vanno ordinati per enfatizzare la scala ove possibile, ma bisogna fare attenzione a non trasmettere un messaggio sbagliato.
+\end{itemize}
+La regola generale è che, minore è il quantitativo di dati che utilizziamo nelle visualizzazioni, maggiore è la chiarezza di quella risultante. Bisogna lavorare con l'essenziale in termini di grafica \cite{DataVisualization_Caratteristiche}.
 
 \subsection{Strumenti di visualizzazione}
 \subsubsection{Panoramica degli strumenti comuni}
