@@ -70,8 +70,25 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+@media (prefers-color-scheme: dark) {
+  .view-buttons .map-button {
+    background-color: #212121;
+    border-color: #424242;
+    color: #FAFAFA;
+  }
+  .view-buttons .map-button .icon {
+    color: #FAFAFA;
+  }
+  .view-buttons .map-button.selected {
+    color: #212121;
+  }
+  .view-buttons .map-button:hover {
+    border-color: #616161;
+    background-color: #424242;
+  }
+}
 header {
-  background-color: #F5F5F5;
+  background-color: #FAFAFA;
   box-sizing: border-box;
 }
 header .header {
@@ -149,7 +166,7 @@ header .datetime-setup input {
   border: 1px solid #BDBDBD;
   border-radius: 16px;
   height: 28px;
-  background-color: #FAFAFA;
+  background-color: #FFFFFF;
   padding: 2px 12px;
   outline: none;
 }
@@ -166,6 +183,39 @@ header .datetime-setup input:focus {
   border-color: #9E9E9E;
 }
 
+@media (prefers-color-scheme: dark) {
+  header {
+    background-color: #212121;
+  }
+  header .header {
+    border-bottom-color: #424242;
+  }
+  header .header .menu {
+    color: #FAFAFA;
+  }
+  header .datetime-setup {
+    border-bottom-color: #424242;
+  }
+  header .datetime-setup .icon {
+    color: #FAFAFA;
+  }
+  header .datetime-setup .variation-icon {
+    background-color: #424242;
+  }
+  header .datetime-setup .variation-icon:hover {
+    background-color: #616161;
+  }
+  header .datetime-setup .variation-icon:focus, header .datetime-setup .variation-icon:active {
+    background-color: #757575;
+  }
+  header .datetime-setup input {
+    background-color: #424242;
+    color: #FFFFFF;
+  }
+  header .datetime-setup input#date::-webkit-calendar-picker-indicator {
+    color: #FFFFFF;
+  }
+}
 #app {
   /*max-width: 1280px;*/
   /*margin: 0 auto;*/

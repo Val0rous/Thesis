@@ -102,3 +102,26 @@ $z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
     }
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  .view-buttons {
+    .map-button {
+      background-color: colors.$gray-900;
+      border-color: colors.$gray-800;
+      color: colors.$gray-50;
+
+      .icon {
+        color: colors.$gray-50;
+      }
+
+      &.selected {
+        color: colors.$gray-900;
+      }
+
+      &:hover {
+        border-color: colors.$gray-700;
+        background-color: colors.$gray-800;
+      }
+    }
+  }
+}

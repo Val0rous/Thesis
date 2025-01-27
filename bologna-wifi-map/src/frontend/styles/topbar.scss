@@ -1,7 +1,7 @@
 @use "colors";
 
 header {
-  background-color: colors.$gray-100;
+  background-color: colors.$gray-50;
   box-sizing: border-box;
 
   .header {
@@ -95,7 +95,7 @@ header {
       border: 1px solid colors.$gray-400;
       border-radius: 16px;
       height: 28px;
-      background-color: colors.$gray-50;
+      background-color: colors.$white;
       padding: 2px 12px;
       outline: none;
 
@@ -122,6 +122,51 @@ header {
 
       &:focus {
         border-color: colors.$gray-500;
+      }
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  header {
+    background-color: colors.$gray-900;
+
+    .header {
+      border-bottom-color: colors.$gray-800;
+
+      .menu {
+        color: colors.$gray-50;
+      }
+    }
+
+    .datetime-setup {
+      border-bottom-color: colors.$gray-800;
+
+      .icon {
+        color: colors.$gray-50;
+      }
+
+      .variation-icon {
+        background-color: colors.$gray-800;
+
+        &:hover {
+          background-color: colors.$gray-700;
+        }
+
+        &:focus, &:active {
+          background-color: colors.$gray-600;
+        }
+      }
+
+      input {
+        background-color: colors.$gray-800;
+        color: colors.$white;
+
+        &#date {
+          &::-webkit-calendar-picker-indicator {
+            color: colors.$white;
+          }
+        }
       }
     }
   }

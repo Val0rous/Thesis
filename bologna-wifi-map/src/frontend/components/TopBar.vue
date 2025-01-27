@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {defineProps, defineEmits} from "vue";
 import DateIcon from "./icons/IconDate.vue";
 import TimeIcon from "./icons/IconTime.vue";
@@ -7,6 +7,7 @@ import MenuIcon from "./icons/IconMenu.vue";
 import PlusIcon from "./icons/IconPlus.vue";
 import MinusIcon from "./icons/IconMinus.vue";
 import {calculateDate} from "@/frontend/utils/utils.js";
+import {useDark} from "@vueuse/core";
 
 const props = defineProps({
   date: String,
@@ -49,6 +50,11 @@ const decreaseHour = () => {
     emit("update:date", date.value);
   }
 }
+
+const isDark = useDark();
+const lightLogo = new URL('@/frontend/assets/opendata.png', import.meta.url).href;
+const darkLogo = new URL('@/frontend/assets/opendata_bw.png', import.meta.url).href;
+const currentLogo = computed(() => (isDark.value ? darkLogo : lightLogo));
 </script>
 
 <template>
@@ -58,7 +64,7 @@ const decreaseHour = () => {
       Bologna WiFi Map
     </div>
     <div class="logo">
-      <img alt="OpenData" src="@/frontend/assets/opendata.png"/>
+      <img :src="currentLogo" alt="Open Data"/>
     </div>
   </div>
   <div class="datetime-setup">
