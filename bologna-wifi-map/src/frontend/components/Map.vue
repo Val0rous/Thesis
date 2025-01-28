@@ -64,23 +64,25 @@ const data = {
   polylines: polylines,
   clickedPolygon: clickedPolygon,
 };
+const mapTilerApiKey = 'sGIp9VsEALaxJyTFqagx';
+const thunderforestApiKey = '61c2e4cabac64561b6187e7869981efe';
 const mapStyle = {
   openStreetMap: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   openTopoMap: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
   esriStreets: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
   esriSatellite: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
   // esriTerrain: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}',
-  mapTilerStreets: 'https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=sGIp9VsEALaxJyTFqagx',
-  mapTilerTopo: 'https://api.maptiler.com/maps/topo-v2/{z}/{x}/{y}.png?key=sGIp9VsEALaxJyTFqagx',
-  mapTilerDataviz: 'https://api.maptiler.com/maps/dataviz/{z}/{x}/{y}.png?key=sGIp9VsEALaxJyTFqagx',
-  mapTilerBasic: 'https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=sGIp9VsEALaxJyTFqagx',
-  mapTilerSatellite: 'https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=sGIp9VsEALaxJyTFqagx',
-  mapTilerHybrid: 'https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=sGIp9VsEALaxJyTFqagx',
+  mapTilerStreets: `https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=${mapTilerApiKey}`,
+  mapTilerTopo: `https://api.maptiler.com/maps/topo-v2/{z}/{x}/{y}.png?key=${mapTilerApiKey}`,
+  mapTilerDataviz: `https://api.maptiler.com/maps/dataviz/{z}/{x}/{y}.png?key=${mapTilerApiKey}`,
+  mapTilerBasic: `https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=${mapTilerApiKey}`,
+  mapTilerSatellite: `https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=${mapTilerApiKey}`,
+  mapTilerHybrid: `https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=${mapTilerApiKey}`,
   // usgsSatellite: 'https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}',
-  thunderforestTransport: 'https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=61c2e4cabac64561b6187e7869981efe',
-  thunderforestLandscape: 'https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=61c2e4cabac64561b6187e7869981efe',
-  thunderforestAtlas: 'https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=61c2e4cabac64561b6187e7869981efe',
-  thunderforestNeighborhood: 'https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=61c2e4cabac64561b6187e7869981efe',
+  thunderforestTransport: `https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=${thunderforestApiKey}`,
+  thunderforestLandscape: `https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=${thunderforestApiKey}`,
+  thunderforestAtlas: `https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${thunderforestApiKey}`,
+  thunderforestNeighborhood: `https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=${thunderforestApiKey}`,
 }
 
 const attributions = {
@@ -94,7 +96,7 @@ const attributions = {
 
 onMounted(async () => {
   map.value = L.map(mapContainer.value).setView([44.4949, 11.3426], 13);
-  const tileLayer = L.tileLayer(mapStyle.mapTilerStreets, {
+  const tileLayer = L.tileLayer(mapStyle.mapTilerTopo, {
     minZoom: 2,
     maxZoom: 19,
     attribution: attributions.mapTiler,
