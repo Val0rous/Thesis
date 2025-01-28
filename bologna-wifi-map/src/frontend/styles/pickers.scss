@@ -1,0 +1,11 @@
+@use "colors";
+
+$z-index: 2000; // 401+ gets shown, but up to 400 the layers hide them
+
+.layer-picker {
+  background-color: red;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}

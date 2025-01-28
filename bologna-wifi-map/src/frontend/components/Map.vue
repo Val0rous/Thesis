@@ -3,6 +3,7 @@ import "@/frontend/utils/types.js";
 import {onMounted, ref, defineProps, defineEmits, watch} from "vue";
 import L from "leaflet";
 import ViewButtons from "@/frontend/components/ViewButtons.vue"
+import Layers from "@/frontend/components/Layers.vue";
 import View from "@/frontend/utils/views.js";
 import {
   defaultOptions,
@@ -71,6 +72,7 @@ const mapStyle = {
   openTopoMap: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
   esriStreets: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
   esriSatellite: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  esriTopographic: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
   // esriTerrain: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}',
   mapTilerStreets: `https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=${mapTilerApiKey}`,
   mapTilerTopo: `https://api.maptiler.com/maps/topo-v2/{z}/{x}/{y}.png?key=${mapTilerApiKey}`,
@@ -96,10 +98,10 @@ const attributions = {
 
 onMounted(async () => {
   map.value = L.map(mapContainer.value).setView([44.4949, 11.3426], 13);
-  const tileLayer = L.tileLayer(mapStyle.mapTilerTopo, {
+  const tileLayer = L.tileLayer(mapStyle.esriStreets, {
     minZoom: 2,
     maxZoom: 19,
-    attribution: attributions.mapTiler,
+    attribution: attributions.esri,
     errorTileUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg' // Optional placeholder
   }).addTo(map.value);
 
@@ -164,6 +166,7 @@ function getLocation() {
 
   <div ref="mapContainer" class="map">
     <ViewButtons @viewChange="setView"/>
+    <Layers/>
   </div>
 </template>
 

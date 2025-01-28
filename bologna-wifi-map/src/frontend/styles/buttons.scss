@@ -2,6 +2,29 @@
 
 $z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
 
+.layers {
+  position: absolute;
+  top: 64px;
+  right: 12px;
+  z-index: $z-index;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: colors.$gray-50;
+    border: 1px solid colors.$gray-100;
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  }
+}
+
 .view-buttons {
   position: absolute;
   top: 9px; //12px
