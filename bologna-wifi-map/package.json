@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@maptiler/leaflet-maptilersdk": "^4.0.2",
     "@vue/language-server": "^2.2.0",
     "@vueuse/core": "^12.5.0",
     "leaflet": "^1.9.4",
