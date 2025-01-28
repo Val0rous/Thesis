@@ -239,11 +239,71 @@ header .datetime-setup input:focus {
   }
 }
 .layer-picker {
-  background-color: red;
   position: absolute;
+  background-color: white;
   bottom: 0;
   right: 0;
   left: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  row-gap: 32px;
+  z-index: 2000;
+  border-radius: 28px 28px 0 0;
+  padding: 20px 20px;
+}
+.layer-picker .layer-picker-topbar {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.layer-picker .layer-picker-topbar .label {
+  font-size: 16px;
+  font-weight: 500;
+}
+.layer-picker .layer-picker-topbar .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 2px;
+  background-color: #EEEEEE;
+}
+.layer-picker .layer-picker-bottombar {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-bottom: 32px;
+}
+.layer-picker .layer-picker-bottombar button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column nowrap;
+  height: 96px;
+  width: 96px;
+  border-radius: 16px;
+  background-color: transparent;
+  border: none;
+}
+.layer-picker .layer-picker-bottombar button .icon {
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1.6);
+  padding: 2px;
+  margin-bottom: 14px;
+}
+.layer-picker .layer-picker-bottombar button .icon.selected {
+  border: 2px solid #9E9E9E;
+  border-radius: 8px;
 }
 
 #app {

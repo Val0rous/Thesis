@@ -10,7 +10,7 @@ import View from "@/frontend/utils/views.js";
 
 const props = defineProps({
   currentView: View,
-})
+});
 const emit = defineEmits(["viewChange"]);
 
 /** @type {Ref<View>} */

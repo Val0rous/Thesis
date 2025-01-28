@@ -9,6 +9,8 @@ import {getInitialDate} from "@/frontend/utils/utils.js";
 
 /** @type {Ref<View>} */
 const view = ref(View.Areas);
+/** @type {Ref<Maps>} */
+const maps = ref(Maps.Default);
 /** @type {Ref<String>} */
 const date = ref(getInitialDate());
 /** @type {Ref<Number>} */
@@ -16,6 +18,9 @@ const hour = ref(12);
 const updateView = (newView) => {
   view.value = newView;
 };
+const updateMaps = (newMap) => {
+  maps.value = newMap;
+}
 const updateDate = (newDate) => {
   date.value = newDate;
 }
@@ -30,8 +35,8 @@ const updateHour = (newHour) => {
             @update:date="updateDate" @update:hour="updateHour"/>
   </header>
   <main>
-    <Map :date="date" :hour="hour" :view="view"
-         @update:view="updateView"/>
+    <Map :date="date" :hour="hour" :maps="maps" :view="view"
+         @update:view="updateView" @update:maps="updateMaps"/>
   </main>
 </template>
 

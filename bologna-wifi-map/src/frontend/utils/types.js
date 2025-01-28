@@ -57,3 +57,8 @@
  * @typedef {"Areas" | "Crowding" | "Attendance" | "Movements" | "Medians"} View
  * - Types of Map View
  */
+
+/**
+ * @typedef {"Default" | "Satellite" | "Terrain"} Maps
+ * - Types of Map Layers
+ */

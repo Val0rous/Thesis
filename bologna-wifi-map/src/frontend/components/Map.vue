@@ -19,6 +19,7 @@ import {setupPolygons, updatePolygons} from "@/frontend/scripts/polygons.js";
 
 const props = defineProps({
   view: View, // Receive current view as a prop
+  maps: Maps,
   date: String,
   hour: Number,
 });

@@ -3,9 +3,77 @@
 $z-index: 2000; // 401+ gets shown, but up to 400 the layers hide them
 
 .layer-picker {
-  background-color: red;
   position: absolute;
+  background-color: white;
   bottom: 0;
   right: 0;
   left: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  row-gap: 32px;
+  z-index: $z-index;
+  border-radius: 28px 28px 0 0;
+  padding: 20px 20px;
+
+  .layer-picker-topbar {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .label {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      padding: 2px;
+      background-color: colors.$gray-200;
+    }
+  }
+
+  .layer-picker-bottombar {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-bottom: 32px;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-flow: column nowrap;
+      height: 96px;
+      width: 96px;
+      border-radius: 16px;
+      background-color: transparent;
+      border: none;
+
+      .icon {
+        height: 24px;
+        width: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: scale(1.6);
+
+        &.selected {
+          border: 2px solid colors.$gray-500;
+          border-radius: 8px;
+        }
+
+        padding: 2px;
+        margin-bottom: 14px;
+      }
+    }
+  }
 }
