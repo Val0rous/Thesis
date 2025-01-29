@@ -44,7 +44,15 @@ export const setupPolygons = (props, data, map) => {
         // if (clickedPolygon.value) {
         //   clickedPolygon.value.setStyle(defaultOptions);
         // }
-        data.clickedPolygon.value = polygon;
+        if (data.clickedPolygon.value !== polygon) {
+          // Clicking on a new polygon
+          const oldPolygon = data.clickedPolygon.value;
+          data.clickedPolygon.value = polygon;
+          if (oldPolygon !== null) {
+            oldPolygon.setStyle({fillOpacity: 0.5});
+          }
+        }
+        polygon.setStyle({fillOpacity: 0.8});
         // polygon.setStyle(clickOptions);
         // Get the bounds of the polygon and zoom to it
         const bounds = polygon.getBounds();
@@ -74,8 +82,15 @@ export const setupPolygons = (props, data, map) => {
           maxZoom: targetZoom, // Maximum zoom level
         });
       });
-    })
+    });
   }
+
+  map.value.on("popupclose", (e) => {
+    if (data.clickedPolygon.value !== null) {
+      data.clickedPolygon.value.setStyle({fillOpacity: 0.5});
+      data.clickedPolygon.value = null;
+    }
+  });
 };
 
 const getNewData = async (props, data) => {

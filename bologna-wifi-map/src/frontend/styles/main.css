@@ -5,6 +5,9 @@ a.leaflet-control-zoom-out {
   background-color: #FAFAFA;
   width: 34px !important;
   height: 34px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 div.leaflet-control-zoom.leaflet-bar.leaflet-control {

@@ -9,6 +9,9 @@ a.leaflet-control-zoom-out {
   background-color: colors.$gray-50;
   width: 34px !important;
   height: 34px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 div.leaflet-control-zoom.leaflet-bar.leaflet-control {
