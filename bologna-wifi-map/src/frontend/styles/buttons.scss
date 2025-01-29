@@ -2,6 +2,20 @@
 
 $z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
 
+a.leaflet-control-zoom-in {
+  border-radius: 20px 20px 0 0 !important;
+}
+
+a.leaflet-control-zoom-out {
+  border-radius: 0 0 20px 20px !important;
+}
+
+div.leaflet-control-zoom.leaflet-bar.leaflet-control {
+  border-radius: 20px !important;
+  margin-top: 116px;
+  margin-right: 12px;
+}
+
 .layers {
   position: absolute;
   top: 64px;
@@ -127,6 +141,26 @@ $z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
 }
 
 @media (prefers-color-scheme: dark) {
+  a.leaflet-control-zoom-in, a.leaflet-control-zoom-out {
+    background-color: colors.$gray-900;
+    color: colors.$gray-50;
+
+    &:hover {
+      background-color: colors.$gray-800;
+    }
+  }
+  .layers {
+    button {
+      background-color: colors.$gray-900;
+      border-color: colors.$gray-800;
+      color: colors.$gray-50;
+
+      &:hover {
+        background-color: colors.$gray-800;
+      }
+    }
+  }
+
   .view-buttons {
     .map-button {
       background-color: colors.$gray-900;
@@ -142,8 +176,8 @@ $z-index: 1000; // 401+ gets shown, but up to 400 the layers hide them
       }
 
       &:hover {
-        border-color: colors.$gray-700;
         background-color: colors.$gray-800;
+        border-color: colors.$gray-700;
       }
     }
   }

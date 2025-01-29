@@ -4,7 +4,7 @@ $z-index: 2000; // 401+ gets shown, but up to 400 the layers hide them
 
 .layer-picker {
   position: absolute;
-  background-color: white;
+  background-color: colors.$gray-50;
   bottom: 0;
   right: 0;
   left: 0;
@@ -16,6 +16,7 @@ $z-index: 2000; // 401+ gets shown, but up to 400 the layers hide them
   z-index: $z-index;
   border-radius: 28px 28px 0 0;
   padding: 20px 20px;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
 
   .layer-picker-topbar {
     display: flex;
@@ -52,27 +53,77 @@ $z-index: 2000; // 401+ gets shown, but up to 400 the layers hide them
       align-items: center;
       justify-content: center;
       flex-flow: column nowrap;
-      height: 96px;
+      //height: 96px;
       width: 96px;
       border-radius: 16px;
       background-color: transparent;
       border: none;
+      font-size: 14px;
+
+      &.selected {
+        font-weight: 500;
+
+        .icon {
+          outline: 3px solid colors.$gray-500;
+          //border-radius: 16px;
+        }
+      }
 
       .icon {
-        height: 24px;
-        width: 24px;
+        height: 64px;
+        width: 64px;
+        overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
-        transform: scale(1.6);
+        //transform: scale(1.6);
+        border-radius: 16px;
+        border: 3px solid transparent;
 
-        &.selected {
-          border: 2px solid colors.$gray-500;
-          border-radius: 8px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+          //overflow-clip-margin: unset;
+          //overflow: visible;
         }
 
-        padding: 2px;
-        margin-bottom: 14px;
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .layer-picker {
+    bottom: unset;
+    top: 40px;
+  }
+
+  .layer-picker-topbar {
+    width: auto;
+  }
+
+  .layer-picker-bottombar {
+    width: auto;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .layer-picker {
+    background-color: colors.$gray-900;
+    color: colors.$gray-50;
+
+    .layer-picker-topbar {
+      .icon {
+        background-color: colors.$gray-800;
+      }
+    }
+
+    .layer-picker-bottombar {
+      button {
+        color: colors.$gray-50;
       }
     }
   }

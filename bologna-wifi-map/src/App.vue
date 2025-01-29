@@ -5,6 +5,7 @@ import TopBar from "@/frontend/components/TopBar.vue";
 
 import {ref} from "vue";
 import View from "@/frontend/utils/views.js";
+import Maps from "@/frontend/utils/maps.js";
 import {getInitialDate} from "@/frontend/utils/utils.js";
 
 /** @type {Ref<View>} */

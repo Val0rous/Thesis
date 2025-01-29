@@ -1,3 +1,17 @@
+a.leaflet-control-zoom-in {
+  border-radius: 20px 20px 0 0 !important;
+}
+
+a.leaflet-control-zoom-out {
+  border-radius: 0 0 20px 20px !important;
+}
+
+div.leaflet-control-zoom.leaflet-bar.leaflet-control {
+  border-radius: 20px !important;
+  margin-top: 116px;
+  margin-right: 12px;
+}
+
 .layers {
   position: absolute;
   top: 64px;
@@ -93,6 +107,21 @@
 }
 
 @media (prefers-color-scheme: dark) {
+  a.leaflet-control-zoom-in, a.leaflet-control-zoom-out {
+    background-color: #212121;
+    color: #FAFAFA;
+  }
+  a.leaflet-control-zoom-in:hover, a.leaflet-control-zoom-out:hover {
+    background-color: #424242;
+  }
+  .layers button {
+    background-color: #212121;
+    border-color: #424242;
+    color: #FAFAFA;
+  }
+  .layers button:hover {
+    background-color: #424242;
+  }
   .view-buttons .map-button {
     background-color: #212121;
     border-color: #424242;
@@ -105,8 +134,8 @@
     color: #212121;
   }
   .view-buttons .map-button:hover {
-    border-color: #616161;
     background-color: #424242;
+    border-color: #616161;
   }
 }
 header {
@@ -240,7 +269,7 @@ header .datetime-setup input:focus {
 }
 .layer-picker {
   position: absolute;
-  background-color: white;
+  background-color: #FAFAFA;
   bottom: 0;
   right: 0;
   left: 0;
@@ -252,6 +281,7 @@ header .datetime-setup input:focus {
   z-index: 2000;
   border-radius: 28px 28px 0 0;
   padding: 20px 20px;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
 }
 .layer-picker .layer-picker-topbar {
   display: flex;
@@ -285,27 +315,60 @@ header .datetime-setup input:focus {
   align-items: center;
   justify-content: center;
   flex-flow: column nowrap;
-  height: 96px;
   width: 96px;
   border-radius: 16px;
   background-color: transparent;
   border: none;
+  font-size: 14px;
+}
+.layer-picker .layer-picker-bottombar button.selected {
+  font-weight: 500;
+}
+.layer-picker .layer-picker-bottombar button.selected .icon {
+  outline: 3px solid #9E9E9E;
 }
 .layer-picker .layer-picker-bottombar button .icon {
-  height: 24px;
-  width: 24px;
+  height: 64px;
+  width: 64px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: scale(1.6);
-  padding: 2px;
-  margin-bottom: 14px;
+  border-radius: 16px;
+  border: 3px solid transparent;
+  margin-bottom: 8px;
 }
-.layer-picker .layer-picker-bottombar button .icon.selected {
-  border: 2px solid #9E9E9E;
-  border-radius: 8px;
+.layer-picker .layer-picker-bottombar button .icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
+@media (min-width: 1024px) {
+  .layer-picker {
+    bottom: unset;
+    top: 40px;
+  }
+  .layer-picker-topbar {
+    width: auto;
+  }
+  .layer-picker-bottombar {
+    width: auto;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .layer-picker {
+    background-color: #212121;
+    color: #FAFAFA;
+  }
+  .layer-picker .layer-picker-topbar .icon {
+    background-color: #424242;
+  }
+  .layer-picker .layer-picker-bottombar button {
+    color: #FAFAFA;
+  }
+}
 #app {
   /*max-width: 1280px;*/
   /*margin: 0 auto;*/

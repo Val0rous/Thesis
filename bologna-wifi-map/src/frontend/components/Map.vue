@@ -1,10 +1,11 @@
 <script setup>
 import "@/frontend/utils/types.js";
-import {onMounted, ref, defineProps, defineEmits, watch} from "vue";
+import {onMounted, ref, defineProps, defineEmits, watch, computed} from "vue";
 import L from "leaflet";
 import ViewButtons from "@/frontend/components/ViewButtons.vue"
 import Layers from "@/frontend/components/Layers.vue";
 import View from "@/frontend/utils/views.js";
+import Maps from "@/frontend/utils/maps.js";
 import {
   defaultOptions,
   hoverOptions,
@@ -14,6 +15,7 @@ import {
 import {fetchAreas, fetchCrowdingAttendance, fetchMovements} from "@/frontend/scripts/api.js";
 import mapOptionsFactory from "@/frontend/scripts/mapOptionsFactory.js";
 import {setupPolygons, updatePolygons} from "@/frontend/scripts/polygons.js";
+import maps from "@/frontend/utils/maps.js";
 // import "leaflet-polylineoffset";
 // import "leaflet-polylinedecorator";
 
@@ -24,10 +26,14 @@ const props = defineProps({
   hour: Number,
 });
 
-const emit = defineEmits(["update:view"]);
+const emit = defineEmits(["update:view", "update:maps"]);
 
 const setView = (newView) => {
   emit("update:view", newView);
+}
+
+const setMapLayer = (newLayer) => {
+  emit("update:maps", newLayer);
 }
 
 /** @type { Ref<Area[]> } */
@@ -72,6 +78,7 @@ const mapStyle = {
   openStreetMap: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   openTopoMap: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
   esriStreets: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+  esriStreetsDark: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
   esriSatellite: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
   esriTopographic: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
   // esriTerrain: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}',
@@ -97,9 +104,11 @@ const attributions = {
   thunderforest: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>',
 }
 
+const tileLayer = ref(null);
+
 onMounted(async () => {
   map.value = L.map(mapContainer.value).setView([44.4949, 11.3426], 13);
-  const tileLayer = L.tileLayer(mapStyle.esriStreets, {
+  tileLayer.value = L.tileLayer(mapStyle.esriStreets, {
     minZoom: 2,
     maxZoom: 19,
     attribution: attributions.esri,
@@ -112,12 +121,12 @@ onMounted(async () => {
     attribution: attributions.openStreetMap
   });
 
-  tileLayer.on("tileerror", function (e) {
+  tileLayer.value.on("tileerror", function (e) {
     console.error("Map tile failed. Switching to OpenStreetMap...", e);
     map.value.removeLayer(tileLayer);
     fallbackLayer.addTo(map.value);
-  })
-  map.value.zoomControl.setPosition("bottomright");
+  });
+  map.value.zoomControl.setPosition("topright");
 
   // Prevent scroll propagation for buttons
   const buttonContainer = document.querySelector(".view-buttons");
@@ -135,6 +144,43 @@ onMounted(async () => {
 //     polygon.setStyle(mapOptionsFactory(view, 2000));
 //   })
 // }
+
+watch(
+    () => props.maps,
+    (newMapLayer) => {
+      console.log(props.maps, "to", newMapLayer);
+      const currentMapStyle = computed(() => {
+        switch (newMapLayer) {
+          case Maps.Default:
+            return mapStyle.esriStreets;
+          case Maps.Satellite:
+            return mapStyle.esriSatellite;
+          case Maps.Terrain:
+            return mapStyle.esriTopographic;
+          default:
+            return mapStyle.openStreetMap;
+        }
+      });
+      map.value.removeLayer(tileLayer.value);
+      tileLayer.value = L.tileLayer(currentMapStyle.value, {
+        minZoom: 2,
+        maxZoom: 19,
+        attribution: attributions.esri,
+        errorTileUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg' // Optional placeholder
+      }).addTo(map.value);
+      const fallbackLayer = L.tileLayer(mapStyle.openStreetMap, {
+        minZoom: 2,
+        maxZoom: 19,
+        attribution: attributions.openStreetMap
+      });
+
+      tileLayer.value.on("tileerror", function (e) {
+        console.error("Map tile failed. Switching to OpenStreetMap...", e);
+        map.value.removeLayer(tileLayer);
+        fallbackLayer.addTo(map.value);
+      })
+    }
+)
 
 watch(
     [() => props.view, () => props.date, () => props.hour],
@@ -167,7 +213,7 @@ function getLocation() {
 
   <div ref="mapContainer" class="map">
     <ViewButtons @viewChange="setView"/>
-    <Layers/>
+    <Layers @mapChange="setMapLayer"/>
   </div>
 </template>
 
