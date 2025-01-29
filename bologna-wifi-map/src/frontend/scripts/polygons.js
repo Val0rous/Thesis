@@ -59,13 +59,13 @@ export const setupPolygons = (props, data, map) => {
         // Determine the zoom level based on the area
         let targetZoom;
         if (area < 0.000001) {
-          targetZoom = 20; // Very small polygons -> High zoom level
+          targetZoom = 19; // Very small polygons -> High zoom level
           console.log("High zoom")
         } else if (area < 0.00001) {
-          targetZoom = 18; // Medium polygons -> Moderate zoom level
+          targetZoom = 17; // Medium polygons -> Moderate zoom level
           console.log("Moderate zoom")
         } else {
-          targetZoom = 16; // Large polygons -> Lower zoom level
+          targetZoom = 15; // Large polygons -> Lower zoom level
           console.log("Low zoom")
         }
 

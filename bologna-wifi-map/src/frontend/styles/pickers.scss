@@ -79,6 +79,7 @@ $z-index: 2000; // 401+ gets shown, but up to 400 the layers hide them
         //transform: scale(1.6);
         border-radius: 16px;
         border: 3px solid transparent;
+        margin-bottom: 8px;
 
         img {
           width: 100%;
@@ -88,8 +89,6 @@ $z-index: 2000; // 401+ gets shown, but up to 400 the layers hide them
           //overflow-clip-margin: unset;
           //overflow: visible;
         }
-
-        margin-bottom: 8px;
       }
     }
   }
@@ -97,16 +96,39 @@ $z-index: 2000; // 401+ gets shown, but up to 400 the layers hide them
 
 @media (min-width: 1024px) {
   .layer-picker {
+    top: 64px;
     bottom: unset;
-    top: 40px;
-  }
+    left: unset;
+    right: 64px;
+    border-radius: 28px;
+    row-gap: 14px;
 
-  .layer-picker-topbar {
-    width: auto;
-  }
+    .layer-picker-topbar {
+      //width: auto;
 
-  .layer-picker-bottombar {
-    width: auto;
+      .label {
+        //display: none;
+      }
+
+      .icon {
+        position: absolute;
+        top: 0px;
+        right: -52px;
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .layer-picker-bottombar {
+      //width: auto;
+      //justify-content: space-between;
+      margin-bottom: 0;
+
+      button {
+        //padding: 0;
+        //width: unset;
+      }
+    }
   }
 }
 

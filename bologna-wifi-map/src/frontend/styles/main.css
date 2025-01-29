@@ -1,15 +1,20 @@
 a.leaflet-control-zoom-in {
-  border-radius: 20px 20px 0 0 !important;
+  border-radius: 20px 20px 20px 20px !important;
+  border-bottom: none;
+  background-color: #FAFAFA;
 }
 
 a.leaflet-control-zoom-out {
-  border-radius: 0 0 20px 20px !important;
+  border-radius: 20px 20px 20px 20px !important;
+  border-top: none;
+  background-color: #FAFAFA;
 }
 
 div.leaflet-control-zoom.leaflet-bar.leaflet-control {
   border-radius: 20px !important;
   margin-top: 116px;
   margin-right: 12px;
+  background-color: #FAFAFA;
 }
 
 .layers {
@@ -113,6 +118,9 @@ div.leaflet-control-zoom.leaflet-bar.leaflet-control {
   }
   a.leaflet-control-zoom-in:hover, a.leaflet-control-zoom-out:hover {
     background-color: #424242;
+  }
+  div.leaflet-control-zoom.leaflet-bar.leaflet-control {
+    background-color: #212121;
   }
   .layers button {
     background-color: #212121;
@@ -347,14 +355,22 @@ header .datetime-setup input:focus {
 
 @media (min-width: 1024px) {
   .layer-picker {
+    top: 64px;
     bottom: unset;
-    top: 40px;
+    left: unset;
+    right: 64px;
+    border-radius: 28px;
+    row-gap: 14px;
   }
-  .layer-picker-topbar {
-    width: auto;
+  .layer-picker .layer-picker-topbar .icon {
+    position: absolute;
+    top: 0px;
+    right: -52px;
+    width: 36px;
+    height: 36px;
   }
-  .layer-picker-bottombar {
-    width: auto;
+  .layer-picker .layer-picker-bottombar {
+    margin-bottom: 0;
   }
 }
 @media (prefers-color-scheme: dark) {
