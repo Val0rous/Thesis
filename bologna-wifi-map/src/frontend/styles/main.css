@@ -1,13 +1,10 @@
-a.leaflet-control-zoom-in {
+a.leaflet-control-zoom-in,
+a.leaflet-control-zoom-out {
   border-radius: 20px 20px 20px 20px !important;
   border-bottom: none;
   background-color: #FAFAFA;
-}
-
-a.leaflet-control-zoom-out {
-  border-radius: 20px 20px 20px 20px !important;
-  border-top: none;
-  background-color: #FAFAFA;
+  width: 34px !important;
+  height: 34px !important;
 }
 
 div.leaflet-control-zoom.leaflet-bar.leaflet-control {
@@ -15,6 +12,8 @@ div.leaflet-control-zoom.leaflet-bar.leaflet-control {
   margin-top: 116px;
   margin-right: 12px;
   background-color: #FAFAFA;
+  border: none;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
 }
 
 .layers {
@@ -112,11 +111,17 @@ div.leaflet-control-zoom.leaflet-bar.leaflet-control {
 }
 
 @media (prefers-color-scheme: dark) {
-  a.leaflet-control-zoom-in, a.leaflet-control-zoom-out {
+  a.leaflet-control-zoom-in,
+  a.leaflet-control-zoom-out {
     background-color: #212121;
     color: #FAFAFA;
   }
-  a.leaflet-control-zoom-in:hover, a.leaflet-control-zoom-out:hover {
+  a.leaflet-control-zoom-in:hover,
+  a.leaflet-control-zoom-out:hover {
+    background-color: #424242;
+  }
+  a.leaflet-control-zoom-in.leaflet-disabled,
+  a.leaflet-control-zoom-out.leaflet-disabled {
     background-color: #424242;
   }
   div.leaflet-control-zoom.leaflet-bar.leaflet-control {
