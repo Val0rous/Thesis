@@ -8,6 +8,10 @@ import PlusIcon from "./icons/IconPlus.vue";
 import MinusIcon from "./icons/IconMinus.vue";
 import {calculateDate} from "@/frontend/utils/utils.js";
 import {useDark} from "@vueuse/core";
+import IconArrowLeft from "@/frontend/components/icons/IconArrowLeft.vue";
+import IconArrowRight from "@/frontend/components/icons/IconArrowRight.vue";
+import IconKeyboardArrowLeft from "@/frontend/components/icons/IconKeyboardArrowLeft.vue";
+import IconKeyboardArrowRight from "@/frontend/components/icons/IconKeyboardArrowRight.vue";
 
 const props = defineProps({
   date: String,
@@ -77,9 +81,9 @@ const currentLogo = computed(() => (isDark.value ? darkLogo : lightLogo));
     <div class="time-setup">
       <TimeIcon class="icon"/>
       <!--      <label for="hour">Hour:</label>-->
-      <MinusIcon class="variation-icon minus icon" @click="decreaseHour"/>
+      <IconKeyboardArrowLeft class="variation-icon minus icon" @click="decreaseHour"/>
       <input id="hour" v-model.number="hour" max="23" min="0" type="number" @change="updateHour"/>
-      <PlusIcon class="variation-icon plus icon" @click="increaseHour"/>
+      <IconKeyboardArrowRight class="variation-icon plus icon" @click="increaseHour"/>
     </div>
   </div>
 </template>
