@@ -121,7 +121,11 @@ export const updatePolygons = async (props, data, map, newView, newDate, newHour
       // console.log(area, viewData[date.value][area.zone_id][hour.value]);
     });
   } else if (newView === View.Movements || newView === View.Medians) {
-    // TODO: still iterate over all polygons
+    data.areas.value.forEach((area) => {
+      const polygon = data.polygons.value[area.zone_id];
+      let popupContent = `<b>${area.zone_name}</b></br>`;
+      polygon.setPopupContent(popupContent);
+    })
     data.polylines.value.forEach((polyline) => {
       polyline.remove();
     })
@@ -143,7 +147,10 @@ export const updatePolygons = async (props, data, map, newView, newDate, newHour
             [areaTo.latitude, areaTo.longitude]
           ], mapOptionsFactory(newView, value, true));
           polyline.addTo(map.value);
-          const popupContent = value.toString();
+          const popupLabel = (newView === View.Medians) ? "Median Movements: " : "Movements: ";
+          const fromLabel = "From: " + area.zone_name;
+          const toLabel = "To: " + areaTo.zone_name;
+          const popupContent = `<b>${fromLabel}</b><br/><b>${toLabel}</b><br/>${popupLabel} ${value.toString()}`;
           polyline.bindPopup(popupContent);
           data.polylines.value.push(polyline);
           // const polygon = polygons.value[zoneIdTo];
