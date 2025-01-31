@@ -361,7 +361,7 @@ header .datetime-setup input:focus {
   display: block;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .layer-picker {
     top: 64px;
     bottom: unset;

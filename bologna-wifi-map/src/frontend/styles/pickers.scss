@@ -94,7 +94,7 @@ $z-index: 2000; // 401+ gets shown, but up to 400 the layers hide them
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .layer-picker {
     top: 64px;
     bottom: unset;
