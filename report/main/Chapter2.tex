@@ -86,11 +86,57 @@ AJAX può essere utilizzato per creare \textit{single-page apps}, dove l'intera 
 Inizialmente, AJAX venne implementato utilizzando l'interfaccia \\\Verb_XMLHttpRequest_, ma l'API di \Verb_fetch()_ è più adatta alle applicazioni web moderne, in quanto è più potente, flessibile, e in grado di integrarsi meglio con le tecnologie web fondamentali come i \textit{service workers}. I framework web moderni offrono astrazioni per AJAX. Tuttavia, ad oggi questa tecnica è talmente diffusa che il termine specifico \textit{AJAX} viene utilizzato raramente \cite{AJAX}.
 
 \subsection{Framework e librerie}
-\subsection{JSDoc}
+In JavaScript sono disponibili un gran numero di framework e librerie, sviluppati nel corso degli anni per velocizzare e semplificare lo sviluppo web.
+
+Le librerie sono dei pacchetti di classi e funzioni riutilizzabili per risolvere particolari problemi, sono flessibili e possono essere utilizzate liberamente. Alcuni esempi di librerie famose sono:
+\begin{itemize}
+    \item React.js, utilizzato per creare UI complesse e gestire lo stato.
+    \item jQuery, utilizzato per gestire eventi JS ed effettuare chiamate AJAX.
+    \item D3.js (\textit{Data-Driven Documents}), utilizzato per la visualizzazione dati.
+    \item Chart.js, utilizzato per disegnare vari tipi di grafici utilizzando l'elemento HTML5 \Verb_<canvas>_.
+\end{itemize}
+
+I framework, invece, offrono un approccio strutturato allo sviluppo di un progetto, mediante un insieme di strumenti utili a creare applicazioni in maniera standardizzata. Specificano dove inserire quali frammenti di codice e spesso includono funzionalità come la gestione del routing, richieste HTTP, o dei dati di backend. Questo approccio strutturato semplifica lo sviluppo e assicura consistenza tra i vari progetti. Alcuni esempi di framework famosi sono:
+\begin{itemize}
+    \item Angular, sviluppato da Google, utilizzato per lo sviluppo cross-platform.
+    \item Vue.js, utilizzato per creare UI e SPAs (\textit{Single-Page Applications}).
+    \item Next.js, framework basato su React per sviluppare webapp multipiattaforma \cite{JS_Frameworks_Libraries}.
+\end{itemize}
 
 \section{Leaflet}
+Leaflet è una libreria JavaScript open-source che permette di visualizzare mappe interattive mobile-friendly. Il suo codice pesa solo 42KB, ma contiene tutte le funzionalià di mapping che possono servire a quasi tutti gli sviluppatori.
+
+Questa libreria è stata progettata avendo in mente la semplicità, le prestazioni e l'usabilità. Funziona in modo efficiente su tutte le principali piattaforme desktop e mobile, permette l'estensione delle sue funzionalità mediante l'utilizzo di plugins e offre diverse API.
+
+Leaflet non cerca di fare tutto, ma si focalizza sulle funzionalità di base per fare in modo che funzionino perfettamente. Le sue caratteristiche principali sono:
+\begin{itemize}
+    \item Layers\\
+    Offre i cosiddetti \textit{tile layers}, i \textit{markers}, e i popup. Inoltre, si possono mettere delle immagini come overlays e i GeoJSON. Sulla mappa si possono disegnare poligoni, polylines e cerchi.
+    \item Interazione\\
+    Supporta lo scorrimento, lo zoom tramite gesture, doppio click o scroll wheel, lo spostamento dei marker, gli eventi, e altro ancora.
+    \item Funzionalità\\
+    Visivamente, supporta le animazioni per lo zoom e il fade. I popup possono essere customizzati tramite CSS, e si può creare un marker personalizzato tramite immagini o HTML. Riguardo alle mappe, gli sviluppatori possono utilizzare i layer che preferiscono.
+    \item Controlli\\
+    Sono presenti bottoni per lo zoom e il cambio di layer, un'indicatore per la scala, e uno per l'attribuzione \cite{Leaflet_Overview}.
+\end{itemize}
 
 \section{Vue.js}
+Vue è un framework JavaScript utilizzato per la costruzione di interfacce utente (UI). Si basa sullo standard stack HTML, CSS e JavaScript e offre un modello di programmazione dichiarativo e basato sui componenti, che aiuta a sviluppare in modo efficiente delle UI anche complesse. Le funzionalità chiave di Vue sono due:
+\begin{itemize}
+    \item Rendering dichiarativo: Vue estende lo standard HTML mediante una sintassi di template che permettono di descrivere output HTML in modo dichiarativo, basato su uno stato definito in JavaScript.
+    \item Reattività: Vue traccia automaticamente i cambiamenti di stato in JavaScript e aggiorna il DOM in modo efficiente quando avvengono queste variazioni.
+\end{itemize}
+
+Vue è un framework ed ecosistema che copre la maggioranza delle più comuni funzionalità richieste nello sviluppo frontend. Tuttavia, il web è estremamente vario e ciò che viene costruito può cambiare drasticamente in forma e scala. Vue è stato disegnato proprio per rispondere a queste esigenze, in modo da essere flessibile e adottabile in modo incrementale. In base al caso d'uso, Vue può essere utilizzato in diverse modalità:
+\begin{itemize}
+    \item Miglioramento di HTML statico senza necessità di compilazione.
+    \item Integrazione di componenti web su qualsiasi pagina.
+    \item Creazione di \textit{Single-Page Applications} (SPA).
+    \item Utilizzo di Fullstack o \textit{Server-Side Rendering} (SSR).
+    \item Utilizzo di Jamstack o \textit{Static Site Generation} (SSG).
+    \item Targeting specifico di desktop, mobile, WebGL, o anche il terminale.
+\end{itemize}
+Vue è flessibile, ma le sue nozioni principali sono condivise a tutti i livelli, rendendolo un framework adattabile alle esigenze di chiunque \cite{Vue}.
 
 \section{NPM}
 
