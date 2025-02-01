@@ -103,6 +103,8 @@ I framework, invece, offrono un approccio strutturato allo sviluppo di un proget
     \item Next.js, framework basato su React per sviluppare webapp multipiattaforma \cite{JS_Frameworks_Libraries}.
 \end{itemize}
 
+\`E possibile anche eseguire codice JavaScript al di fuori dal browser, utilizzando l'ambiente di esecuzione Node.js, che è open-source e multipiattaforma \cite{Node.js}.
+
 \section{Leaflet}
 Leaflet è una libreria JavaScript open-source che permette di visualizzare mappe interattive mobile-friendly. Il suo codice pesa solo 42KB, ma contiene tutte le funzionalià di mapping che possono servire a quasi tutti gli sviluppatori.
 
@@ -139,17 +141,123 @@ Vue è un framework ed ecosistema che copre la maggioranza delle più comuni fun
 Vue è flessibile, ma le sue nozioni principali sono condivise a tutti i livelli, rendendolo un framework adattabile alle esigenze di chiunque \cite{Vue}.
 
 \section{NPM}
+NPM, o \textit{Node Package Manager}, è il package manager di default per Node.js. Nel settembre 2022, il registro di NPM conteneva oltre 2.1 milioni di pacchetti, rendendolo il più grande repository al mondo di codice che utilizza un solo linguaggio, possiamo quindi essere quasi sicuri che esista un pacchetto per ogni evenienza. NPM nacque come un modo per scaricare e gestire le dipendenze di Node.js, ma è in seguito diventato uno strumento utilizzato anche nel JavaScript a frontend.
+
+NPM installa, aggiorna e gestisce i download delle dipendenze del progetto. Le dipendenze sono blocchi di codice precostruiti, come le librerie e i pacchetti, di cui l'applicazione ha bisogno per poter funzionare.
+
+Oltre ai normali download, NPM gestisce anche il versioning, così da poter specificare qualsiasi versione specifica di un pacchetto, o richiedere una versione più recente o più vecchia di quella che ci serve. Spesso capita che una libreria sia compatibile solamente con una major release di un'altra libreria, o che un bug nell'ultima versione di una libreria sia ancora irrisolto e continui a causare problemi. Specificare esplicitamente una versione di una libreria aiuta anche a tenere tutto il team sulla stessa versione di un package, così che tutti la utilizzino fino a quando il file \Verb_package.json_ sia aggiornato. In tutti questi casi, il controllo delle versioni aiuta notevolmente e NPM segue lo stesso standard di \textit{semantic versioning}, o \textit{semver}.
+
+NPM consente anche agli sviluppatori di eseguire comandi personalizzati, supportando un formato per specificare task a terminale che vengono lanciati come scripts. Per esempio, utilizzando \Verb_npm run dev_ possiamo lanciare l'app in modalità debug senza scrivere l'effettivo comando corrispondente, che sarebbe molto più lungo. Altri comandi, tra tutti, sono \Verb_npm run prod_ e \Verb_npm run build_ \cite{NPM_Package_Manager}.
 
 \section{PHP}
+PHP, acronimo ricorsivo per \textit{PHP: Hypertext Preprocessor}, è un linguaggio di scripting open-source e general-purpose molto usato, che è specialmente adatto per lo sviluppo web e ad essere integrato nell'HTML.
+
+Invece di utilizzare molti comandi per visualizzare l'HTML, come avviene in C o Perl, le pagine PHP contengono HTML all'interno di codice integrato che svolge qualche preciso compito. Il codice PHP è racchiuso in speciali istruzioni di inizio e fine, ovvero \Verb_<?php_ e \Verb_?>_ che permettono di entrare e uscire dalla \textit{modalità PHP}.
+
+Ciò che distingue PHP dal codice JavaScript client-side è che il codice è eseguito sul server, generando HTML che viene quindi inviato al client. Il client riceve così il risultato dell'esecuzione di quello script, senza sapere quale sia il codice sottostante. Un web server può essere configurato per processare tutti i file HTML utilizzando PHP, senza che gli utenti abbiano alcun modo per capire che si stia utilizzando PHP.
+
+PHP riguarda principalmente lo scripting lato server, quindi può fare qualsiasi cosa che altri programmi CGI (\textit{Common Gateway Interface}) sanno fare, come raccogliere dati da un \textit{form}, generare dinamicamente il contenuto della pagina, o inviare e ricevere cookies. Due sono le aree principali dove gli script PHP vengono utilizzati:
+\begin{itemize}
+    \item Scripting lato server\\
+    Questo è il più utilizzato e costituisce il principale campo di applicazione per PHP. Per funzionare, richiede un parser PHP (CGI o modulo server), un server web, e un browser web. Tutti questi possono essere eseguiti localmente per scopi di sviluppo.
+    \item Scripting a command line\\
+    Uno script PHP può essere eseguito senza richiedere alcun server o browser, basta solo disporre di un parser PHP per poterlo utilizzare in questa maniera. Questo tipo di utilizzo è ideale per script eseguiti regolarmente tramite \Verb_cron_, su Unix e macOS, o con \textit{Task Scheduler} su Windows. Questi script possono essere semplicemente usati anche per processare del testo.
+\end{itemize}
+
+PHP può essere utilizzato su tutti i principali sistemi operativi, tra cui Linux, molte varianti Unix come Solaris e OpenBSD, Microsoft Windows, macOS, RISC OS, e altri ancora. PHP supporta anche la maggior parte degli attuali web server, inclusi Apache, IIS, e molti altri, incluso qualsiasi web server in grado di utilizzare \textit{binaries} di FastCGI, come lighttpd e nginx. PHP è in grado di lavorare come modulo o come processore CGI.
+
+Con PHP, gli sviluppatori hanno la libertà di scelta sia per il sistema operativo che per il web server. Inoltre, viene data la possibilità di scegliere se utilizzare un paradigma di programmazione procedurale o uno ad oggetti (OOP), o addirittura di mescolarli.
+
+PHP non si limita a sfornare HTML, ma è in grado di generare file RTF (\textit{Rich File Types}), come immagini o file PDF, criptare dati, e inviare emails. Inoltre, può produrre facilmente qualsiasi tipologia di testo, come JSON o XML. PHP è in grado di generare questi file automaticamente e di salvarli a file system, invece di mostrarli a schermo, formando così una cache a lato server per il contenuto dinamico.
+
+Una delle funzionalità più importanti di PHP è il suo supporto a una grande varietà di database. Scrivere una pagina web che acceda a un db diventa così incredibilmente semplice, utilizzando una delle estensioni specifiche come mysqli per MySQL, o mediante un livello di astrazione come PDO (\textit{Protected Destination of Origin}), oppore connettendosi a un database che supporta lo standard Open Database Connection tramite l'estensioen ODBC. Altri database, invece, possono utilizzare cURL o sockets.
+
+PHP supporta molti protocolli per la comunicazione con altri servizi, ad esempio IMAP, POP3 e HTTP, oltre a molti altri, ed è in grado di aprire dei socket grezzi di rete e interagirvi con qualsiasi altro protocollo. PHP supporta lo scambio di dati complessi tra virtualmente tutti i linguaggi di programmazione utilizzati sul Web. Riguardo all'interconnessione, PHP offre supporto per instanziare oggetti Java e utilizzarli in modo trasparente come oggetti PHP \cite{PHP}.
 
 \section{API}
+Le APIs sono meccanismi che permettono a due componenti software di comunicare tra loro utilizzando un insieme di definizioni e protocolli. Ad esempio, vengono utilizzate dalle app meteo nello smartphone, le quali scaricano i dati meteorologici giornalieri effettuando una richiesta alle API meteo corrispondenti per poter visualizzare gli aggiornamenti.
+
+API significa \textit{Application Programming Interface}. Nel contesto delle APIs, Applicazione si riferisce a ogni software con una funzione distinta, mentre Interfaccia è un contratto di servizio tra due applicazioni, che definisce come queste due possano comunicare tra loro utilizzando richieste e risposte. La loro documentazione API contiene informazioni su come gli sviluppatori debbbamo strutturare tali richieste e risposte.
+
+L'architettura API è generalmente spiegata in termini di client e server. L'applicazione che invia la richiesta è detta client, mentre quella che manda la risposta è il server. Quindi, nell'esempio di prima, il server è il database meteo del provider, mentre l'app mobile costituisce il client.
+
 \subsection{Tipologie di API}
+Esistono quattro diversi modi in cui le APIs possono funzionare, in base a quando e perché sono state create.
+\begin{itemize}
+    \item SOAP APIs\\
+    Queste API utilizzano un protocollo chiamato \textit{Simple Object Access Protocol}, dove client e server si scambiano messaggi tramite XML. Questa tipologia di API è meno flessibile, ma è stata più popolare in passato.
+    \item RPC APIs\\
+    Queste API sono chiamate \textit{Remote Procedure Calls}: il client completa una funzione (o procedura) sul server, quindi il server invia il corrispondente output al client.
+    \item Websocket APIs\\
+    Sono un'altra tipologia di API utilizzate nel moderno sviluppo web e utilizzano oggetti JSON per il passaggio dei dati. Un'API di tipo WebSocket supporta la comunicazione a due vie tra le app client e il server. Il server, a sua volta, può inviare messaggi di callback ai client connessi, rendendolo così più efficiente delle API di tipo REST.
+    \item REST APIs\\
+    Sono le API più popolari e flessibili che possiamo trovare, ad oggi, sul web. Il client invia richieste al server sotto forma di dati, quindi il server utilizza questo input fornito dal client per eseguire funzioni interne e ritorna i dati di output, inviandoli indietro al client.
+\end{itemize}
+
+Oltre all'architettura, le API sono classificate anche in base al loro scopo di utilizzo:
+\begin{itemize}
+    \item API Private\\
+    Sono interne a un'azienda e vengono utilizzate solamente per connettere sistemi e dati all'interno di essa.
+    \item API Pubbliche\\
+    Sono aperte al pubblico e possono essere utilizzate da chiunque. Tuttavia, potrebbe esserci qualche tipo di autorizzazione e costo associato al loro utilizzo, anche se non necessariamente.
+    \item API Partner\\
+    Sono accessibili solo agli sviluppatori esterni autorizzati, per incoraggiare le partnership tra business (B2B).
+    \item API Composite\\
+    Combinano due o più APIs per risolvere requisiti di sistema o comportamenti complessi.
+\end{itemize}
+
 \subsection{RESTful APIs}
+REST significa \textit{Representational State Transfer} e definisce un insieme di funzioni come GET, PUT, DELETE, e altre, che i client possono utilizzare per accedere ai dati del server. Sia client che server si scambiano dati mediante HTTP.
+
+La funzionalità principale delle API di rest è la mancanza di stato (\textit{statelessness}), ovvero i server non salvano i dati del client tra le varie richieste. Le richieste che il client effettua al server sono simili agli URL utilizzati per visitare un sito web in un normale browser. La risposta fornita dal server consiste in \textit{plain data}, senza alcun tipo di rendering grafico, a differenza di una pagina web.
+
+Una Web API, detta anche Web Service API, è una \textit{application programming interface} tra un web server e un browser. Tutti i web services sono API, ma non tutte le API sono servizi web. Le API REST sono un tipo speciale di Web API che utilizza lo stile architetturale standard che abbiamo visto poco fa.
+
+I diversi termini riguardanti le APIs, come Java API o service API, esistono perché storicamente le API furono create prima del World-Wide Web. Le API web moderne sono REST APIs e i termini possono ormai essere utilizzati in modo intercambiabile.
+
 \subsection{Utilizzo delle API}
+Le integrazioni delle API sono componenti software che aggiornano automaticamente i dati tra client e server. Alcuni esempi di integrazioni API sono quando la galleria del telefono viene sincronizzata automaticamente sul cloud, o la data e l'ora del portatile si sincronizzano automaticamente, aggiornandosi quando viaggiamo in un altro fuso orario. Possono inoltre essere utilizzate dalle aziende per automatizzare molte funzioni di sistema in maniera efficiente.
+
+Le REST APIs offrono quattro principali benefici:
+\begin{enumerate}
+    \item Integrazione\\
+    Le API sono utilizzate per integrare nuove applicazioni con sistemi software esistenti. Questo accelera la velocità di sviluppo, in quanto ciascuna funzionalità non ha bisogno di essere riscritta da zero, ma possiamo utilizzare le API per sfruttare codice già esistente.
+    \item Innovazione\\
+    L'arrivo di una nuova app è in grado di cambiare intere industrie, quindi le aziende devono essere in grado di rispondere velocemente e supportare il rilascio rapido di servizi innovativi. Questo può avvenire apportando cambiamenti a livello delle API, senza dover riscrivere l'intero codice.
+    \item Espansione\\
+    Le API presentano un'opportunità unica per le aziende di soddisfare le esigenze dei clienti su diverse piattaforme. Per esempio, le Maps API permettono l'integrazione di informazioni relative alle mappe su siti web, Android, iOS, e altri. Qualunque azienda può offrire un simile accesso ai propri database interni, utilizzando API gratuite o a pagamento.
+    \item Facilità di manutenzione\\
+    Una API funge da porta di passaggio tra due sistemi. Ciascun sistema è obbligato ad apportare cambiamenti interni così da non influenzare il funzionamento delle API. In questo modo, ogni cambiamento futuro al codice effettuato da una qualunque delle due parti non impatterà l'altra.
+\end{enumerate}
+
+Gli API endpoints sono il punto finale del sistema di comunicazione delle API e includono URL di server, servizi, e altre locazioni specifiche digitali da cui vengono inviate e ricevute le informazioni tra i diversi sistemi. Gli API endpoints sono di importanza critica per le aziende per due ragioni principli:
+\begin{enumerate}
+    \item Sicurezza\\
+    Gli API endpoints rendono il sistema vulnerabile agli attacchi, quindi il monitoraggio delle API è cruciale per prevenire un utilizzo improprio.
+    \item Prestazioni\\
+    Gli API endpoints, specialmente quelli ad alto traffico, possono causare bottlenecks (colli di bottiglia) e influenzare le performance del sistema.
+\end{enumerate}
+
+Tutte le API quindi devono essere rese sicure tramite appropriata autenticazione e monitoraggio. I due modi principali per mettere in sicurezza le REST APIs includono:
+\begin{enumerate}
+    \item Token di autenticazione: sono utilizzati per autorizzare gli utenti a effettuare le chiamate alle API, controllano che gli utenti siano correttamente identificati e che abbiano effettivi diritti di accesso per quella particolare chiamata API. Per esempio, quando effettuiamo l'accesso al server email, il client email utilizza token di autenticazione per un accesso sicuro.
+    \item Chiavi API: verificano il programma o l'applicazione che effettua la chiamata alle API. Identificano l'applicazione e assicurano che abbia i diritti di accesso richiesti per effettuare quella particolare chiamata API. Le chiavi API non sono sicure come i tokens, ma permettono di monitorare le API per raccogliere dati sul loro utilizzo. Ad esempio, quando visitiamo un sito web e notiamo una lunga stringa di caratteri e numeri nel suo URL, questa stringa è una chiave API che il sito utilizza per effettuare chiamate alle API interne.
+\end{enumerate}
+
 \subsection{Documentazione}
+Scrivere una documentazione delle API comprensiva è parte del processo di gestione delle API. Tale documentazione può essere generata automaticamente tramite appositi strumenti o scritta manualmente. Come \textit{best practice}, è buona norma scrivere le spiegazioni in linguaggio semplice e facile da leggere, preferibilmente in inglese. I documenti generati con tools possono diventare verbosi e quindi richiedere modifiche manuali. Inoltre, bisogna utilizzare esempi di codice per spiegare le funzionalità e mantenere la documentazione accurata e aggiornata. Lo stile di scrittura va rivolto ai principianti e bisogna coprire tutte le tipologie di problemi che le API possono risolvere per gli utenti \cite{API_AWS}.
+
 \subsection{Evoluzione delle API}
+I framework e le librerie possono cambiare le loro APIs. Migrare un'applicazione alle nuove API è tedioso e distrugge il processo di sviluppo: anche se sono stati proposti alcuni strumenti e idee per risolvere l'evoluzione delle API, la maggioranza degli aggiornamenti viene ancora fatta manualmente. Generalmente, i cambiamenti che causano la rottura delle applicazioni esistenti non sono casuali, ma ricadono in particolari categorie: oltre l'80\% di questi è dovuto a \textit{refactorings}, il che suggerisce che per l'aggiornamento delle applicazioni dovrebbero essere utilizzati dei tool di migrazione basati sul refactoring \cite{API_Evolution}.
 
 \section{JSON}
+\textit{JavaScript Object Notation}, o JSON, è un formato standard text-based per rappresentare dati strutturati basati su sintassi JavaScript ad oggetti. Viene comunemente utilizzato per trasmettere dati in applicazioni web, ad esempio per inviare dati dal server al client, così da poterlo visualizzare su una pagina web, o viceversa.
+
+Anche se JSON ricorda molto la sintassi JavaScript per creare gli oggetti letterali, può essere utilizzato indipendentemente da JS e molti ambienti di programmazione offrono la capacità di leggere (parse) e generare JSON.
+
+JSON esiste sotto forma di stringa, utile quando vogliamo trasmettere dati sulla rete. Quando vogliamo accedere ai dati, bisogna convertirlo in un oggetto JavaScript nativo, ma questo non è un problema in quanto JS offre un oggetto JSON globale che dispone di metodi per la conversione tra i due. Convertire una stringa in un oggetto nativo è detto \textit{deserializzazione}, mentre il processo inverso in cui si converte un oggetto nativo in una stringa è detto \textit{serializzazione}. Una stringa JSON può essere salvata in un suo proprio file, che consiste praticamente in un file di testo avente l'estensione \Verb_.json_ e un tipo MIME di \Verb_application/json_.
+
+All'interno di un oggetto JSON, possiamo includere gli stessi tipi di dati basilari che utilizzeremo in un oggetto JavaScript standard, ovvero stringhe, numeri, array, booleani e altri ancora. Questo ci permette di costruire una gerarchia di dati che può essere anche annidata e permette l'accesso nello stesso modo in cui si accede ai campi di un analogo oggetto \cite{JSON}.
 
 \section{SQL}
 \subsection{MySQL}
