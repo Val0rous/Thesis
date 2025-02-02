@@ -260,19 +260,147 @@ JSON esiste sotto forma di stringa, utile quando vogliamo trasmettere dati sulla
 All'interno di un oggetto JSON, possiamo includere gli stessi tipi di dati basilari che utilizzeremo in un oggetto JavaScript standard, ovvero stringhe, numeri, array, booleani e altri ancora. Questo ci permette di costruire una gerarchia di dati che può essere anche annidata e permette l'accesso nello stesso modo in cui si accede ai campi di un analogo oggetto \cite{JSON}.
 
 \section{SQL}
+\textit{Structured Query Language} (SQL) è un linguaggio di programmazione utilizzato per salvare e processare informazioni all'interno di un database relazionale, ovvero in forma tabellare, con righe e colonne che rappresentano diversi attributi e le varie relazioni tra i valori. Possiamo utilizzare le istruzioni SQL per salvare, aggiornare, rimuovere, cercare e raccogliere informazioni dal database, inoltre SQL permette di mantenere e ottimizzare le prestazioni del database \cite{SQL}.
+
 \subsection{MySQL}
+MySQL è un \textit{Relational Database Management System} (RDBMS) open-source molto popolare, utilizzato per salvare e gestire dati in maniera affidabile, prestante, scalabile e facile da usare. Da qui in poi ci riferiremo a MySQL come versione del database SQL.
+
 \subsection{Struttura dei dati relazionali}
+MySQL è un database relazionale open source che utilizza SQL per creare e gestire i database, salvando i dati in tabelle di righe e colonne organizzate in schemi. Uno schema definisce come i dati sono organizzati e salvati, descrivendo le relazioni esistenti tra le varie tabelle. Con questo formato, possiamo facilmente salvare, raccogliere e analizzare diversi tipi di dati, inclusi semplice testo, numeri, date, orari e, recentemente, JSON e arrays.
+
+Due capacità principali di MySQL sono il suo supporto alle transazioni ACID e la sua abilità di essere scalabile. ACID significa \textit{Atomicity, Consistency, Isolation, and Durability}, ovvero le quattro proprietà che assicurano che le transazioni nel database siano processate in modo affidabile e accurato. Mediante le transazioni ACID, MySQL garantisce che tutte le modifiche ai dati siano effettuate in maniera coerente e affidabile, anche nel caso in cui avvenga un guasto nel sistema. MySQL è in grado di scalare per supportare database di dimensioni molto grandi, gestendo un alto volume di connessioni concorrenti. Le prestazioni, la facilità d'uso e il costo contenuto, insieme alla sua capacità di scalare affidabilmente, hanno reso MySQL il database open source più popolare al mondo.
+
+MySQL è veloce, affidabile, scalabile e facile da utilizzare. Originariamente venne sviluppato per gestire rapidamente grandi database ed è stato utilizzato da molti anni in ambienti di produzione con requisiti molto elevati. MySQL offre un ampio insieme di funzioni di utilità ed è sviluppato costantemente da Oracle, così da restare al passo con le nuove richieste tecnologiche e aziendali. La connettività, velocità, e sicurezza di MySQL lo rendono altamente qualificato per l'accesso ai database su Internet. Alcuni dei principali benefici di MySQL includono:
+\begin{itemize}
+    \item Facilità d'uso: gli sviluppatori possono installare MySQL nel tempo di qualche minuto e il database è facile da gestire.
+    \item Affidabilità: MySQL è uno dei database più maturi e ampiamente utilizzati, ed è stato testato in una grande varietà di scenari per quasi 30 anni, incluse molte delle aziende più grosse al mondo, le quali dipendono da MySQL per eseguire applicazioni critiche, data la sua affidabilità.
+    \item Scalabilità: MySQL è in grado di scalare per soddisfare i bisogni delle applicazioni con il maggior numero di accessi. La sua architettura a replicazione nativa permette alle aziende, tra cui Facebook, Netflix e Uber, di scalare le applicazioni per supportare decine di milioni di utenti, se non di più.
+    \item Prestazioni: MySQL è un sistema di database ad alte prestazioni e con zero necessità di amministrazione, viene rilasciato in diverse edizioni per soddisfare quasi tutte le richieste.
+    \item Elevata disponibilità: MySQL offre un insieme completo di tecnologie di replicazione native e pienamente integrate per permettere una grande disponibilità e al contempo il recupero dei disastri. Per le applicazioni di business critiche e gli accordi di servizio, i clienti possono raggiungere l'obiettivo di zero perdite di dati, con un tempo di recupero istantaneo.
+    \item Sicurezza: la sicurezza dei dati riguarda sia la protezione degli stessi dati, che il rispetto delle leggi dell'industria e del governo, ingluso il GDPR nell'Unione Europea. MySQL Enterprise è in grado di offrire funzionalità di sicurezza avanzate, come l'autenticazione/autorizzazione, la crittografia trasparente dei dati, l'auditing, il data masking e un firewall per il database.
+    \item Flessibilità: il Document Store di MySQL offre agli utenti una massima flessibilità nel sviluppare tradizionali applicazioni database che utilizzino sia SQL che NoSQL, queste ultime senza schemi. Gli sviluppatori possono mischiare tabelle relazionali con documenti JSON nello stesso database e nella stessa applicazione.
+\end{itemize}
+
 \subsection{Utilizzo nelle applicazioni web}
+I casi d'uso di MySQL includono la gestione di dati dei clienti e dei prodotti per i siti di e-commerce, aiutando i sistemi di gestione dei contenuti a servire contenuti web, tracciare le transazioni in modo sicuro e i dati finanziari, alimentando i siti di social network salvando i profili degli utenti e le loro interazioni.
+
+L'abilità di MySQL di gestire grandi dataset e query complesse lo rende una tecnologia chiave nelle industrie e i casi d'uso includono:
+\begin{itemize}
+    \item E-commerce: molte delle piattaforme di ecommerce più grandi al mondo, come Uber e Booking.com, eseguono i loro sistemi transazionali su MySQL. Costituisce quindi una scelta popolare per gestire i profili utente, le credenziali, il contenuto degli utenti e i dati finanziari, inclusi pagamenti e rilevamento di truffe.
+    \item Piattaforme social: Facebook, X (ovvero l'ex-Twitter) e LinkedIn sono tra le piattaforme social più grandi al mondo e tutti si appoggiano a MySQL per la parte di database.
+    \item Gestione del Contenuto: a differenza dei documenti di database \textit{single-purpose}, MySQL offre l'abilità di utilizzare sia SQL che NoSQL all'interno dello stesso database. Il MySQL Document Store permette operazioni CRUD e utilizza il potere di SQL per effettuare data queries sui documenti JSON per riportarne contenuto e statistiche.
+    \item SaaS: MySQL è il database sottostante a molte applicazioni popolari di \textit{Software-as-a-Service}, come ad esempio Zendesk \cite{MySQL}.
+\end{itemize}
+
 \subsection{Normalizzazione dei dati}
+La normalizzazione è il processo di organizzazione dei dati all'interno di un database. Include la creazione di tabelle e lo stabilimento di relazioni tra queste in base a regole definite sia per proteggere i dati, sia per rendere il database più flessibile, eliminando la ridondanza e le dipendenze non coerenti.
+
+I dati ridondanti sprecano spazio su disco e danno luogo a problemi di mantenimento. Se abbiamo bisogno di cambiare dei dati che esistono in più di un posto, tutti i dati vanno modificati nella stessa identica maniera in tutte queste locazioni. Una modifica è invece più facile da implementare se i relativi dati esistono solo in un punto e da nessun'altra parte nel database. Una dipendenza incoerente rende i dati difficili da accedere, in quanto il percorso per trovare tali dati potrebbe essere mancante o malfunzionante.
+
+Esistono alcune regole per la normalizzazione di un database e ciascuna di essere è chiamata una \textit{forma normale}. Generalmente si applicano le prime tre regole per ottenere un database in terza forma normale.
+
+Non sempre però si riesce a rispettare tali regole alla lettera: in generale, la normalizzazione richiede la creazione di tabelle aggiuntive e questo talvolta può risultare scomodo. In questo modo, tuttavia, si generano possibili problemi quali dati ridondanti e dipendenze funzionali \cite{Database_Normalization}.
 
 \section{Apache HTTP Server}
+Apache HTTP Server, detto anche semplicemente Apache, è un web server gratuito e open-source che distribuisce contenuti web attraverso la rete Internet, ed è rapidamente diventato il più popolare client HTTP sul web. Il nome trova le sue origini nel rispetto delle tribù dei nativi americani, per la loro resilienza e durabilità.
+
+Apache è solo uno dei componenti richiesti nello stack di un'applicazione web per la distribuzione del contenuto. Uno degli stack più comuni per le webapp è LAMP, ovvero Linux, Apache, MySQL e PHP, o il suo analogo WAMP che utilizza Windows invece che Linux. Il sistema operativo, Linux o Windows, gestisce le operazioni dell'applicazione. Apache è il web server che processa le richieste e serve risorse e contenuti web tramite protocollo HTTP. MySQL è il database che contiene tutte le informazioni in un formato che permette di eseguire queries facilmente. PHP è il linguaggio di programmazione che funziona con Apache per aiutare a creare contenuto web dinamico.
+
+Anche se le statistiche effettive possono variare, gran parte delle webapp vengono eseguite su una qualche forma di stack LAMP in quanto è facile da costruire e utilizzabile in modo gratuito. Generalmente, la maggior parte delle webapp tende ad avere un'architettura simile, anche se il loro scopo può variare considerevolmente, e possono beneficiare dell'utilizzo di Firewalls, Load Balancers, Web Servers, Content Delivery Networks (CDN) e Database Servers.
+
+I Firewall aiutano a proteggere l'applicazione web sia da minacce esterne che da vulnerabilità interne, in base a come sono configurati. I Load Balancers aiutano a distribuire il traffico tra i server web che possono gestire le richieste HTTP(S), e qui è dove Apache entra in gioco, o le richieste verso application servers, ovvero i server che gestiscono le funzionalità e il carico di lavoro di una webapp. I Database Servers, invece, si occupano dello storage di risorse e backups. In base all'infrastruttura, il database e l'applicazione possono coesistere sullo stesso server, anche se tendenzialmente sarebbe raccomandabile mantenerli separati.
+
+La rete Internet consiste di molte tecnologie differenti e non tutte sono le stesse. Anche se Apache costituisce senza dubbio uno dei server web più popolari che esistono sulla rete, ci sono molti altri competitor e il panorama è in costante cambiamento. Negli anni '90 e primi 2000, Apache dominava il mercato, servendo più del 50\% dei siti web attivi su Internet. Un'altra opzione era IIS (Internet Information Services) di Microsoft, ma in confronto era meno popolare. Ad oggi, Apache continua a servire una grande porzione di siti web attivi ma la sua quota di mercato si è ridotta dal 50\% a poco sotto il 40\% nel 2018 e NGINX, pur essendo un nuovo web server, si trova al secondo posto con circa il 35\%, mentre Microsoft IIS si aggira tra l'8 e il 10\%. Ogni anno vengono rilasciate nuove webapp con nuovi stack e server, quindi il panorama continua a cambiare.
+
+Apache è considerato un software open source, il che vuol dire che il codice originale è disponibile liberamente per la visione e la collaborazione. Questo lo ha reso molto popolare tra gli sviluppatori, i quali hanno costruito e configurato dei loro moduli per applicare specifiche funzionalità e migliorare quelle già esistenti. Apache è nato nel 1995 ed è responsabile di aver aiutato ad iniziare la crescita di Internet quando era ancora agli albori.
+
+Uno dei vantaggi di Apache è la sua abilità di gestire grandi quantità di traffico con una configurazione minima. Inoltre, è in grado di scalare con facilità e, grazie alla sua funzionalità modulare, permette di essere configurato in base alle proprie esigenze. Possiamo anche rimuovere moduli indesiderati per rendere Apache più leggero ed efficiente.
+
+Alcuni dei moduli più popolari che possono essere aggiunti includono SSL, il supporto alla programmazione lato server (PHP), e le configurazioni di Load Balancing per gestire grandi quantità di traffico. Apache può essere rilasciato su Linux, macOS e Windows, seppur con percorsi processi di installazione diversi.
+
+Altre funzionalità di Apache Web Server includono la gestione di file statici, il caricamento di moduli dinamici, l'indicizzazione automatica, la configurazione di .htaccess, la compatibilità con IPv6, il supporto a HTTP/2, le connessioni FTP, la compressione e decompressioen mediante Gzip, il restringimento della larghezza di banda, il tracciamento della sessione, il load balancing, la riscrittura di URL e la geolocalizzazione basata su indirizzo IP.
+
+Apache comunica sulla rete da client a server utilizzando il protocollo TCP/IP e può essere utilizzato per una grande varietà di protocolli, di cui il più comune è HTTP/S, ovvero \textit{HyperText Transfer Protocol (Secure)}, uno dei principali protocolli sul web.
+
+Il server Apache è configurato tramite file di configurazione, nei quali si utilizzano i moduli per controllarne il comportamento. Di default, Apache si mette in ascolto sugli indirizzi IP configurati nei file di config che si stanno richiedendo. Qui entra in gioco uno dei punti di forza di Apache: mediante la direttiva Listen, è in grado di accettare e ridirezionare traffico specifico per certe porte e domini in base a specifiche combinazioni di richesta indirizzo-porta. Di default, Listen opera sulla porta 80 (HTTP), ma Apache può essere collegato a diverse porte per diversi domini, permettendo a molti siti web e domini diversi di essere messi in hosting sullo stesso server. 
+Una volta che un messaggio raggiunge la sua destinazione, invia un messaggio ACK al mittente, indicano che i dati sono arrivati con successo. Se invece avviene un errore nei dati ricevuti, o dei pacchetti sono stati persi durante il transito, allora viene inviato un messaggio NACK che informa il mittente che è necessario ritrasmettere i dati.
+
+Apache HTTP web server è utilizzato da oltre il 67\% dei web server in tutto il mondo, dato che si tratta di ambienti facili da personalizzare, ma anche veloci, affidabili e altamente sicuri. Questo ha reso i server Apache una scelta comune anche nelle migliori aziende \cite{Apache}.
 
 \section{XAMPP}
+XAMPP (\textit{X per Cross-Platform, Apache, MySQL, PHP e Perl}) è uno dei web server multipiattaforma più utilizzati e aiuta gli sviluppatori a creare e testare i loro programmi su un web server locale. Venne sviluppato da Apache Friends e il suo codice, open source, può essere revisionato o modificato dal pubblico. Consiste di un Apache HTTP Server, MariaDB/MySQL e un interprete per i diversi linguaggi di programmazione come PHP e Perl.
+
+XAMPP aiuta un host locale o un server a testare il suo sito e client tramite computer e laptop prima di rilasciarlo sul server principale. Questa piattaforma fornisce un ambiente adatto a testare e verificare il corretto funzionamento dei progetti basati su Apache, Perl, database MySQL e PHP tramite il sistema dello stesso host. Tra tutte queste tecnologie, Perl è un linguaggio di programmazione utilizzato per lo sviluppo web, PHP è un linguaggio di scripting per il backend, e MariaDB è il database più utilizzato sviluppato da MySQL.
+
 \subsection{Componenti}
-\subsection{Configurazione e gestione}
-\subsection{Testing e sicurezza}
+XAMPP è utilizzato per simboleggiare la classificazione di soluzioni per tecnologie differenti. Fornisce una base per il testing di progetti basati su diverse tecnologie attraverso un server personale. XAMPP è un insieme di software che contiene un web server chiamato Apache, un sistema di gestione di database chiamato MariaDB e linguaggi di scripting e programmazione come PHP e Perl. Può funzionare su Windows, Linux e macOS.
+\begin{itemize}
+    \item Cross-Platform: diversi sistemi locali hanno diverse configurazioni dovute ai sistemi operativi che vi sono installati. I componenti multipiattaforma sono inclusi per aumentare l'utilità e il pubblico a cui si rivolge questa distribuzione, supportando varie piattaforme come Windows, Linux e macOS.
+    \item Apache: si tratta di un web server HTTP multipiattaforma, utilizzato in tutto il mondo per la distribuzione di contenuto web. L'applicazione server è stata resa gratuita per l'installazione ed è utilizzata dalla community di sviluppatori sotto l'egida di Apache Software Foundation. Il server remoto di Apache consegna i file richiesti, le immagini e altri documenti all'utente.
+    \item MariaDB: in origine, il DBMS MySQL era parte di XAMPP, ma ad oggi è stato sostituito da MariaDB. Questo è uno dei DBMS più utilizzati, sviluppato da MySQL, e offre servizi online di data storage, manipolazione dati, recupero dati, riordinamento e cancellazione.
+    \item PHP: è il linguaggio di scripting per backend principalmente utilizzato per lo sviluppo web. PHP permette agli utenti di creare siti web e applicazioni dinamiche. Può essere installato su ogni piattaforma e supporta una grande varietà di DBMS (\textit{Database Management Systems}). Inoltre, è stato implementato utilizzando il linguaggio C. Il nome PHP è stato derivato da \textit{Personal Home Page tools}, il che spiega la sua semplicità e funzionalità.
+    \item Perl: è una combinazione di due linguaggi dinamici ad alto livello, ovvero Perl 5 e Perl 6. Perl può essere applicato per trovare soluzioni a problemi basati sull'amministrazione di sistema, sviluppo web e networking. Perl permette ai suoi utenti di programmare applicazioni web dinamiche ed è molto flessibile e robusto.
+    \item phpMyAdmin: questo strumento è utilizzato per gestire MariaDB e si occupa dell'amministrazioe di DBMS.
+    \item OpenSSL: è l'implementazione open-source del protocollo \textit{Secure Socket Layer / Transport Layer Protocol} (SSL / TLS).
+    \item XAMPP Control Panel: questo pannello aiuta a operare e regolare altri componenti di XAMPP.
+    \item Webalizer: questa soluzione software di Web Analytics è utilizzata per i log utenti e fornisce dettagli sull'utilizzo.
+    \item Mercury: è un sistema di trasporto di email, ovvero un mail server, che aiuta a gestire le email attraverso il web.
+    \item Tomcat: è un servlet basato su Java che fornisce funzionalità di Java.
+    \item Filezilla: è un server avente protocollo FTP (\textit{File Transfer Protocol}), che supporta e facilita le operazioni di trasferimento eseguite sui file.
+\end{itemize}
+
+% \subsection{Configurazione e gestione}
+% \subsection{Testing e sicurezza}
 
 \section{Git}
-\subsection{Vantaggi di Git}
-\subsection{Piattaforme di hosting per repositories}
+Git è uno strumento di controllo delle versioni del codice (VCS, ovvero \textit{Version Control System}) che è diventato pressoché un must negli ecosistemi di sviluppo software. L'abilità di Git di tracciare meticolosamente i cambiamenti a un progetto lo rende uno strumento essenziale per gli sviluppatori che mirano a gestire i loro progetti in modo efficiente.
 
+Il controllo delle versioni (\textit{version control}) ci permette di tracciare i cambiamenti al codice di un software. Quindi, la versione distribuita di un software consiste in un insieme di versioni specifiche di ciascuno dei suoi componenti e file di codice, in quanto ciascuno di essi potrebbe essere stato modificato un numero estremamente variabile di volte.
+
+Tenere traccia dei cambiamenti al codice ci permette di rendere più facile l'identificazione dell'origine di un problema, e allo stesso tempo riduce il rischio di conflitti e sovrascrittura di file. Quindi, Git facilita e semplifica il versioning del software precisamente per questo motivo.
+
+Git offre alcune funzionalità chiave che rendono più facile ottimizzare la gestione del codice e la collaborazione tra teams.
+
+\subsubsection{Visualizzazione della storia del progetto}
+La storia dei \textit{commit} è un pilastro chiave per tracciare i progressi del progetto su Git ed è quindi il motivo per cui Git offre agli sviluppatori uno storico dettagliato di tutti i cambiamenti apportati al codice.
+
+Per ciascun nuovo commit vengono tracciati gli specifici cambiamenti apportati ai file del progetto, insieme a un breve messaggio di spiegazione scritto dallo sviluppatore che ha effettuato quel cambiamento. Questi elementi aiutano a migliorare la capacità di comunicazione del team, permettendo una comprensione più rapida delle \textit{insertions} e \textit{deletions} che avvengono nel codice.
+
+In aggiunta al monitoraggio dello sviluppo, questo storico ci permette di tornare indietro se necessario, cancellando parte dei cambiamenti oppure effettuando la \textit{fetch} di solo una parte dei cambiamenti da un \textit{branch} all'altro. Questa funzione svolge un ruolo essenziale nel mantenimento della trasparenza, coerenza e qualità del codice di un progetto su Git, insieme al miglioramento della collaborazione all'interno del team di sviluppo e dell'efficienza operativa per risolvere i problemi.
+
+\subsubsection{Maggiore autonomia per i teams}
+Un'altra funzionalità essenziale di Git è lo sviluppo distribuito. Grazie alla sua struttura decentralizzata, Git permette ai team di sviluppatori di lavorare simultaneamente allo stesso progetto, fornendo a ogni membro una propria copia del progetto dove ciascun cambiamento apportato può essere tracciato nel versioning. Questo permette loro di lavorare in autonomia su funzionalità specifiche e di ridurre i rischi di conflitti o sovrascrittura. Questo approcio offre una grande flessibilità per gli sviluppatori che possono quindi esplorare idee diverse e sperimentare nuove funzionalità senza interferire col lavoro svolto dai loro colleghi.
+
+Lo sviluppo distribuito migliora anche la resilienza ai guasti del server: in caso di server failure, ciascuna persona possiede una copia del codice su cui possono continuare a lavorare offline. I cambiamenti possono quindi essere sincronizzati una volta che il server ritorna nuovamente disponibile, riducendo il rischio di distruzione del lavoro per i team di sviluppo e i limiti di aggiornamento per i team operazionali.
+
+\subsubsection{Ottimizzazione dei workflow di sviluppo}
+Git è in grado di gestire \textit{branches} e di effettuare il \textit{merging}, permettendo ai team di lavorare in parallelo in un modo collaborativo e organizzato. Ogni nuova aggiunta al codice o bugfix può essere sviluppata e testata indipendentemente, per garantire l'affidabilità. Gli sviluppatori quindi possono semplicemente effettuare il \textit{merge} di questi cambiamenti nel main branch del progetto.
+
+Adottando questo approccio, i team possono tracciare l'evoluzione del codice, collaborare facilmente e in modo efficiente, riducendo i conflitti tra versioni differenti e assicurando un'integrazione continua delle funzionalità sviluppate. I teams possono così sviluppare progetti in modo continuativo e agile, mentre rilasciano regolarmente nuove versioni di codice. Questa pratica facilita molto la gestione dei cambiamenti e allo stesso tempo riduce il rischio di errori.
+
+\subsection{Vantaggi di Git}
+Git offre numerosi benefici:
+\begin{itemize}
+    \item Gestione del versioning decentralizzata: con Git, ogni sviluppatore possiede una copia completa della storia del progetto, permettendo loro di lavorare indipendentemente.
+    \item Sicurezza: a differenza di altri VCS, Git assicura l'integrità di tutti gli elementi all'interno del repository mediante un algoritmo crittografico di hash detto \textit{Secure Hash Algorithm} (SHA-1 e SHA-256). Questo algoritmo protegge il codice e la storia del progetto da ogni modifica benevola o malevola. Inoltre, ogni commit (creazione di una nuova versione) può essere automaticamente firmato (GPG) per assicurare la tracciabilità dei cambiamenti. Questo rende Git uno strumento particolarmente sicuro e affidabile, garantendo l'integrità e l'autenticità del codice e della sua storia.
+    \item Veloce ed efficiente: Git massimizza l'efficienza durante lo sviluppo e la sua velocità permette agli sviluppatori di svolgere operazioni complesse, come i commit, branching e merging, in un tempo minimo, anche su grandi codebase. Assicura inoltre un impatto minimo sull'hard disk e anche durante gli scambi su rete. Questa efficienza si traduce in tempi di risposta rapidi durante i backup, le consultazioni e i cambiamenti della storia del progetto.
+    \item Maggiore flessibilità di lavoro: Git supporta una grande varietà di workflow di sviluppo, dai modelli centralizzati fino agli approcci lineari. Questa abilità di gestire diversi workflow fornisce ai team numerose opzioni per le possibilità con cui possono lavorare.
+    \item Facilità di integrazione: Git eccelle nella sua abilità di integrarsi con una grande varietà di strumenti e piattaforme di sviluppo. Questa larga compatibilità permette ai team di gestire i progetti più efficientemente, sfruttando i migliori tool e pratiche di DevSecOps.
+    \item Progetto open-source molto popolare: Git viene supportato da una community dinamica e dedicata, che assicura il suo miglioramento costante. Questa partecipazione attiva da individui e aziende garantisce la regolare aggiunta di nuove funzionalità e miglioramenti attraverso aggiornamenti continui.
+\end{itemize}
+
+\subsection{Principali comandi di Git}
+Git offre una grande varietà di comandi per rendere più facile il lavoro di squadra, quelli più comuni sono:
+\begin{itemize}
+    \item \Verb_git init_ inizializza un nuovo repository Git.
+    \item \Verb_git clone [url]_ clona un repository esistente.
+    \item \Verb_git add[file]_ aggiunge un file all'indice.
+    \item \Verb_git commit_ valida i cambiamenti apportati.
+    \item \Verb_git commit -m "message"_ valida i cambiamenti con un messaggio.
+    \item \Verb_git status_ visualizza lo status dei file nella \textit{working directory}.
+    \item \Verb_git push_ invia i cambiamenti al repository remoto.
+    \item \Verb_git pull_ effettua la \textit{fetch} dei cambiamenti dal repository remoto e quindi effettua la \textit{merge} con quelli del repository locale \cite{Git}.
+\end{itemize}
+
+\subsection{Piattaforme di hosting per repositories}
+Un repository Git può essere messo in hosting in diverse piattaforme, tra cui le principali sono \href{https://github.com/}{GitHub}, \href{https://gitlab.com/}{GitLab} e \href{https://bitbucket.org/}{BitBucket}, le quali ospitano repository Git rendendoli accessibili pubblicamente e offrono anche molte delle stesse funzionalità utilizzabili dal terminale con una GUI più user-friendly.
