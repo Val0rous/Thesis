@@ -1,6 +1,6 @@
-import View from "@/frontend/utils/views.js";
-import maxValues from "@/frontend/utils/maxValues.json";
-import Colors from "@/frontend/utils/colors.js";
+import View from "@/utils/views.js";
+import maxValues from "@/utils/maxValues.json";
+import Colors from "@/utils/colors.js";
 
 const shades = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"];
 const lineShades = ["A100", "A200", "A400", "A700"];

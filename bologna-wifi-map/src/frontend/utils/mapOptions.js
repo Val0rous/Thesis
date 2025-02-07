@@ -1,4 +1,4 @@
-import Colors from "@/frontend/utils/colors.js";
+import Colors from "@/utils/colors.js";
 
 export const defaultOptions = {
   color: Colors.Blue600,

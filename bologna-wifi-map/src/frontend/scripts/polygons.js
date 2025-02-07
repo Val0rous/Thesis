@@ -1,8 +1,8 @@
 import L from "leaflet";
-import mapOptionsFactory from "@/frontend/scripts/mapOptionsFactory.js";
-import View from "@/frontend/utils/views.js";
-import maxValues from "@/frontend/utils/maxValues.json";
-import {fetchAreas, fetchCrowdingAttendance, fetchMovements} from "@/frontend/scripts/api.js";
+import mapOptionsFactory from "@/scripts/mapOptionsFactory.js";
+import View from "@/utils/views.js";
+import maxValues from "@/utils/maxValues.json";
+import {fetchAreas, fetchCrowdingAttendance, fetchMovements} from "@/scripts/api.js";
 
 /**
  * Setup polygons for the first time.

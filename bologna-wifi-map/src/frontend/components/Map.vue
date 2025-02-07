@@ -1,21 +1,21 @@
 <script setup>
-import "@/frontend/utils/types.js";
+import "@/utils/types.js";
 import {onMounted, ref, defineProps, defineEmits, watch, computed} from "vue";
 import L from "leaflet";
-import ViewButtons from "@/frontend/components/ViewButtons.vue"
-import Layers from "@/frontend/components/Layers.vue";
-import View from "@/frontend/utils/views.js";
-import Maps from "@/frontend/utils/maps.js";
+import ViewButtons from "@/components/ViewButtons.vue"
+import Layers from "@/components/Layers.vue";
+import View from "@/utils/views.js";
+import Maps from "@/utils/maps.js";
 import {
   defaultOptions,
   hoverOptions,
   clickOptions,
   lineOptions,
-} from "@/frontend/utils/mapOptions.js";
-import {fetchAreas, fetchCrowdingAttendance, fetchMovements} from "@/frontend/scripts/api.js";
-import mapOptionsFactory from "@/frontend/scripts/mapOptionsFactory.js";
-import {setupPolygons, updatePolygons} from "@/frontend/scripts/polygons.js";
-import maps from "@/frontend/utils/maps.js";
+} from "@/utils/mapOptions.js";
+import {fetchAreas, fetchCrowdingAttendance, fetchMovements} from "@/scripts/api.js";
+import mapOptionsFactory from "@/scripts/mapOptionsFactory.js";
+import {setupPolygons, updatePolygons} from "@/scripts/polygons.js";
+import maps from "@/utils/maps.js";
 // import "leaflet-polylineoffset";
 // import "leaflet-polylinedecorator";
 

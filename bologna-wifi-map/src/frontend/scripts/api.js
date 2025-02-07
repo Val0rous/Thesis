@@ -1,4 +1,4 @@
-import {addObjectToKey} from "@/frontend/utils/utils.js";
+import {addObjectToKey} from "@/utils/utils.js";
 
 const baseURL = `${window.location.protocol}//${window.location.hostname}`;
 

@@ -5,7 +5,7 @@ import AttendanceIcon from "./icons/IconAttendance.vue";
 import MovementsIcon from "./icons/IconMovements.vue";
 import PassengersIcon from "./icons/IconPassengers.vue";
 import MediansIcon from "./icons/IconMedians.vue";
-import View from "@/frontend/utils/views.js";
+import View from "@/utils/views.js";
 
 
 const props = defineProps({

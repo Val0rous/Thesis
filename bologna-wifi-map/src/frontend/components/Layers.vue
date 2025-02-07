@@ -1,11 +1,11 @@
 <script setup>
 import LayersIcon from "./icons/IconLayers.vue";
 import {defineProps, defineEmits, ref} from "vue";
-import IconMap from "@/frontend/components/icons/IconMap.vue";
-import IconSatelliteAlt from "@/frontend/components/icons/IconSatelliteAlt.vue";
-import IconLandscape from "@/frontend/components/icons/IconLandscape.vue";
-import IconClose from "@/frontend/components/icons/IconClose.vue";
-import Maps from "@/frontend/utils/maps.js";
+import IconMap from "@/components/icons/IconMap.vue";
+import IconSatelliteAlt from "@/components/icons/IconSatelliteAlt.vue";
+import IconLandscape from "@/components/icons/IconLandscape.vue";
+import IconClose from "@/components/icons/IconClose.vue";
+import Maps from "@/utils/maps.js";
 
 const isPickerVisible = ref(false);
 const showPicker = () => {

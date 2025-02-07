@@ -6,12 +6,12 @@ import TimeIcon from "./icons/IconTime.vue";
 import MenuIcon from "./icons/IconMenu.vue";
 import PlusIcon from "./icons/IconPlus.vue";
 import MinusIcon from "./icons/IconMinus.vue";
-import {calculateDate} from "@/frontend/utils/utils.js";
+import {calculateDate} from "@/utils/utils.js";
 import {useDark} from "@vueuse/core";
-import IconArrowLeft from "@/frontend/components/icons/IconArrowLeft.vue";
-import IconArrowRight from "@/frontend/components/icons/IconArrowRight.vue";
-import IconKeyboardArrowLeft from "@/frontend/components/icons/IconKeyboardArrowLeft.vue";
-import IconKeyboardArrowRight from "@/frontend/components/icons/IconKeyboardArrowRight.vue";
+import IconArrowLeft from "@/components/icons/IconArrowLeft.vue";
+import IconArrowRight from "@/components/icons/IconArrowRight.vue";
+import IconKeyboardArrowLeft from "@/components/icons/IconKeyboardArrowLeft.vue";
+import IconKeyboardArrowRight from "@/components/icons/IconKeyboardArrowRight.vue";
 
 const props = defineProps({
   date: String,
