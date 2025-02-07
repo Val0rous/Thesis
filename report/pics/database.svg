@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg
+PUBLIC "-//W3C//DTD SVG 1.1//EN"
+       "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="204 18 953 1132" width="749px" height="1114px" xmlns="http://www.w3.org/2000/svg" version="1.1">
+   <line x1="498" y1="151" x2="488" y2="151" style="stroke:#0b0;stroke-width:1;"/>
+   <line x1="493" y1="289" x2="503" y2="289" style="stroke:#0b0;stroke-width:1;"/>
+   <line x1="488" y1="151" x2="493" y2="289" style="stroke:#0b0;stroke-width:1;"/>
+   <line x1="490.5" y1="151" x2="494.03553390593" y2="154.53553390593" style="stroke:#0b0;stroke-width:2;"/>
+   <line x1="490.5" y1="151" x2="494.03553390593" y2="147.46446609407" style="stroke:#0b0;stroke-width:2;"/>
+   <line x1="498" y1="289" x2="494.46446609407" y2="292.53553390593" style="stroke:#0b0;stroke-width:2;"/>
+   <line x1="498" y1="289" x2="494.46446609407" y2="285.46446609407" style="stroke:#0b0;stroke-width:2;"/>
+   <line x1="762" y1="1083" x2="752" y2="1083" style="stroke:#0bf;stroke-width:1;"/>
+   <line x1="638" y1="289" x2="628" y2="289" style="stroke:#0bf;stroke-width:1;"/>
+   <line x1="752" y1="1083" x2="638" y2="289" style="stroke:#0bf;stroke-width:1;"/>
+   <line x1="754.5" y1="1083" x2="758.03553390593" y2="1086.5355339059" style="stroke:#0bf;stroke-width:2;"/>
+   <line x1="754.5" y1="1083" x2="758.03553390593" y2="1079.4644660941" style="stroke:#0bf;stroke-width:2;"/>
+   <line x1="633" y1="289" x2="636.53553390593" y2="292.53553390593" style="stroke:#0bf;stroke-width:2;"/>
+   <line x1="633" y1="289" x2="636.53553390593" y2="285.46446609407" style="stroke:#0bf;stroke-width:2;"/>
+   <line x1="344" y1="1087" x2="354" y2="1087" style="stroke:#bbb;stroke-width:1;"/>
+   <line x1="493" y1="289" x2="503" y2="289" style="stroke:#bbb;stroke-width:1;"/>
+   <line x1="354" y1="1087" x2="493" y2="289" style="stroke:#bbb;stroke-width:1;"/>
+   <line x1="351.5" y1="1087" x2="347.96446609407" y2="1090.5355339059" style="stroke:#bbb;stroke-width:2;"/>
+   <line x1="351.5" y1="1087" x2="347.96446609407" y2="1083.4644660941" style="stroke:#bbb;stroke-width:2;"/>
+   <line x1="498" y1="289" x2="494.46446609407" y2="292.53553390593" style="stroke:#bbb;stroke-width:2;"/>
+   <line x1="498" y1="289" x2="494.46446609407" y2="285.46446609407" style="stroke:#bbb;stroke-width:2;"/>
+   <line x1="344" y1="1107" x2="354" y2="1107" style="stroke:#c00;stroke-width:1;"/>
+   <line x1="493" y1="289" x2="503" y2="289" style="stroke:#c00;stroke-width:1;"/>
+   <line x1="354" y1="1107" x2="493" y2="289" style="stroke:#c00;stroke-width:1;"/>
+   <line x1="351.5" y1="1107" x2="347.96446609407" y2="1110.5355339059" style="stroke:#c00;stroke-width:2;"/>
+   <line x1="351.5" y1="1107" x2="347.96446609407" y2="1103.4644660941" style="stroke:#c00;stroke-width:2;"/>
+   <line x1="498" y1="289" x2="494.46446609407" y2="292.53553390593" style="stroke:#c00;stroke-width:2;"/>
+   <line x1="498" y1="289" x2="494.46446609407" y2="285.46446609407" style="stroke:#c00;stroke-width:2;"/>
+   <rect width="125" height="20" x="503" y="259" style="fill:#007;stroke:black;"/>
+   <text width="125" height="20" x="508" y="273" style="fill:#fff;" font-family="Arial" font-size="16px"> areas</text>
+   <rect width="125" height="20" x="503" y="279" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="508" y="293" style="fill:black;" font-family="Arial" font-size="16px">zone_id</text>
+   <rect width="125" height="20" x="503" y="299" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="508" y="313" style="fill:black;" font-family="Arial" font-size="16px">zone_name</text>
+   <rect width="125" height="20" x="503" y="319" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="508" y="333" style="fill:black;" font-family="Arial" font-size="16px">geo_point_2d_lat</text>
+   <rect width="125" height="20" x="503" y="339" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="508" y="353" style="fill:black;" font-family="Arial" font-size="16px">geo_point_2d_lon</text>
+   <rect width="102" height="20" x="498" y="41" style="fill:#007;stroke:black;"/>
+   <text width="102" height="20" x="503" y="55" style="fill:#fff;" font-family="Arial" font-size="16px"> coordinates</text>
+   <rect width="102" height="20" x="498" y="61" style="fill:#aea;stroke:black;"/>
+   <text width="102" height="20" x="503" y="75" style="fill:black;" font-family="Arial" font-size="16px">coordinate_id</text>
+   <rect width="102" height="20" x="498" y="81" style="fill:none;stroke:black;"/>
+   <text width="102" height="20" x="503" y="95" style="fill:black;" font-family="Arial" font-size="16px">latitude</text>
+   <rect width="102" height="20" x="498" y="101" style="fill:none;stroke:black;"/>
+   <text width="102" height="20" x="503" y="115" style="fill:black;" font-family="Arial" font-size="16px">longitude</text>
+   <rect width="102" height="20" x="498" y="121" style="fill:none;stroke:black;"/>
+   <text width="102" height="20" x="503" y="135" style="fill:black;" font-family="Arial" font-size="16px">order</text>
+   <rect width="102" height="20" x="498" y="141" style="fill:none;stroke:black;"/>
+   <text width="102" height="20" x="503" y="155" style="fill:black;" font-family="Arial" font-size="16px">zone_id</text>
+   <rect width="176" height="20" x="762" y="33" style="fill:#007;stroke:black;"/>
+   <text width="176" height="20" x="767" y="47" style="fill:#fff;" font-family="Arial" font-size="16px"> crowding_attendance</text>
+   <rect width="176" height="20" x="762" y="53" style="fill:#aea;stroke:black;"/>
+   <text width="176" height="20" x="767" y="67" style="fill:black;" font-family="Arial" font-size="16px">crowding_attendance_id</text>
+   <rect width="176" height="20" x="762" y="73" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="87" style="fill:black;" font-family="Arial" font-size="16px">date</text>
+   <rect width="176" height="20" x="762" y="93" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="107" style="fill:black;" font-family="Arial" font-size="16px">day</text>
+   <rect width="176" height="20" x="762" y="113" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="127" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_00</text>
+   <rect width="176" height="20" x="762" y="133" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="147" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_01</text>
+   <rect width="176" height="20" x="762" y="153" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="167" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_02</text>
+   <rect width="176" height="20" x="762" y="173" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="187" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_03</text>
+   <rect width="176" height="20" x="762" y="193" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="207" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_04</text>
+   <rect width="176" height="20" x="762" y="213" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="227" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_05</text>
+   <rect width="176" height="20" x="762" y="233" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="247" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_06</text>
+   <rect width="176" height="20" x="762" y="253" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="267" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_07</text>
+   <rect width="176" height="20" x="762" y="273" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="287" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_08</text>
+   <rect width="176" height="20" x="762" y="293" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="307" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_09</text>
+   <rect width="176" height="20" x="762" y="313" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="327" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_10</text>
+   <rect width="176" height="20" x="762" y="333" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="347" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_11</text>
+   <rect width="176" height="20" x="762" y="353" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="367" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_12</text>
+   <rect width="176" height="20" x="762" y="373" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="387" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_13</text>
+   <rect width="176" height="20" x="762" y="393" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="407" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_14</text>
+   <rect width="176" height="20" x="762" y="413" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="427" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_15</text>
+   <rect width="176" height="20" x="762" y="433" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="447" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_16</text>
+   <rect width="176" height="20" x="762" y="453" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="467" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_17</text>
+   <rect width="176" height="20" x="762" y="473" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="487" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_18</text>
+   <rect width="176" height="20" x="762" y="493" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="507" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_19</text>
+   <rect width="176" height="20" x="762" y="513" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="527" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_20</text>
+   <rect width="176" height="20" x="762" y="533" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="547" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_21</text>
+   <rect width="176" height="20" x="762" y="553" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="567" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_22</text>
+   <rect width="176" height="20" x="762" y="573" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="587" style="fill:black;" font-family="Arial" font-size="16px">avg_crowding_23</text>
+   <rect width="176" height="20" x="762" y="593" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="607" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_00</text>
+   <rect width="176" height="20" x="762" y="613" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="627" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_01</text>
+   <rect width="176" height="20" x="762" y="633" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="647" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_02</text>
+   <rect width="176" height="20" x="762" y="653" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="667" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_03</text>
+   <rect width="176" height="20" x="762" y="673" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="687" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_04</text>
+   <rect width="176" height="20" x="762" y="693" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="707" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_05</text>
+   <rect width="176" height="20" x="762" y="713" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="727" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_06</text>
+   <rect width="176" height="20" x="762" y="733" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="747" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_07</text>
+   <rect width="176" height="20" x="762" y="753" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="767" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_08</text>
+   <rect width="176" height="20" x="762" y="773" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="787" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_09</text>
+   <rect width="176" height="20" x="762" y="793" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="807" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_10</text>
+   <rect width="176" height="20" x="762" y="813" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="827" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_11</text>
+   <rect width="176" height="20" x="762" y="833" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="847" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_12</text>
+   <rect width="176" height="20" x="762" y="853" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="867" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_13</text>
+   <rect width="176" height="20" x="762" y="873" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="887" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_14</text>
+   <rect width="176" height="20" x="762" y="893" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="907" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_15</text>
+   <rect width="176" height="20" x="762" y="913" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="927" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_16</text>
+   <rect width="176" height="20" x="762" y="933" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="947" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_17</text>
+   <rect width="176" height="20" x="762" y="953" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="967" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_18</text>
+   <rect width="176" height="20" x="762" y="973" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="987" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_19</text>
+   <rect width="176" height="20" x="762" y="993" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="1007" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_20</text>
+   <rect width="176" height="20" x="762" y="1013" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="1027" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_21</text>
+   <rect width="176" height="20" x="762" y="1033" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="1047" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_22</text>
+   <rect width="176" height="20" x="762" y="1053" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="1067" style="fill:black;" font-family="Arial" font-size="16px">avg_attendance_23</text>
+   <rect width="176" height="20" x="762" y="1073" style="fill:none;stroke:black;"/>
+   <text width="176" height="20" x="767" y="1087" style="fill:black;" font-family="Arial" font-size="16px">zone_id</text>
+   <rect width="125" height="20" x="219" y="37" style="fill:#007;stroke:black;"/>
+   <text width="125" height="20" x="224" y="51" style="fill:#fff;" font-family="Arial" font-size="16px"> movements</text>
+   <rect width="125" height="20" x="219" y="57" style="fill:#aea;stroke:black;"/>
+   <text width="125" height="20" x="224" y="71" style="fill:black;" font-family="Arial" font-size="16px">movement_id</text>
+   <rect width="125" height="20" x="219" y="77" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="91" style="fill:black;" font-family="Arial" font-size="16px">date</text>
+   <rect width="125" height="20" x="219" y="97" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="111" style="fill:black;" font-family="Arial" font-size="16px">day</text>
+   <rect width="125" height="20" x="219" y="117" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="131" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_00</text>
+   <rect width="125" height="20" x="219" y="137" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="151" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_01</text>
+   <rect width="125" height="20" x="219" y="157" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="171" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_02</text>
+   <rect width="125" height="20" x="219" y="177" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="191" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_03</text>
+   <rect width="125" height="20" x="219" y="197" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="211" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_04</text>
+   <rect width="125" height="20" x="219" y="217" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="231" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_05</text>
+   <rect width="125" height="20" x="219" y="237" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="251" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_06</text>
+   <rect width="125" height="20" x="219" y="257" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="271" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_07</text>
+   <rect width="125" height="20" x="219" y="277" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="291" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_08</text>
+   <rect width="125" height="20" x="219" y="297" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="311" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_09</text>
+   <rect width="125" height="20" x="219" y="317" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="331" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_10</text>
+   <rect width="125" height="20" x="219" y="337" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="351" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_11</text>
+   <rect width="125" height="20" x="219" y="357" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="371" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_12</text>
+   <rect width="125" height="20" x="219" y="377" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="391" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_13</text>
+   <rect width="125" height="20" x="219" y="397" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="411" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_14</text>
+   <rect width="125" height="20" x="219" y="417" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="431" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_15</text>
+   <rect width="125" height="20" x="219" y="437" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="451" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_16</text>
+   <rect width="125" height="20" x="219" y="457" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="471" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_17</text>
+   <rect width="125" height="20" x="219" y="477" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="491" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_18</text>
+   <rect width="125" height="20" x="219" y="497" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="511" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_19</text>
+   <rect width="125" height="20" x="219" y="517" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="531" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_20</text>
+   <rect width="125" height="20" x="219" y="537" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="551" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_21</text>
+   <rect width="125" height="20" x="219" y="557" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="571" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_22</text>
+   <rect width="125" height="20" x="219" y="577" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="591" style="fill:black;" font-family="Arial" font-size="16px">percentile_50_23</text>
+   <rect width="125" height="20" x="219" y="597" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="611" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_00</text>
+   <rect width="125" height="20" x="219" y="617" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="631" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_01</text>
+   <rect width="125" height="20" x="219" y="637" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="651" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_02</text>
+   <rect width="125" height="20" x="219" y="657" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="671" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_03</text>
+   <rect width="125" height="20" x="219" y="677" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="691" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_04</text>
+   <rect width="125" height="20" x="219" y="697" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="711" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_05</text>
+   <rect width="125" height="20" x="219" y="717" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="731" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_06</text>
+   <rect width="125" height="20" x="219" y="737" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="751" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_07</text>
+   <rect width="125" height="20" x="219" y="757" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="771" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_08</text>
+   <rect width="125" height="20" x="219" y="777" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="791" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_09</text>
+   <rect width="125" height="20" x="219" y="797" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="811" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_10</text>
+   <rect width="125" height="20" x="219" y="817" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="831" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_11</text>
+   <rect width="125" height="20" x="219" y="837" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="851" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_12</text>
+   <rect width="125" height="20" x="219" y="857" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="871" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_13</text>
+   <rect width="125" height="20" x="219" y="877" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="891" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_14</text>
+   <rect width="125" height="20" x="219" y="897" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="911" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_15</text>
+   <rect width="125" height="20" x="219" y="917" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="931" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_16</text>
+   <rect width="125" height="20" x="219" y="937" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="951" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_17</text>
+   <rect width="125" height="20" x="219" y="957" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="971" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_18</text>
+   <rect width="125" height="20" x="219" y="977" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="991" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_19</text>
+   <rect width="125" height="20" x="219" y="997" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="1011" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_20</text>
+   <rect width="125" height="20" x="219" y="1017" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="1031" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_21</text>
+   <rect width="125" height="20" x="219" y="1037" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="1051" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_22</text>
+   <rect width="125" height="20" x="219" y="1057" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="1071" style="fill:black;" font-family="Arial" font-size="16px">tot_pass_23</text>
+   <rect width="125" height="20" x="219" y="1077" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="1091" style="fill:black;" font-family="Arial" font-size="16px">zone_id_to</text>
+   <rect width="125" height="20" x="219" y="1097" style="fill:none;stroke:black;"/>
+   <text width="125" height="20" x="224" y="1111" style="fill:black;" font-family="Arial" font-size="16px">zone_id_from</text>
+</svg>
