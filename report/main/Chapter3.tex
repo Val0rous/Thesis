@@ -141,8 +141,75 @@ Appena caricato il sito, viene visualizzata la mappa della città di Bologna ins
 % OPINIONI UTENTI: in forma anonima, basta una descrizione generale sui dati aggregati
 % Dati in forma aggregata, specificando il range di valori per le informazioni anagrafiche e.g. età, per il SUS invece valore medio, min e max con dettaglio per risposta.
 
+Una volta realizzata l'applicazione web, abbiamo reclutato un gruppo di utenti affinché svolgessero un test relativo all'usabilità, confrontando il sito degli Open Data con quello da noi realizzato, ovvero BolognaWiFiMap.
+
+Innanzitutto, dobbiamo fare qualche considerazione sul campione di utenti preso in esame, avente dimensione \( n = 9 \), con \( n \) numero di utenti. Questo campione è indubbiamente piccolo, ma sufficiente a trarre le conclusioni necessarie alla valutazione della qualità del sistema realizzato.
+
+Riguardo all'età degli utenti, questa varia in un range tra 23 e 30 anni (media 24.7, mediana 24.0). Stiamo quindi considerando un campione abbastanza uniforme di persone giovani e aventi familiarità con il mondo digitale. L'ultima considerazione è importante perché ci permette di imputare eventuali problemi alla scarsa usabilità del sito stesso e non a una bassa capacità di interazione digitale, e viceversa rende possibile capire se un sito sia ben utilizzabile.
+
+\subsection{Feedback utente su task assegnati}
+Per effettuare questo test in maniera standardizzata, abbiamo definito qualche task da sottoporre agli utenti. Tali compiti sono mirati a valutare la facilità di utilizzo dell'applicazione e riguardano i seguenti aspetti:
+\begin{itemize}
+    \item Visualizzazione delle zone coperte da segnale.
+    \item Visualizzazione degli spostamenti degli utenti tra le varie zone.
+    \item Visualizzazione dell'affollamento di una specifica zona.
+    \item Visualizzazione dell'affluenza di una specifica zona.
+\end{itemize}
+
+Gli utenti dovevano valutare se fosse più facile svolgere questi compiti sul sito degli Open Data o se, al contrario, risultasse più comoda l'applicazione BolognaWiFiMap realizzata da noi. Dopodiché avrebbero lasciato un feedback che sarebbe stato raccolto in maniera anonima.
+
+Per evitare di influenzare l'opinione degli utenti, abbiamo lasciato che svolgessero il test in totale autonomia, spiegando loro in maniera chiara quali fossero gli obiettivi sui quali focalizzarsi. Al fine di fornire agli stessi una comprensione di base sugli argomenti trattati da entrambi i siti, abbiamo spiegato concisamente agli utenti i concetti di BolognaWiFi, affollamento, affluenza e spostamenti, in modo da evitare un bias sui dati dovuto a una conoscenza inesistente dell'ambiente di test.
+
+Le nostre aspettative iniziali ritenevano il sito degli Open Data più difficile da utilizzare rispetto al nostro sistema, e abbiamo in seguito avuto conferma dalle opinioni degli utenti che tali supposizioni erano assolutamente fondate, trovando un certo livello di consistenza all'interno dei feedback forniti. Andiamo quindi ad illustrare le opinioni degli utenti relative ai due sistemi.
+
+\subsubsection{Open Data}
+% Eu: assolutamente poco pratico, però ti dice letteralmente quello che è. Non ci si potrebbe mai fare un qualcosa di comodo e vendibile a delle persone, o comunque pratico.
+% Mancu: "mi sento meno gay", fa schifo in confronto al mio
+% Jyulo: "esperienza assolutamente anonima" perché cercava un modo carino per dire "non ho assolutamente capito un cazzo di quello che c'è in sto sito". Immaginava cosa fosse perché glielo avevo anticipato, ma altrimenti non ne aveva assolutamente idea perché "non si capisce un cazzo". Non sa se in quel sito lì uno ci va apposta perché ci vuole andare o se ci capita per caso reindirizzato da qualche parte, in quel caso è comunque un sito assolutamente inutile e non ha senso.
+Le opinioni riguardanti il sito degli Open Data sono state prevalentemente negative. 7 utenti su 9 lamentavano il fatto che l'esperienza risultasse scarsissima, confusionaria e di difficile comprensione, con un utente che l'ha definita come assolutamente anonima. Tuttavia, 2 di questi 7 utenti hanno comunque sottolineato che, benché la scarsa praticità di utilizzo, questo sito rimanga comunque utile come banca dati. Gli altri due utenti hanno invece ritenuto la loro esperienza buona o addirittura ottima.
+
+\subsubsection{BolognaWiFiMap}
+% Eu: non è difficile ma è poco intuitivo: sarebbe da rendere solo un pochino più intuitivo.
+% Mancu: la mappa è un po' strana ma va beh. Molto più facile da utilizzare
+% Jyulo: gran bel sito
+Riguardo al nostro sito BolognaWiFiMap, invece, le opinioni si sono radicalmente capovolte. Tutti gli utenti hanno evidenziato che l'esperienza risultasse buona o ottima, con un utente che è arrivato addirittura a definirla eccellente. Inoltre, sono rimasti tutti concordi sul fatto che questo sito sia molto più facile da utilizzare rispetto a quello degli Open Data. A vari livelli, la visualizzazione dei dati è stata ritenuta rapida e intuitiva, molto efficace a livello visivo. Solo un utente ha consigliato che potrebbe essere una buona idea rendere il sito ancora più intuitivo, offrendo spiegazioni ulteriori riguardo ai vari tipi di visualizzazioni di dati, seppur rimanendo dell'idea che già ora il sito sia facilmente utilizzabile. Quest'ultimo feedback fornisce uno spunto per un possibile sviluppo futuro dell'applicazione, volto a garantirne un'ancora maggiore accessibilità.
+
+\subsection{Questionario SUS}
+Ottenere un feedback dagli utenti è un ottimo passo in avanti per definire possibili punti di forza e debolezze di un'applicazione, ma queste opinioni hanno una natura prettamente soggettiva. Serve quindi un modo per valutare l'usabilità di un sistema in maniera standardizzata e il più obiettiva possibile, ed è qui che entra in gioco il questionario SUS.
+
+Il questionario SUS (\textit{System Usability Scale}) è un insieme di 10 domande di carattere generale che possono essere utilizzate per valutare l'usabilità di un qualsiasi sistema su una scala da 0 (usabilità percepita molto scarsa) a 100 (usabilità percepita eccellente) \cite{SUS}.
+
+Questo generalismo rappresenta il suo punto di forza, in quanto è in grado di adattarsi a qualunque tipo di applicazione, ma costituisce anche la sua più grande debolezza, dato che non permette di capire su quali aree lavorare per poter migliorare l'usabilità \cite{SUS}.
+
+All'interno delle 10 domande, quelle dispari hanno una formulazione positiva e servono a calcolare la facilità d'uso, mentre quelle pari sono formulate in modo negativo appositamente per calcolare le possibili difficoltà legate all'utilizzo, contrastando con la domanda appena posta in precedenza.
+
+Il punteggio finale del questionario SUS viene calcolato utilizzando la formula seguente \eqref{eq:sus_original} \cite{SUS_DesignersItalia}:
+
+\begin{equation}
+    SUS = \left( \sum_{i=1,3,5,7,9} (X_i - 1) + \sum_{i=2,4,6,8,10} (5 - X_i) \right) \times 2.5
+    \label{eq:sus_original}
+\end{equation}
+
+Dove \( X_i \) sono le domande \( X_1, ..., X_{10} \). Quest'ultima formula può essere semplificata nella seguente \eqref{eq:sus_simplified} \cite{SUS_Wikipedia}:
+
+\begin{equation}
+    SUS = 2.5 \times \left( 20 + \sum_{i=1,3,5,7,9} X_i - \sum_{i=2,4,6,8,10} X_i \right)
+    \label{eq:sus_simplified}
+\end{equation}
+
+La quale, a sua volta, può essere riscritta in forma abbreviata \eqref{eq:sus_shortened} per ottenere una maggiore chiarezza ed efficacia di comprensione \cite{SUS_Wikipedia}:
+
+\begin{equation}
+    SUS = 2.5 \times \left( 20 + \sum (\text{SUS}_{\text{odd}}) - \sum (\text{SUS}_{\text{even}}) \right)
+    \label{eq:sus_shortened}
+\end{equation}
+
+Diventa ora chiaro dalla \eqref{eq:sus_shortened} come le domande dispari, positive, contribuiscano ad aumentare il punteggio finale del SUS, mentre quelle pari, negative, lo diminuiscano. Di conseguenza, è auspicabile che gli utenti rispondano con un voto alto alle domande dispari e con uno basso per quelle pari, al fine di ottenere un punteggio elevato.
+
+Il questionario SUS che abbiamo sottoposto agli utenti è quello fornito da Designers Italia \cite{SUS_DesignersItalia}, ma la struttura del questionario è standardizzata in tutte le lingue. Di seguito elenchiamo la lista delle domande in Tabella~\ref{tab:sus_questions}.
+
 \begin{center}
-    \begin{table}
+    \begin{table}[H]
         \centering
         \begin{tabularx}{1.02\textwidth}{|c|X|}
             \hline
@@ -167,59 +234,15 @@ Appena caricato il sito, viene visualizzata la mappa della città di Bologna ins
     \end{table}
 \end{center}
 
-Dimensione campione: 9
+A ciascuna di queste domande, a prescindere se sia pari o dispari, si può rispondere con un numero intero da 1 (fortemente in disaccordo) a 5 (fortemente d'accordo). Quindi, non solo la formulazione delle domande è semplice, ma lo è altrettanto la valutazione delle relative risposte.
 
-Range di età: 23 - 30
+D'ora in poi, eviteremo di riportare nuovamente la descrizione per ogni domanda, ma ci riferiremo ad esse tramite la sigla SUS01 per la prima domanda, e così via.
 
-\[
-SUS = 2.5 \times \left( 20 + \sum (\text{SUS}_{\text{odd}}) - \sum (\text{SUS}_{\text{even}}) \right)
-\]
-
-\[
-SUS = \left( \sum_{i=1,3,5,7,9} (X_i - 1) + \sum_{i=2,4,6,8,10} (5 - X_i) \right) \times 2.5
-\]
-
-\[
-SUS = 2.5 \times \left( 20 + \sum_{i=1,3,5,7,9} X_i - \sum_{i=2,4,6,8,10} X_i \right)
-\]
+\subsection{Risposte al questionario SUS}
+Andiamo ora ad analizzare le risposte fornite dagli utenti. Riporteremo dapprima ciascuna delle due tabelle con i risultati individuali degli utenti, sia per il sito degli Open Data in Tabella~\ref{tab:sus_opendata}, sia per il nostro sito BolognaWiFiMap in Tabella~\ref{tab:sus_bolognawifimap}. Infine, mostreremo la Tabella~\ref{tab:sus_avg_values} contenente la media dei risultati per ciascuna domanda.
 
 \begin{center}
     \begin{table}[H]
-        \centering
-        \begin{tabularx}{\textwidth}{|X|X|X|}
-            \hline
-            \multicolumn{3}{|c|}{\textbf{Valori medi risultati questionario SUS}} \\
-            \hline
-            \textbf{Domanda} & \textbf{Open Data} & \textbf{BolognaWiFiMap} \\
-            \hline
-            SUS01 & 2.22 & 4.11 \\
-            SUS02 & 3.11 & 1.44 \\
-            SUS03 & 2.56 & 4.56 \\
-            SUS04 & 3.56 & 1.78 \\
-            SUS05 & 3.00 & 4.67 \\
-            SUS06 & 2.89 & 1.44 \\
-            SUS07 & 3.00 & 4.44 \\
-            SUS08 & 3.00 & 1.44 \\
-            SUS09 & 2.56 & 4.56 \\
-            SUS10 & 2.44 & 1.22 \\
-            \hline
-            \textbf{Punteggio SUS} & \textbf{45.83} & \textbf{87.50} \\
-            \hline
-        \end{tabularx}
-        \caption[Valori medi totali e per domanda del questionario SUS]{Valori medi per ciascuna domanda del questionario SUS. Nell'ultima riga viene calcolato il punteggio medio risultante da tutti gli utenti.}
-        \label{tab:sus_avg_values}
-    \end{table}
-\end{center}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{sus_avg_values_legend}
-    \caption[Valori medi per ciascuna domanda del questionario SUS]{Valori medi per ciascuna domanda del questionario SUS. In rosso, quelli relativi al sito degli Open Data. In blu, quelli su BolognaWiFiMap.}
-    \label{fig:sus_avg_values}
-\end{figure}
-
-\begin{center}
-    \begin{table}
         \centering
         \begin{tabularx}{\textwidth}{|c|c|c|c|c|c|c|c|c|c|X|}
             \hline
@@ -244,7 +267,7 @@ SUS = 2.5 \times \left( 20 + \sum_{i=1,3,5,7,9} X_i - \sum_{i=2,4,6,8,10} X_i \r
 \end{center}
 
 \begin{center}
-    \begin{table}
+    \begin{table}[h]
         \centering
         \begin{tabularx}{\textwidth}{|c|c|c|c|c|c|c|c|c|c|X|}
             \hline
@@ -253,7 +276,7 @@ SUS = 2.5 \times \left( 20 + \sum_{i=1,3,5,7,9} X_i - \sum_{i=2,4,6,8,10} X_i \r
             \textbf{S01} & \textbf{S02} & \textbf{S03} & \textbf{S04} & \textbf{S05} & \textbf{S06} & \textbf{S07} & \textbf{S08} & \textbf{S09} & \textbf{S10} & \textbf{SUS} \\
             \hline
             5 & 1 & 5 & 2 & 5 & 1 & 5 & 1 & 5 & 1 & 97.5 \\
-            5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 100.0 \\
+            5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 100 \\
             4 & 2 & 4 & 3 & 4 & 1 & 4 & 2 & 3 & 1 & 75.0 \\
             3 & 1 & 5 & 1 & 5 & 2 & 5 & 1 & 5 & 2 & 90.0 \\
             3 & 2 & 4 & 2 & 4 & 2 & 4 & 2 & 4 & 1 & 75.0 \\
@@ -273,27 +296,123 @@ SUS = 2.5 \times \left( 20 + \sum_{i=1,3,5,7,9} X_i - \sum_{i=2,4,6,8,10} X_i \r
         \centering
         \begin{tabularx}{\textwidth}{|X|X|X|}
             \hline
-            \multicolumn{3}{|c|}{\textbf{Confronto risposte SUS}} \\
+            \multicolumn{3}{|c|}{\textbf{Valori medi risultati questionario SUS}} \\
             \hline
-            \textbf{Età utente} & \textbf{Open Data} & \textbf{BolognaWiFiMap} \\
+            \textbf{Domanda} & \textbf{Open Data} & \textbf{BolognaWiFiMap} \\
             \hline
-            24 & 22.5 & 97.5 \\
-            23 & 42.5 & 100.0 \\
-            23 & 60.0 & 75.0 \\
-            24 & 62.5 & 90.0 \\
-            23 & 27.5 & 75.0 \\
-            26 & 82.5 & 85.0 \\
-            24 & 25.0 & 97.5 \\
-            25 & 67.5 & 70.0 \\
-            30 & 22.5 & 97.5 \\
+            SUS01 & 2.22 & 4.11 \\
+            SUS02 & 3.11 & 1.44 \\
+            SUS03 & 2.56 & 4.56 \\
+            SUS04 & 3.56 & 1.78 \\
+            SUS05 & 3.00 & 4.67 \\
+            SUS06 & 2.89 & 1.44 \\
+            SUS07 & 3.00 & 4.44 \\
+            SUS08 & 3.00 & 1.44 \\
+            SUS09 & 2.56 & 4.56 \\
+            SUS10 & 2.44 & 1.22 \\
             \hline
-            \textbf{Punteggio medio} & 45.83 & 87.50 \\
+            \textbf{Punteggio SUS} & \textbf{45.8} & \textbf{87.5} \\
+            \hline
+            \textbf{Media Dispari} & 2.67 & 4.47 \\
+            \textbf{Media Pari} & 3.00 & 1.47 \\
+            \hline
+            \textbf{Mediana Dispari} & 2.56 & 4.56 \\
+            \textbf{Mediana Pari} & 3.00 & 1.44 \\
+            \hline
+            \textbf{Dev. Std. Dispari} & 0.333 & 0.214 \\
+            \textbf{Dev. Std. Pari} & 0.401 & 0.199 \\
             \hline
         \end{tabularx}
-        \caption[]{}
+        \caption[Valori medi totali e per domanda del questionario SUS]{Valori medi per ciascuna domanda del questionario SUS. Viene inoltre calcolato per ciascun sito il punteggio medio complessivo risultante da tutti gli utenti. Quindi, distinguendo tra domande dispari e pari, si determinano media, mediana e deviazione standard per ciascuna delle due categorie positive e negative.}
+        \label{tab:sus_avg_values}
+    \end{table}
+\end{center}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{sus_avg_values_legend}
+    \caption[Valori medi per ciascuna domanda del questionario SUS]{Valori medi per ciascuna domanda del questionario SUS. In rosso, quelli relativi al sito degli Open Data. In blu, quelli su BolognaWiFiMap.}
+    \label{fig:sus_avg_values}
+\end{figure}
+
+\subsection{Valutazione dei risultati complessivi}
+Possiamo già notare dalla Tabella~\ref{tab:sus_avg_values} come complessivamente BolognaWiFiMap batta gli Open Data su tutte le possibili metriche, a cominciare da un punteggio SUS quasi doppio. Sia nelle domande pari, che nelle domande dispari, la differenza tra media e mediana è molto piccola, segno di un insieme di dati piuttosto consistenti e senza particolari \textit{outliers}. Questa affermazione è ulteriormente supportata, per entrambe le tipologie di domanda, da una deviazione standard (abbastanza) piccola, che indica una bassa dispersione dei dati.
+
+In particolare, diventa evidente come il valore medio e mediano delle domande dispari (positive) relativo a BolognaWiFiMap sia molto più elevato rispetto a quello degli Open Data. Allo stesso modo, il valore medio e mediano delle domande pari (negative) di BolognaWiFiMap risulta essere più basso di quello sugli Open Data, seppur con un margine inferiore rispetto alle domande dispari. Possiamo facilmente vedere queste differenze in maniera grafica in Figura~\ref{fig:sus_avg_values}. Relativamente ai criteri di valutazione delle domande pari e dispari, seppur con vario margine, non esiste nessun caso in cui il sito degli Open Data abbia performato meglio di BolognaWiFiMap.
+
+Notiamo comunque come, relativamente alle categorie di domande pari e dispari, il sito degli Open Data abbia ottenuto una varianza maggiore nelle risposte rispetto a BolognaWiFiMap, indicando opinioni leggermente più contrastanti. Ciò è riscontrabile dal valore maggiore della deviazione standard, specialmente nelle domande pari. Questo ci fa pensare che ciascun utente abbia criteri di usabilità differenti, che diventano particolarmente evidenti quando si tratta di giudicare un sito non propriamente facile da utilizzare. D'altro canto, gli utenti sono stati più concordi nel giudizio di BolognaWiFiMap, cosa visibile sempre dalla deviazione standard.
+
+\subsection{Risultati per ciascun utente}
+Se complessivamente possiamo già decretare BolognaWiFiMap come sito avente l'usabilità migliore, non possiamo ancora trarre conclusioni relative alle preferenze di ciascun singolo utente. Andiamo quindi a vedere i risultati che ogni persona ha ottenuto nel questionario SUS relativo a entrambi i siti, in Tabella~\ref{tab:sus_scores}.
+
+\begin{center}
+    \begin{table}[H]
+        \centering
+        \begin{tabularx}{\textwidth}{|
+            >{\hsize=0.5\hsize}X|
+            >{\hsize=0.5\hsize}X|
+            X|
+            X|}
+            \hline
+            \multicolumn{4}{|c|}{\textbf{Confronto risultati SUS}} \\
+            \hline
+            \textbf{Utente} & \textbf{Età} & \textbf{Open Data} & \textbf{BolognaWiFiMap} \\
+            \hline
+            U01 & 24 & 22.5 & 97.5 \\
+            U02 & 23 & 42.5 & 100 \\
+            U03 & 23 & 60.0 & 75.0 \\
+            U04 & 24 & 62.5 & 90.0 \\
+            U05 & 23 & 27.5 & 75.0 \\
+            U06 & 26 & 82.5 & 85.0 \\
+            U07 & 24 & 25.0 & 97.5 \\
+            U08 & 25 & 67.5 & 70.0 \\
+            U09 & 30 & 22.5 & 97.5 \\
+            \hline
+            \multicolumn{2}{|X|}{\textbf{Punteggio medio}} & \textbf{45.8} & \textbf{87.5} \\
+            \hline
+            \multicolumn{2}{|X|}{\textbf{Mediana}} & 42.5 & 90.0 \\
+            \hline
+            \multicolumn{2}{|X|}{\textbf{Dev. Std.}} & 22.8 & 11.7 \\
+            \hline
+            \multicolumn{2}{|X|}{\textbf{\( \rho \) di Spearman}} & 0.0693 & 0.00 \\
+            \hline
+        \end{tabularx}
+        \caption[Punteggi ottenuti dagli utenti nel questionario SUS]{Punteggi ottenuti dagli utenti nel questionario SUS. Viene quindi calcolato il punteggio medio complessivo, insieme a mediana, deviazione standard, e coefficiente di correlazione \( \rho \) di Spearman.}
         \label{tab:sus_scores}
     \end{table}
 \end{center}
+
+Anche qui notiamo chiaramente come nessun utente abbia mostrato una netta preferenza per il sito degli Open Data, seppur in due casi BolognaWiFiMap abbia ottenuto solo un leggerissimo vantaggio. Questo diventa particolarmente facile da vedere in maniera grafica dalla Figura~\ref{fig:sus_scores}.
+
+Come prima, la media dei punteggi complessivi non si discosta molto dalla mediana, in linea con quanto è avvenuto per ciascuna risposta in Tabella~\ref{tab:sus_avg_values}, quindi l'insieme di dati è piuttosto consistente e non presenta particolari \textit{outliers}.
+
+La deviazione standard, anche in questo caso, è maggiore per gli Open Data rispetto che a BolognaWiFiMap, segno di una più grande varianza tra le risposte e quindi di opinioni leggermente più contrastanti.
+
+Per valutare la relazione tra l'età degli utenti e la percezione dell'usabilità, abbiamo utilizzato il coefficiente di correlazione \( \rho \) di Spearman , in quanto a differenza di quello di Pearson \( r \), non assume una distribuzione normale e misura la correlazione monotona tra due variabili. Di conseguenza è più adatto per piccoli campioni di dati e per relazioni non necessariamente lineari, come nel nostro caso.
+
+Il coefficiente di correlazione di Spearman ( \( \rho \) ) è calcolato utilizzando la seguente formula:
+\begin{equation}
+    \rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}
+\end{equation}
+
+I risultati ottenuti indicano che non esiste alcuna correlazione significativa tra l'età degli utenti e i punteggi SUS, suggerendo quindi che la percezione dell'usabilità dell'applicazione sia indipendente dall'età.
+
+
+\[
+d_i = R(x_i) - R(y_i)
+\]
+
+\[
+d_i^2 = (R(x_i) - R(y_i))^2
+\]
+
+\[
+R(x_i) = \text{Rango di } x_i \quad \text{(posizione di } x_i \text{ nella lista dei valori } x_1, ..., x_n \text{)}
+\]
+
+\[
+R(y_i) = \text{Rango di } y_i \quad \text{(posizione di } y_i \text{ nella lista dei valori } y_1, ..., y_n \text{)}
+\]
 
 \begin{figure}[H]
     \centering
