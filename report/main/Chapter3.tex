@@ -71,6 +71,13 @@ Tuttavia, in questo caso in entrambi i dataset vi sono giorni con 23 o 25 entrat
 
 Inoltre, sorge un ulteriore problema iniziale dovuto al fatto che i dati di affluenza sono disponibili a partire dal 1 gennaio 2024, mentre quelli riguardanti l'affollamento cominciano dal 15 gennaio 2024. Ancora una volta si risolve semplicemente assegnando uno 0 ai valori mancanti, ovvero a tutti quelli nelle due settimane in cui non vi sono dati riguardanti l'affollamento.
 
+\subsection{Raggruppamento dei dati giornalieri}
+Tutti i dati relativi allo stesso giorno vengono raggruppati all'interno della stessa riga a database, permettendo di ridurre il numero di queries che vengono effettuate al server e migliorando così le performance dell'applicazione.
+
+Per i movimenti, non essendoci conflitti relativi al cambio dell'ora, ogni dato viene salvato in base all'attributo \textit{ora} degli Open Data, quindi uno spostamento relativo alle ore 16 salverà i passeggeri totali nell'attributo giornaliero \textit{tot\_pass\_16} e i passeggeri mediani in \textit{percentile\_50\_16}. L'orario salvato a database è quindi in fuso orario GMT+1 durante l'ora solare, mentre durante l'ora legale diventa GMT+2, seguendo quindi il fuso orario locale.
+
+Una considerazione analoga viene effettuata per i dati di affollamento e affluenza, con la differenza che qui l'attributo \textit{ora} degli Open Data non è utilizzabile come identificatore dell'attributo in quanto viene influenzato dal cambio dell'ora. Questo si risolve facilmente utilizzando l'orario definito all'interno del timestamp \textit{data} ottenuto dagli Open Data, mediante parsing della stringa, in quanto viene specificato sempre seguendo il fuso orario UTC. In questo modo, affollamento e affluenza vengono sempre salvati in GMT, a prescindere dal fuso orario locale.
+
 \subsection{Schema finale}
 Dopo tutte le precedenti considerazioni, riportiamo in Figura~\ref{fig:database} lo schema finale del database. Per evitare di ottenere un database enorme in termini di spazio su disco, abbiamo prestato particolare attenzione ad utilizzare la quantità di memoria minore possibile per ogni attributo delle tabelle.
 
@@ -126,11 +133,118 @@ Innanzitutto, viene aggiornata la lista delle aree, nel caso se ne trovino di nu
 
 % \section{Funzionalità}
 \section{Pagina iniziale}
-Appena caricato il sito, viene visualizzata la mappa della città di Bologna insieme a tutte le aree coperte dal servizio BolognaWiFi, evidenziate come dei poligoni colorati in azzurro. Tali poligoni sono interattivi e, cliccandoli, viene mostrato un popup contenente il nome dell'area in questione. Inoltre, dato che queste aree variano molto in termimi di dimensioni, 
+Appena caricato il sito, viene visualizzata la mappa della città di Bologna insieme a tutte le aree coperte dal servizio BolognaWiFi, evidenziate come dei poligoni colorati in azzurro. Tali poligoni sono interattivi e, cliccandoli, viene mostrato un popup contenente il nome dell'area in questione. In Figura~\ref{fig:desktop_main} riportiamo uno screenshot della schermata iniziale.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{desktop_main_alt}
+    \caption[Pagina iniziale su desktop]{Pagina iniziale dell'applicazione su desktop. Le aree coperte da BolognaWiFi sono indicate con dei poligoni azzurri.}
+    \label{fig:desktop_main}
+\end{figure}
+
+Inoltre, dato che queste aree variano molto in termimi di dimensioni, abbiamo creato una funzione che aumenta automaticamente lo zoom della mappa ogni volta che si clicca un poligono, incrementandolo in base alla sua superficie. Questo diventa necessario per migliorare l'esperienza utente dal momento in cui un click su un poligono di grandi dimensioni è immediatamente visibile, ma un poligono piccolo è innegabilmente più difficile da individuare su una mappa senza effettuare uno zoom. Così facendo, semplifichiamo il workflow dell'utente, evitandogli di dover sempre zoommare manualmente. La libreria Leaflet applica automaticamente una transizione non appena modifichiamo lo zoom. Il risultato di tale processo è visibile in Figura~\ref{fig:zoom_desktop}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{desktop_zoom}
+    \caption[Zoom automatico al click di un poligono]{Zoom effettuato automaticamente al click di un poligono.}
+    \label{fig:zoom_desktop}
+\end{figure}
+
+Il livello di zoom da applicare al click viene calcolato effettuando tre scaglioni di zoom in base all'estensione della superficie del poligono, categorizzandoli in grandi, medi, e piccoli. Un poligono più grande necessita di uno zoom inferiore, mentre uno piccolo andrà zoommato maggiormente, come possiamo vedere in Figura~\ref{fig:zoom_code}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{polygon_zoom}
+    \caption[Codice per lo zoom al click del poligono]{Codice per calcolare il tipo di zoom del poligono e assegnarlo al click.}
+    \label{fig:zoom_code}
+\end{figure}
+
+Inoltre, è possibile cambiare il tipo di mappa che si vuole visualizzare, utilizzando il bottone dei \textit{layers} posto sopra ai controlli dello zoom. Si può scegliere la vista satellite, quella del terreno o la mappa di default che visualizza le strade. Il relativo menù espanso è visibile in Figura~\ref{fig:layers}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{desktop_layers}
+    \caption[Menù per la scelta del tipo di mappa]{Menù per effettuare la scelta del tipo di mappa da visualizzare.}
+    \label{fig:layers}
+\end{figure}
 
 \section{Informazioni su una zona o spostamento}
-\section{Calcolo del colore di una zona}
-\section{Raggruppamento dei dati giornalieri}
+L'applicazione permette di modificare la data e l'ora tramite gli appositi campi di input nella barra in alto. A lato del campo dell'ora vi sono due bottoni, uno a destra e uno sinistra, che permettono rispettivamente di incrementare o decrementare di un'unità l'ora corrente. Nel caso si dovesse valicare il giorno, l'applicazione gestisce automaticamente la modifica appropriata alla data, permettendo quindi una scorciatoia per uno scorrimento relativamente più veloce del tempo.
+
+Sotto alla barra in alto troviamo quattro bottoni a forma di pillola che permettono di scegliere la visualizzazione dei dati richiesta. In ordine sono affollamento, affluenza, spostamenti totali dei passeggeri e spostamenti mediani. Vediamoli più nel dettaglio.
+
+\subsection{Affollamento}
+Scegliendo il primo bottone viene visualizzato l'affollamento relativo alla data e ora selezionate nella barra in alto, colorando i poligoni di giallo tanto di più quanto maggiore è il numero di persone che rimangono nella stessa area durante una certa ora. Cliccando su un poligono viene mostrato un popup che ne indica il valore dell'affollamento, insieme a quello massimo in assoluto, calcolato su tutto il dataset.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{desktop_crowding}
+    \caption[Screenshot dell'affollamento su desktop]{Screenshot dell'applicazione su desktop, relativo alla schermata di affollamento. Notare la barra in alto che permette di impostare la data e l'ora di cui vogliamo visualizzare i dati.}
+    \label{fig:desktop_crowding}
+\end{figure}
+
+\subsection{Affluenza}
+Scegliendo il secondo bottone viene visualizzata la relativa affluenza, colorando i poligoni di rosso tanto di più quanto maggiore è il numero di persone che entrano in una data area a una certa ora. Cliccando su un poligono viene mostrato un popup che ne indica il valore dell'affluenza, insieme a quello massimo in assoluto, calcolato su tutto il dataset.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{desktop_attendance}
+    \caption[Screenshot dell'affluenza su desktop]{Screenshot dell'applicazione su desktop, relativo alla schermata di affluenza.}
+    \label{fig:desktop_attendance}
+\end{figure}
+
+\subsection{Spostamenti}
+Scegliendo il terzo bottone vengono visualizzati tutti i relativi spostamenti in termini di totale dei passeggeri, colorando tutti i poligoni di viola, mentre le linee colleganti due aree saranno colorate in viola tanto più scuro quanto maggiore è il numero di passeggeri in transito in una certa ora. Per una migliore visibilità, lo spessore delle linee è direttamente proporzionale al numero di persone che si spostano da una zona all'altra, sempre all'interno dell'ora selezionata. Cliccando su un poligono viene mostrato un popup contenente solo il nome della zona, mentre cliccando su una linea vengono mostrate le aree di origine e destinazione, insieme al valore corrente di passeggeri in transito.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{desktop_passengers}
+    \caption[Screenshot degli spostamenti dei passeggeri su desktop]{Screenshot dell'applicazione su desktop, relativo alla schermata di visualizzazione degli spostamenti dei passeggeri.}
+    \label{fig:desktop_passengers}
+\end{figure}
+
+Scegliendo il quarto bottone possiamo effettuare un ragionamento totalmente analogo con i dati relativi al numero mediano di passeggeri, i quali verranno visualizzati in colore fucsia. Analogamente, si applica la stessa logica per il click su poligoni e linee, con i dati relativi ai mediani.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{desktop_medians}
+    \caption[Screenshot degli spostamenti mediani su desktop]{Screenshot dell'applicazione su desktop, relativo alla schermata di visualizzazione degli spostamenti mediani.}
+    \label{fig:desktop_medians}
+\end{figure}
+
+\section{Calcolo delle opzioni di visualizzazione}
+Discutere di colori sembra molto facile, ma la loro scelta è cruciale affinché la visualizzazione risulti efficace e semplice da comprendere a colpo d'occhio.
+
+Innanziutto, consideriamo il caso di affollamento e affluenza. Tutti i dati sono concentrati nei poligoni, quindi saranno queste le entità da colorare in maniera più forte all'aumentare dei rispettivi valori.
+
+Riguardo agli spostamenti, sia totali che mediani, possiamo notare come i poligoni non abbiano informazioni di per sé, quindi possiamo colorarli della stessa sfumatura. Invece, i dati interessanti sono contenuti all'interno delle polilinee, ovvero nelle relazioni tra due poligoni, quindi coloreremo quest'ultime in maniera tanto più scura quanto maggiore è il numero delle persone in transito da una zona all'altra. Inoltre, per evidenziare maggiormente questi dati, le abbiamo rese più spesse dove ci sia un flusso maggiore e più sottili dove tale flusso sia invece minore.
+
+Per semplificare la visualizzazione, i poligoni aventi affollamento o affluenza nulli, insieme ai poligoni sprovvisti di spostamenti uscenti o entranti, verranno rispettivamente colorati di grigio, così da essere immediatamente riconoscibili e non confondibili con quelli che invece presentano semplicemente dei valori bassi.
+
+Per determinare le sfumature di colori da utilizzare in ogni caso abbiamo utilizzato il codice riportato in Figura~\ref{fig:map_options_factory}, il quale innanzitutto determina se si tratta di un poligono o di una polilinea.
+
+Per evitare un bias troppo grande nei confronti dei dati piccoli e permettere agli stessi di essere visualizzati con la giusta importanza, non abbiamo utilizzato una scala lineare bensì una pseudologaritmica, visibile in \Verb_shadeFactory()_, in cui si considera la radice quadrata del valore corrente diviso il valore massimo, così da normalizzarli in un range tra 0 e 1. I valori massimi per ciascuno delle quattro tipologie di dati sono stati salvati in un file JSON separato, così da essere facilmente accessibili e potenzialmente aggiornabili.
+
+Una volta ottenuto il valore pseudologaritmico, si seleziona la sfumatura di colore corrispondente dall'array \Verb_shades[]_, nel caso dei poligoni, o dall'array \Verb_lineShades[]_ per le polilinee. In quest'ultimo caso, si utilizza lo stesso valore pseudologaritmico per determinare lo spessore della linea da visualizzare. Tutti i colori sono stati definiti in un file a parte, che viene richiamato così da permettere un incapsulamento migliore del codice.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{map_options_factory}
+    \caption[Calcolo delle opzioni su colore e spessore]{Calcolo delle opzioni relative a colore e spessore di linee e polilinee.}
+    \label{fig:map_options_factory}
+\end{figure}
+
+Per vedere un esempio di questo \textit{color coding}, in Figura~\ref{fig:mobile} possiamo vedere le quattro schermate di visualizzazione dati relative alla versione mobile, notando come il design sia sostanzialmente simile a quello già visto per quella desktop.
+Vale la pena notare come l'applicazione sia stata realizzata seguendo il pattern mobile-first, quindi è per principio nata per essere mobile-friendly. Inoltre, è in grado di seguire il tema chiaro e scuro del sistema in cui si trova.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{mobile_screenshots}
+    \caption[Screenshots su mobile]{Screenshots dell'applicazione su dispositivo mobile, relativi alle schermate di affollamento, affluenza, spostamenti e mediani, con il menù per cambiare la tipologia di mappa.}
+    \label{fig:mobile}
+\end{figure}
+
 \section{Analisi sull'usabilità}
 % 2-3 task da fare valutare agli utenti se è più facile usare il mio sistema rispetto al sito degli open data + questionario SUS
 % TASK:
@@ -378,7 +492,7 @@ Se complessivamente possiamo già decretare BolognaWiFiMap come sito avente l'us
             \hline
             \multicolumn{2}{|X|}{\textbf{Dev. Std.}} & 22.8 & 11.7 \\
             \hline
-            \multicolumn{2}{|X|}{\textbf{\( \rho \) di Spearman}} & 0.0693 & 0.00 \\
+            \multicolumn{2}{|X|}{\textbf{\( \boldsymbol{\rho} \) di Spearman}} & 0.0693 & 0.00 \\
             \hline
         \end{tabularx}
         \caption[Punteggi ottenuti dagli utenti nel questionario SUS]{Punteggi ottenuti dagli utenti nel questionario SUS. Viene quindi calcolato il punteggio medio complessivo, insieme a mediana, deviazione standard, e coefficiente di correlazione \( \rho \) di Spearman.}
@@ -392,7 +506,7 @@ Come prima, la media dei punteggi complessivi non si discosta molto dalla median
 
 La deviazione standard, anche in questo caso, è maggiore per gli Open Data rispetto che a BolognaWiFiMap, segno di una più grande varianza tra le risposte e quindi di opinioni leggermente più contrastanti.
 
-Per valutare la relazione tra l'età degli utenti e la percezione dell'usabilità, abbiamo utilizzato il coefficiente di correlazione \( \rho \) di Spearman , in quanto a differenza di quello di Pearson \( r \), non assume una distribuzione normale e misura la correlazione monotona tra due variabili. Di conseguenza è più adatto per piccoli campioni di dati e per relazioni non necessariamente lineari, come nel nostro caso.
+Per valutare la relazione tra l'età degli utenti e la percezione dell'usabilità, abbiamo utilizzato il coefficiente di correlazione \( \rho \) di Spearman , in quanto a differenza di quello di Pearson \( r \), non assume una distribuzione normale, è meno sensibile agli \textit{outliers} e misura la correlazione monotona tra due variabili. Di conseguenza è più adatto per piccoli campioni di dati e per relazioni non necessariamente lineari, come nel nostro caso.
 
 Il coefficiente di correlazione di Spearman ( \( \rho \) ) è calcolato utilizzando la seguente formula:
 \begin{equation}
@@ -423,6 +537,15 @@ Dove \( R(x_i) \) e \( R(y_i) \) sono definiti come:
     R(y_i) = \text{Rango di } y_i \quad \text{(posizione di } y_i \text{ nella lista dei valori } y_1, ..., y_n \text{)}
     \label{eq:rank_y}
 \end{equation}
+
+Il coefficiente di correlazione \( \rho \) di Spearman varia tra -1 e +1:
+\begin{itemize}
+    \item \( \rho = +1 \rightarrow \) Correlazione perfetta positiva.
+    \item \( \rho = -1 \rightarrow \) Correlazione perfetta negativa.
+    \item \( \rho = 0 \rightarrow \) Nessuna correlazione monotona.
+\end{itemize}
+
+Se \( \rho > 0 \) esiste una correlazione positiva, mentre se \( \rho < 0 \) esiste una correlazione negativa. Riguardo al valore in sé della correlazione, \( |\rho| < 0.3 \) indica una correlazione debole, \( |\rho| \in [0.3, 0.7] \) denota una correlazione moderata, mentre \( |\rho| > 0.7 \) mostra una correlazione forte.
 
 I risultati ottenuti indicano che non esiste alcuna correlazione significativa tra l'età degli utenti e i punteggi SUS, suggerendo quindi che la percezione dell'usabilità dell'applicazione sia indipendente dall'età.
 
