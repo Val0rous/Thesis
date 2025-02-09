@@ -56,8 +56,8 @@ const decreaseHour = () => {
 }
 
 const isDark = useDark();
-const lightLogo = new URL('@/frontend/assets/opendata.png', import.meta.url).href;
-const darkLogo = new URL('@/frontend/assets/opendata_bw.png', import.meta.url).href;
+const lightLogo = new URL('@/assets/opendata.png', import.meta.url).href;
+const darkLogo = new URL('@/assets/opendata_bw.png', import.meta.url).href;
 const currentLogo = computed(() => (isDark.value ? darkLogo : lightLogo));
 </script>
 
