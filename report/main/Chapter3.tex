@@ -106,7 +106,7 @@ Abbiamo definito tutte queste funzioni nel file \Verb_api.js_, essendo molto sem
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{ajax_api_movements}
-    \caption[Funzione AJAX per ottenere la lista dei movimenti di una specifica data]{Implementazione di una funzione che effettua una richiesta AJAX per ottenere la lista dei movimenti di una specifica data.}
+    \caption[Richiesta AJAX per ottenere la lista dei movimenti]{Implementazione di una funzione che effettua una richiesta AJAX per ottenere la lista dei movimenti di una specifica data.}
     \label{fig:ajax_api_movements}
 \end{figure}
 
@@ -118,7 +118,7 @@ In fase di development o test, questo script viene lanciato manualmente, ma in u
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{updater_noligature}
-    \caption[]{Script che viene eseguito per effettuare il setup o per aggiornare i dati sul database, utilizzando gli url definiti in \textit{urls.json} per effettuare le chiamate alle API del sito degli Open Data di BolognaWiFi \cite{BolognaWiFi_Spostamenti,BolognaWiFi_Affollamento,BolognaWiFi_Affluenza}.}
+    \caption[Script per setup o aggiornamento di dati sul database]{Script che viene eseguito per effettuare il setup o per aggiornare i dati sul database, utilizzando gli url definiti in \textit{urls.json} per effettuare le chiamate alle API del sito degli Open Data di BolognaWiFi \cite{BolognaWiFi_Spostamenti,BolognaWiFi_Affollamento,BolognaWiFi_Affluenza}.}
     \label{fig:updater}
 \end{figure}
 
@@ -370,6 +370,10 @@ Se complessivamente possiamo già decretare BolognaWiFiMap come sito avente l'us
             \hline
             \multicolumn{2}{|X|}{\textbf{Punteggio medio}} & \textbf{45.8} & \textbf{87.5} \\
             \hline
+            \multicolumn{2}{|X|}{\textbf{Min.}} & 22.5 & 70.0 \\
+            \hline
+            \multicolumn{2}{|X|}{\textbf{Max.}} & 82.5 & 100 \\
+            \hline
             \multicolumn{2}{|X|}{\textbf{Mediana}} & 42.5 & 90.0 \\
             \hline
             \multicolumn{2}{|X|}{\textbf{Dev. Std.}} & 22.8 & 11.7 \\
@@ -393,26 +397,34 @@ Per valutare la relazione tra l'età degli utenti e la percezione dell'usabilit�
 Il coefficiente di correlazione di Spearman ( \( \rho \) ) è calcolato utilizzando la seguente formula:
 \begin{equation}
     \rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}
+    \label{eq:spearman_correlation_coefficient}
+\end{equation}
+
+Dove \( n \) è il numero di punti (dati) a disposizione e \( d_i^2 \) è il quadrato della differenza tra i ranghi di \( x_i \) e \( y_i \), ovvero:
+
+\begin{equation}
+    d_i = R(x_i) - R(y_i)
+    \label{eq:rank_difference}
+\end{equation}
+
+\begin{equation}
+    d_i^2 = (R(x_i) - R(y_i))^2
+    \label{eq:squared_rank_difference}
+\end{equation}
+
+Dove \( R(x_i) \) e \( R(y_i) \) sono definiti come:
+
+\begin{equation}
+    R(x_i) = \text{Rango di } x_i \quad \text{(posizione di } x_i \text{ nella lista dei valori } x_1, ..., x_n \text{)}
+    \label{eq:rank_x}
+\end{equation}
+
+\begin{equation}
+    R(y_i) = \text{Rango di } y_i \quad \text{(posizione di } y_i \text{ nella lista dei valori } y_1, ..., y_n \text{)}
+    \label{eq:rank_y}
 \end{equation}
 
 I risultati ottenuti indicano che non esiste alcuna correlazione significativa tra l'età degli utenti e i punteggi SUS, suggerendo quindi che la percezione dell'usabilità dell'applicazione sia indipendente dall'età.
-
-
-\[
-d_i = R(x_i) - R(y_i)
-\]
-
-\[
-d_i^2 = (R(x_i) - R(y_i))^2
-\]
-
-\[
-R(x_i) = \text{Rango di } x_i \quad \text{(posizione di } x_i \text{ nella lista dei valori } x_1, ..., x_n \text{)}
-\]
-
-\[
-R(y_i) = \text{Rango di } y_i \quad \text{(posizione di } y_i \text{ nella lista dei valori } y_1, ..., y_n \text{)}
-\]
 
 \begin{figure}[H]
     \centering
@@ -420,3 +432,73 @@ R(y_i) = \text{Rango di } y_i \quad \text{(posizione di } y_i \text{ nella lista
     \caption[Punteggi ottenuti nel questionario SUS]{Punteggi ottenuti dagli utenti nel questionario SUS, evidenziando l'età di ciascun utente in ascissa. In rosso, quelli relativi al sito degli Open Data. In blu, quelli su BolognaWiFiMap.}
     \label{fig:sus_scores}
 \end{figure}
+
+Il punteggio SUS può essere convertito in un voto utilizzando una tabella di conversione che lo trasforma utilizzando il sistema di valutazione americano \cite{SUS}. Tali criteri sono visibili in Tabella~\ref{tab:sus_grading_system}.
+
+La valutazione dei punteggi SUS di ciascun utente è visibile in Tabella~\ref{tab:sus_grades}. In base alla scala di valutazione del SUS, il sito degli Open Data otterrebbe mediamente come voto F, mentre BolognaWiFiMap si guadagnerebbe in media un solido A+. La mediana assumerebbe gli stessi valori.
+
+Riguardo agli estremi, il voto minimo di Open Data sarebbe sempre una F, mentre quello massimo sarebbe una A. BolognaWiFiMap, invece, ha come voto minimo una C, ma quello massimo rimane sempre una A+.
+
+Possiamo notare come solo due utenti abbiano fornito una valutazione dei due siti pressoché equivalente, mentre in tutti gli altri casi la differenza è ben più drastica e a favore di BolognaWiFiMap.
+
+\begin{center}
+    \begin{table}[H]
+        \centering
+        \begin{tabularx}{\textwidth}{|X|X|X|}
+            \hline
+            \textbf{Voto} & \textbf{Punteggio SUS} & \textbf{Percentile} \\
+            \hline
+            A+  & 84.1 -- 100   & 96 -- 100 \\
+            A   & 80.8 -- 84.0  & 90 -- 95  \\
+            A-  & 78.9 -- 80.7  & 85 -- 89  \\
+            B+  & 77.2 -- 78.8  & 80 -- 84  \\
+            B   & 74.1 -- 77.1  & 70 -- 79  \\
+            B-  & 72.6 -- 74.0  & 65 -- 69  \\
+            C+  & 71.1 -- 72.5  & 60 -- 64  \\
+            C   & 65.0 -- 71.0  & 41 -- 59  \\
+            C-  & 62.7 -- 64.9  & 35 -- 40  \\
+            D   & 51.7 -- 62.6  & 15 -- 34  \\
+            F   & 0 -- 51.6     & 0 -- 14   \\
+            \hline
+        \end{tabularx}
+        \caption[Calcolo del voto a partire dal punteggio SUS]{Calcolo del voto a partire dal punteggio SUS, utilizzando il sistema di valutazione americano \cite{SUS}.}
+        \label{tab:sus_grading_system}
+    \end{table}
+\end{center}
+
+\begin{center}
+    \begin{table}[H]
+        \centering
+        \begin{tabularx}{\textwidth}{|
+            >{\hsize=0.5\hsize}X|
+            >{\hsize=0.5\hsize}X|
+            X|
+            X|}
+            \hline
+            \multicolumn{4}{|c|}{\textbf{Valutazione SUS per utente}} \\
+            \hline
+            \textbf{Utente} & \textbf{Età} & \textbf{Open Data} & \textbf{BolognaWiFiMap} \\
+            \hline
+            U01 & 24 & F & A+ \\
+            U02 & 23 & F & A+ \\
+            U03 & 23 & D & B  \\
+            U04 & 24 & D & A+ \\
+            U05 & 23 & F & B  \\
+            U06 & 26 & A & A+ \\
+            U07 & 24 & F & A+ \\
+            U08 & 25 & C & C  \\
+            U09 & 30 & F & A+ \\
+            \hline
+            \multicolumn{2}{|X|}{\textbf{Punteggio medio}} & \textbf{F} & \textbf{A+} \\
+            \hline
+            \multicolumn{2}{|X|}{\textbf{Min.}} & F & C \\
+            \hline
+            \multicolumn{2}{|X|}{\textbf{Max.}} & A & A+ \\
+            \hline
+            \multicolumn{2}{|X|}{\textbf{Mediana}} & F & A+ \\
+            \hline
+        \end{tabularx}
+        \caption[Valutazione del SUS per ciascun utente]{Valutazione del voto relativo al punteggio SUS di ciascun utente, utilizzando i criteri in Tabella~\ref{tab:sus_grading_system}}
+        \label{tab:sus_grades}
+    \end{table}
+\end{center}
