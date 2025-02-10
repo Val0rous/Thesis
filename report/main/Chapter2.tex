@@ -3,7 +3,7 @@
 In questo capitolo presenteremo le varie tecnologie utilizzate per la realizzazione del progetto, descrivendole in modo da fornire una conoscenza di base abbastanza solida da permettere la comprensione dell'ambiente.
 
 \section{HTML}
-HTML, acronimo che significa \textit{HyperText Markup Language}, è un linguaggio di markup che permette di impaginare e formattare pagine web collegate tra loro tramite link. Un ipertesto non è altro che l'albero di navigazione che collega le pagine web, ovvero un flusso infinito di pagine collegate tra loro attraverso dei link che permettono di spostarsi da un contenuto all'altro.
+HTML, acronimo che significa \textit{HyperText Markup Language}, è un linguaggio di markup che permette di impaginare e formattare pagine web collegate tra loro tramite link. Un ipertesto non è altro che l'albero di navigazione che collega le pagine web, ovvero un flusso infinito di pagine collegate tra loro attraverso dei link che permettono di spostarsi da un contenuto all'altro \cite{HTML, HTML_Mozilla}.
 
 HTML risponde all'esigenza di riuscire a pubblicare del testo online, mantenendo la formattazione e il significato di ciascuna delle sue parti, utilizzando dei marcatori detti \Verb_<tag>_. Il browser legge il tag e il suo contenuto, quindi traduce a schermo il codice usando i criteri specificati da HTML. Questo ha permesso di costruire pagine con  una struttura simile fra di loro e soprattutto replicabile seguendo uno standard. Nel giro di pochi anni furono aggiunti via via sempre più tag ed elementi per consentire la creazione di pagine contenenti immagini, elementi interattivi, form, pulsanti, tabelle e altri ancora. Pertanto, HTML si è trasformato in un linguaggio molto completo ma in continuo mutamento, che oggi viene mantenuto dal World Wide Web Consortium (W3C), una associazione non governativa che si occupa di implementare nuove funzioni per rendere il web sempre più libero e accessibile.
 
@@ -26,7 +26,7 @@ HTMl non è un linguaggio di programmazione, bensì un linguaggio di markup: des
 Ad oggi non è più sufficiente utilizzare solo HTML per realizzare contenuti web, in quanto le esigenze sono da tempo cambiate: ai siti web serve più di soli contenuti testuali, quindi vengono usati anche altri linguaggi, tra cui CSS e JavaScript, che consentono di scrivere pagine ricche e complete, sia nell'aspetto di grafica che nel comportamento \cite{HTML}.
 
 \section{CSS}
-CSS, acronimo di \textit{Cascading Style Sheets}, è un linguaggio di stile per i documenti web. I CSS forniscono istruzioni a un browser o a un altro programma utente su come il documento debba essere presentato all'utente, definendone proprietà come il font, i colori, le immagini di sfondo, il layout, il posizionamento delle colonne o di altri elementi della pagina.
+CSS, acronimo di \textit{Cascading Style Sheets}, è un linguaggio di stile per i documenti web. I CSS forniscono istruzioni a un browser o a un altro programma utente su come il documento debba essere presentato all'utente, definendone proprietà come il font, i colori, le immagini di sfondo, il layout, il posizionamento delle colonne o di altri elementi della pagina \cite{CSS_Introduzione, CSS_Mozilla}.
 
 CSS è un linguaggio nato per essere il complemento ideale di HTML, per questo i due linguaggi hanno sempre proceduto parallelamente: nelle intenzioni del W3C, HTML è un semplice linguaggio strutturale, estraneo a qualunque scopo che riguardi la presentazione di un documento. Invece, CSS è lo strumento designato proprio per arricchire l'aspetto visuale e la presentazione di una pagina, nato per separare il contenuto dalla presentazione \cite{CSS_Introduzione}.
 
@@ -48,7 +48,7 @@ Il CSS può essere dichiarato in vari modi nell'HTML:
 \end{itemize}
 
 \section{SCSS}
-SCSS, acronimo di \textit{Sassy Cascading Style Sheets}, è un'estensione di CSS molto popolare che aggiunge funzionalità potenti che aumentano le capacità standard di CSS.
+SCSS, acronimo di \textit{Sassy Cascading Style Sheets}, è un'estensione di CSS molto popolare che aggiunge funzionalità potenti che aumentano le capacità standard di CSS \cite{SASS, SCSS_SASS}.
 
 In qualità di linguaggio di script preprocessing, SCSS permette agli sviluppatori di utilizzare variabili, regole annidate (\textit{nested}), \textit{mixins} e funzioni, che semplificano il processo di scrittura e mantenimento di stylesheets complessi. Essendo un superset di CSS, SCSS è pienamente compatibile con CSS e rende più facile creare codice pulito, organizzato e riutilizzabile, migliorando l'efficienza e la scalabilità dei progetti di web development.
 
@@ -62,7 +62,7 @@ La sintassi SCSS e CSS hanno delle somiglianze in comune, ma quella SCSS permett
 Per compilare SCSS in CSS si utilizza un compiler SASS, che funziona con entrambe le sintassi SASS e SCSS \cite{SCSS}. Queste due sintassi sono equivalenti, l'unica differenza è che in SASS si elimina l'utilizzo di punti e virgola e parentesi graffe mediante una sintassi \textit{whitespace-sensitive}, rendendolo però incompatibile con CSS \cite{SASS}.
 
 \section{JavaScript}
-JavaScript è un linguaggio di scripting, o di programmazione, che permette di implementare funzionalità complesse all'interno delle pagine web, ad esempio ogni volta che un sito debba essere dinamico e non statico, per creare contenuti aggiornati automaticamente, mappe interattive, controllare elementi multimediali, oppure grafiche animate in 2D o 3D. Costituisce il terzo strato dello stack delle tecnologie web standard.
+JavaScript è un linguaggio di scripting, o di programmazione, che permette di implementare funzionalità complesse all'interno delle pagine web, ad esempio ogni volta che un sito debba essere dinamico e non statico, per creare contenuti aggiornati automaticamente, mappe interattive, controllare elementi multimediali, oppure grafiche animate in 2D o 3D. Costituisce il terzo strato dello stack delle tecnologie web standard \cite{JavaScript, JavaScript_Mozilla}.
 
 Lato client, il linguaggio JavaScript consiste delle solite funzionalità di programmazione come il salvataggio di valori in variabili, le operazioni su stringhe, e l'esecuzione di codice in risposta a certi eventi che avvengono su una pagina web, come quello di \Verb_click_. Ma ancora più importante, ci permette di utilizzare le funzionalità costruite su altro codice JavaScript client-side, mediante le \textit{Application Programming Interfaces}, o APIs. Queste sono blocchi di codice già pronto che consentono a uno sviluppatore di implementare progammi che altrimenti sarebbero difficili o impossibili da implementare, rendendo questi compiti più semplici da realizzare. Le API possono essere built-in nel browser o di terze parti. Queste ultime verranno approfondite in una sezione successiva. Le API del browser permettono di esporre dati dall'ambiente del computer, o effettuare compiti complessi. Per esempio:
 \begin{itemize}
@@ -106,7 +106,7 @@ I framework, invece, offrono un approccio strutturato allo sviluppo di un proget
 \`E possibile anche eseguire codice JavaScript al di fuori dal browser, utilizzando l'ambiente di esecuzione Node.js, che è open-source e multipiattaforma \cite{Node.js}.
 
 \section{Leaflet}
-Leaflet è una libreria JavaScript open-source che permette di visualizzare mappe interattive mobile-friendly. Il suo codice pesa solo 42KB, ma contiene tutte le funzionalià di mapping che possono servire a quasi tutti gli sviluppatori.
+Leaflet è una libreria JavaScript open-source che permette di visualizzare mappe interattive mobile-friendly. Il suo codice pesa solo 42KB, ma contiene tutte le funzionalià di mapping che possono servire a quasi tutti gli sviluppatori \cite{Leaflet_Overview, Leaflet}.
 
 Questa libreria è stata progettata avendo in mente la semplicità, le prestazioni e l'usabilità. Funziona in modo efficiente su tutte le principali piattaforme desktop e mobile, permette l'estensione delle sue funzionalità mediante l'utilizzo di plugins e offre diverse API.
 
@@ -123,7 +123,7 @@ Leaflet non cerca di fare tutto, ma si focalizza sulle funzionalità di base per
 \end{itemize}
 
 \section{Vue.js}
-Vue è un framework JavaScript utilizzato per la costruzione di interfacce utente (UI). Si basa sullo standard stack HTML, CSS e JavaScript e offre un modello di programmazione dichiarativo e basato sui componenti, che aiuta a sviluppare in modo efficiente delle UI anche complesse. Le funzionalità chiave di Vue sono due:
+Vue è un framework JavaScript utilizzato per la costruzione di interfacce utente (UI). Si basa sullo standard stack HTML, CSS e JavaScript e offre un modello di programmazione dichiarativo e basato sui componenti, che aiuta a sviluppare in modo efficiente delle UI anche complesse \cite{Vue}. Le funzionalità chiave di Vue sono due:
 \begin{itemize}
     \item Rendering dichiarativo: Vue estende lo standard HTML mediante una sintassi di template che permettono di descrivere output HTML in modo dichiarativo, basato su uno stato definito in JavaScript.
     \item Reattività: Vue traccia automaticamente i cambiamenti di stato in JavaScript e aggiorna il DOM in modo efficiente quando avvengono queste variazioni.
@@ -143,7 +143,7 @@ Vue è flessibile, ma le sue nozioni principali sono condivise a tutti i livelli
 % TODO: add Vite
 
 \section{NPM}
-NPM, o \textit{Node Package Manager}, è il package manager di default per Node.js. Nel settembre 2022, il registro di NPM conteneva oltre 2.1 milioni di pacchetti, rendendolo il più grande repository al mondo di codice che utilizza un solo linguaggio, possiamo quindi essere quasi sicuri che esista un pacchetto per ogni evenienza. NPM nacque come un modo per scaricare e gestire le dipendenze di Node.js, ma è in seguito diventato uno strumento utilizzato anche nel JavaScript a frontend.
+NPM, o \textit{Node Package Manager}, è il package manager di default per Node.js. Nel settembre 2022, il registro di NPM conteneva oltre 2.1 milioni di pacchetti, rendendolo il più grande repository al mondo di codice che utilizza un solo linguaggio, possiamo quindi essere quasi sicuri che esista un pacchetto per ogni evenienza. NPM nacque come un modo per scaricare e gestire le dipendenze di Node.js, ma è in seguito diventato uno strumento utilizzato anche nel JavaScript a frontend \cite{NPM_Package_Manager, NPM_Docs}.
 
 NPM installa, aggiorna e gestisce i download delle dipendenze del progetto. Le dipendenze sono blocchi di codice precostruiti, come le librerie e i pacchetti, di cui l'applicazione ha bisogno per poter funzionare.
 
@@ -152,7 +152,7 @@ Oltre ai normali download, NPM gestisce anche il versioning, così da poter spec
 NPM consente anche agli sviluppatori di eseguire comandi personalizzati, supportando un formato per specificare task a terminale che vengono lanciati come scripts. Per esempio, utilizzando \Verb_npm run dev_ possiamo lanciare l'app in modalità debug senza scrivere l'effettivo comando corrispondente, che sarebbe molto più lungo. Altri comandi, tra tutti, sono \Verb_npm run prod_ e \Verb_npm run build_ \cite{NPM_Package_Manager}.
 
 \section{PHP}
-PHP, acronimo ricorsivo per \textit{PHP: Hypertext Preprocessor}, è un linguaggio di scripting open-source e general-purpose molto usato, che è specialmente adatto per lo sviluppo web e ad essere integrato nell'HTML.
+PHP, acronimo ricorsivo per \textit{PHP: Hypertext Preprocessor}, è un linguaggio di scripting open-source e general-purpose molto usato, che è specialmente adatto per lo sviluppo web e ad essere integrato nell'HTML \cite{PHP, PHP_Docs}.
 
 Invece di utilizzare molti comandi per visualizzare l'HTML, come avviene in C o Perl, le pagine PHP contengono HTML all'interno di codice integrato che svolge qualche preciso compito. Il codice PHP è racchiuso in speciali istruzioni di inizio e fine, ovvero \Verb_<?php_ e \Verb_?>_ che permettono di entrare e uscire dalla \textit{modalità PHP}.
 
@@ -253,7 +253,7 @@ Scrivere una documentazione delle API comprensiva è parte del processo di gesti
 I framework e le librerie possono cambiare le loro APIs. Migrare un'applicazione alle nuove API è tedioso e distrugge il processo di sviluppo: anche se sono stati proposti alcuni strumenti e idee per risolvere l'evoluzione delle API, la maggioranza degli aggiornamenti viene ancora fatta manualmente. Generalmente, i cambiamenti che causano la rottura delle applicazioni esistenti non sono casuali, ma ricadono in particolari categorie: oltre l'80\% di questi è dovuto a \textit{refactorings}, il che suggerisce che per l'aggiornamento delle applicazioni dovrebbero essere utilizzati dei tool di migrazione basati sul refactoring \cite{API_Evolution}.
 
 \section{JSON}
-\textit{JavaScript Object Notation}, o JSON, è un formato standard text-based per rappresentare dati strutturati basati su sintassi JavaScript ad oggetti. Viene comunemente utilizzato per trasmettere dati in applicazioni web, ad esempio per inviare dati dal server al client, così da poterlo visualizzare su una pagina web, o viceversa.
+\textit{JavaScript Object Notation}, o JSON, è un formato standard text-based per rappresentare dati strutturati basati su sintassi JavaScript ad oggetti. Viene comunemente utilizzato per trasmettere dati in applicazioni web, ad esempio per inviare dati dal server al client, così da poterlo visualizzare su una pagina web, o viceversa \cite{JSON, JSON_Docs}.
 
 Anche se JSON ricorda molto la sintassi JavaScript per creare gli oggetti letterali, può essere utilizzato indipendentemente da JS e molti ambienti di programmazione offrono la capacità di leggere (parse) e generare JSON.
 
@@ -262,10 +262,10 @@ JSON esiste sotto forma di stringa, utile quando vogliamo trasmettere dati sulla
 All'interno di un oggetto JSON, possiamo includere gli stessi tipi di dati basilari che utilizzeremo in un oggetto JavaScript standard, ovvero stringhe, numeri, array, booleani e altri ancora. Questo ci permette di costruire una gerarchia di dati che può essere anche annidata e permette l'accesso nello stesso modo in cui si accede ai campi di un analogo oggetto \cite{JSON}.
 
 \section{SQL}
-\textit{Structured Query Language} (SQL) è un linguaggio di programmazione utilizzato per salvare e processare informazioni all'interno di un database relazionale, ovvero in forma tabellare, con righe e colonne che rappresentano diversi attributi e le varie relazioni tra i valori. Possiamo utilizzare le istruzioni SQL per salvare, aggiornare, rimuovere, cercare e raccogliere informazioni dal database, inoltre SQL permette di mantenere e ottimizzare le prestazioni del database \cite{SQL}.
+\textit{Structured Query Language} (SQL) è un linguaggio di programmazione utilizzato per salvare e processare informazioni all'interno di un database relazionale, ovvero in forma tabellare, con righe e colonne che rappresentano diversi attributi e le varie relazioni tra i valori. Possiamo utilizzare le istruzioni SQL per salvare, aggiornare, rimuovere, cercare e raccogliere informazioni dal database, inoltre SQL permette di mantenere e ottimizzare le prestazioni del database \cite{SQL, MySQL_Docs}.
 
 \subsection{MySQL}
-MySQL è un \textit{Relational Database Management System} (RDBMS) open-source molto popolare, utilizzato per salvare e gestire dati in maniera affidabile, prestante, scalabile e facile da usare. Da qui in poi ci riferiremo a MySQL come versione del database SQL.
+MySQL è un \textit{Relational Database Management System} (RDBMS) open-source molto popolare, utilizzato per salvare e gestire dati in maniera affidabile, prestante, scalabile e facile da usare \cite{MySQL,MySQL_Docs}. Da qui in poi ci riferiremo a MySQL come versione del database SQL.
 
 \subsection{Struttura dei dati relazionali}
 MySQL è un database relazionale open source che utilizza SQL per creare e gestire i database, salvando i dati in tabelle di righe e colonne organizzate in schemi. Uno schema definisce come i dati sono organizzati e salvati, descrivendo le relazioni esistenti tra le varie tabelle. Con questo formato, possiamo facilmente salvare, raccogliere e analizzare diversi tipi di dati, inclusi semplice testo, numeri, date, orari e, recentemente, JSON e arrays.
@@ -284,15 +284,7 @@ MySQL è veloce, affidabile, scalabile e facile da utilizzare. Originariamente v
 \end{itemize}
 
 \subsection{Utilizzo nelle applicazioni web}
-I casi d'uso di MySQL includono la gestione di dati dei clienti e dei prodotti per i siti di e-commerce, aiutando i sistemi di gestione dei contenuti a servire contenuti web, tracciare le transazioni in modo sicuro e i dati finanziari, alimentando i siti di social network salvando i profili degli utenti e le loro interazioni.
-
-L'abilità di MySQL di gestire grandi dataset e query complesse lo rende una tecnologia chiave nelle industrie e i casi d'uso includono:
-\begin{itemize}
-    \item E-commerce: molte delle piattaforme di ecommerce più grandi al mondo, come Uber e Booking.com, eseguono i loro sistemi transazionali su MySQL. Costituisce quindi una scelta popolare per gestire i profili utente, le credenziali, il contenuto degli utenti e i dati finanziari, inclusi pagamenti e rilevamento di truffe.
-    \item Piattaforme social: Facebook, X (ovvero l'ex-Twitter) e LinkedIn sono tra le piattaforme social più grandi al mondo e tutti si appoggiano a MySQL per la parte di database.
-    \item Gestione del Contenuto: a differenza dei documenti di database \textit{single-purpose}, MySQL offre l'abilità di utilizzare sia SQL che NoSQL all'interno dello stesso database. Il MySQL Document Store permette operazioni CRUD e utilizza il potere di SQL per effettuare data queries sui documenti JSON per riportarne contenuto e statistiche.
-    \item SaaS: MySQL è il database sottostante a molte applicazioni popolari di \textit{Software-as-a-Service}, come ad esempio Zendesk \cite{MySQL}.
-\end{itemize}
+MySQL è un database utilizzato largamente nel backend di molte applicazioni web, data la sua abilità di gestire grandi dataset e query complesse in modo veloce e affidabile.
 
 \subsection{Normalizzazione dei dati}
 La normalizzazione è il processo di organizzazione dei dati all'interno di un database. Include la creazione di tabelle e lo stabilimento di relazioni tra queste in base a regole definite sia per proteggere i dati, sia per rendere il database più flessibile, eliminando la ridondanza e le dipendenze non coerenti.
@@ -304,7 +296,7 @@ Esistono alcune regole per la normalizzazione di un database e ciascuna di esser
 Non sempre però si riesce a rispettare tali regole alla lettera: in generale, la normalizzazione richiede la creazione di tabelle aggiuntive e questo talvolta può risultare scomodo. In questo modo, tuttavia, si generano possibili problemi quali dati ridondanti e dipendenze funzionali \cite{Database_Normalization}.
 
 \section{Apache HTTP Server}
-Apache HTTP Server, detto anche semplicemente Apache, è un web server gratuito e open-source che distribuisce contenuti web attraverso la rete Internet, ed è rapidamente diventato il più popolare client HTTP sul web. Il nome trova le sue origini nel rispetto delle tribù dei nativi americani, per la loro resilienza e durabilità.
+Apache HTTP Server, detto anche semplicemente Apache, è un web server gratuito e open-source che distribuisce contenuti web attraverso la rete Internet, ed è rapidamente diventato il più popolare client HTTP sul web. Il nome trova le sue origini nel rispetto delle tribù dei nativi americani, per la loro resilienza e durabilità \cite{Apache, Apache_HTTP_Server_Docs}.
 
 Apache è solo uno dei componenti richiesti nello stack di un'applicazione web per la distribuzione del contenuto. Uno degli stack più comuni per le webapp è LAMP, ovvero Linux, Apache, MySQL e PHP, o il suo analogo WAMP che utilizza Windows invece che Linux. Il sistema operativo, Linux o Windows, gestisce le operazioni dell'applicazione. Apache è il web server che processa le richieste e serve risorse e contenuti web tramite protocollo HTTP. MySQL è il database che contiene tutte le informazioni in un formato che permette di eseguire queries facilmente. PHP è il linguaggio di programmazione che funziona con Apache per aiutare a creare contenuto web dinamico.
 
@@ -330,7 +322,7 @@ Una volta che un messaggio raggiunge la sua destinazione, invia un messaggio ACK
 Apache HTTP web server è utilizzato da oltre il 67\% dei web server in tutto il mondo, dato che si tratta di ambienti facili da personalizzare, ma anche veloci, affidabili e altamente sicuri. Questo ha reso i server Apache una scelta comune anche nelle migliori aziende \cite{Apache}.
 
 \section{XAMPP}
-XAMPP (\textit{X per Cross-Platform, Apache, MySQL, PHP e Perl}) è uno dei web server multipiattaforma più utilizzati e aiuta gli sviluppatori a creare e testare i loro programmi su un web server locale. Venne sviluppato da Apache Friends e il suo codice, open source, può essere revisionato o modificato dal pubblico. Consiste di un Apache HTTP Server, MariaDB/MySQL e un interprete per i diversi linguaggi di programmazione come PHP e Perl.
+XAMPP (\textit{X per Cross-Platform, Apache, MySQL, PHP e Perl}) è uno dei web server multipiattaforma più utilizzati e aiuta gli sviluppatori a creare e testare i loro programmi su un web server locale. Venne sviluppato da Apache Friends e il suo codice, open source, può essere revisionato o modificato dal pubblico. Consiste di un Apache HTTP Server, MariaDB/MySQL e un interprete per i diversi linguaggi di programmazione come PHP e Perl \cite{XAMPP, XAMPP_Docs}.
 
 XAMPP aiuta un host locale o un server a testare il suo sito e client tramite computer e laptop prima di rilasciarlo sul server principale. Questa piattaforma fornisce un ambiente adatto a testare e verificare il corretto funzionamento dei progetti basati su Apache, Perl, database MySQL e PHP tramite il sistema dello stesso host. Tra tutte queste tecnologie, Perl è un linguaggio di programmazione utilizzato per lo sviluppo web, PHP è un linguaggio di scripting per il backend, e MariaDB è il database più utilizzato sviluppato da MySQL.
 
@@ -348,14 +340,14 @@ XAMPP è utilizzato per simboleggiare la classificazione di soluzioni per tecnol
     \item Webalizer: questa soluzione software di Web Analytics è utilizzata per i log utenti e fornisce dettagli sull'utilizzo.
     \item Mercury: è un sistema di trasporto di email, ovvero un mail server, che aiuta a gestire le email attraverso il web.
     \item Tomcat: è un servlet basato su Java che fornisce funzionalità di Java.
-    \item Filezilla: è un server avente protocollo FTP (\textit{File Transfer Protocol}), che supporta e facilita le operazioni di trasferimento eseguite sui file.
+    \item Filezilla: è un server avente protocollo FTP (\textit{File Transfer Protocol}), che supporta e facilita le operazioni di trasferimento eseguite sui file \cite{XAMPP}.
 \end{itemize}
 
 % \subsection{Configurazione e gestione}
 % \subsection{Testing e sicurezza}
 
 \section{Git}
-Git è uno strumento di controllo delle versioni del codice (VCS, ovvero \textit{Version Control System}) che è diventato pressoché un must negli ecosistemi di sviluppo software. L'abilità di Git di tracciare meticolosamente i cambiamenti a un progetto lo rende uno strumento essenziale per gli sviluppatori che mirano a gestire i loro progetti in modo efficiente.
+Git è uno strumento di controllo delle versioni del codice (VCS, ovvero \textit{Version Control System}) che è diventato pressoché un must negli ecosistemi di sviluppo software. L'abilità di Git di tracciare meticolosamente i cambiamenti a un progetto lo rende uno strumento essenziale per gli sviluppatori che mirano a gestire i loro progetti in modo efficiente \cite{Git, Git_Docs}.
 
 Il controllo delle versioni (\textit{version control}) ci permette di tracciare i cambiamenti al codice di un software. Quindi, la versione distribuita di un software consiste in un insieme di versioni specifiche di ciascuno dei suoi componenti e file di codice, in quanto ciascuno di essi potrebbe essere stato modificato un numero estremamente variabile di volte.
 
