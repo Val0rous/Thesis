@@ -13,7 +13,7 @@ Il Comune di Bologna offre una serie di Open Data relativi al BolognaWiFi, rigua
 Tutti questi dati sono stati aggregati in maniera oraria e anonima, quindi è impossibile risalire ai singoli dispositivi, rispettando così la privacy degli utenti. Tuttavia, la struttura dei dati non è omogenea in tutti e tre i dataset, quindi andremo a esplorarla nel dettaglio.
 
 \subsection{Spostamenti}
-Per gli spostamenti viene registrata una nuova entrata per ogni spostamento che viene effettuato in una data ora del giorno. Non è detto che ad ogni ora del giorno corrisponda almeno uno spostamento da una zona all'altra, in quanto non è detto che avvengano sempre, si pensi ad esempio durante le ore notturne.
+Come possiamo notare dai dati ottenuti dalle API degli Open Data forniti dal Comune di Bologna, per gli spostamenti viene registrata una nuova entrata per ciascuno spostamento che viene effettuato in una certa ora del giorno. Non è detto che ad ogni ora corrisponda sempre almeno uno spostamento da una zona all'altra, in quanto possono non avvenire sempre e vengono registrati solo qualora gli spostamenti si siano davvero verificati. Si pensi ad esempio alla riduzione dei movimenti tra le varie zone della città durante le ore notturne, e al loro aumento nelle ore di punta.
 
 \begin{figure}[H]
     \centering
@@ -22,10 +22,12 @@ Per gli spostamenti viene registrata una nuova entrata per ogni spostamento che 
     \label{fig:movements}
 \end{figure}
 
-Tali spostamenti sono direzionati, quindi uno spostamento dalla Biblioteca Salaborsa a Palazzo D'Accursio verrà registrato separatamente da quello effettuato, inversamente, da Palazzo D'Accursio a Biblioteca Salaborsa. Anche in questo caso, entrambe le direzioni degli spostamenti sono indipendenti l'una dall'altra, e non è detto che esistano entrambe in una certa ora. Per esempio, potremmo avere una direzione in cui si spostano 100 persone (o meglio, dispositivi), mentre nell'altra se ne spostano 0 o comunque una quantità trascurabile ai fini del rilevamento dati di BolognaWiFi, quindi in entrambi questi ultimi due casi non verrebbe creata nessuna nuova entrata sul database di Open Data. Questo aiuta anche a garantire la privacy degli utenti, in quanto se venissero pubblicati i dati di un singolo dispositivo in una certa direzione il diritto alla privacy potrebbe venire violato.
+Tali spostamenti sono direzionati, quindi uno spostamento dalla Biblioteca Salaborsa a Palazzo D'Accursio verrà registrato separatamente da quello effettuato, inversamente, da Palazzo D'Accursio a Biblioteca Salaborsa. Anche in questo caso, entrambe le direzioni degli spostamenti sono indipendenti l'una dall'altra, e non è detto che esistano entrambe in una certa ora. Per esempio, potremmo avere una direzione in cui si spostano 100 persone (o meglio, dispositivi), mentre nell'altra se ne spostano 0 o comunque una quantità trascurabile ai fini del rilevamento dati di BolognaWiFi, quindi in entrambi questi ultimi due casi non verrebbe creata nessuna nuova entrata sul database di Open Data. A giudicare dai dati, il limite minimo necessario per creare un'entrata sul database è stato fissato in una quantità di 10 persone, in quanto non esistono spostamenti aventi valore minore. Questo aiuta anche a garantire la privacy degli utenti, in quanto se venissero pubblicati i dati di un singolo dispositivo in una certa direzione il diritto alla privacy potrebbe venire violato.
 
 \subsection{Affollamento e Affluenza}
-Dato che affollamento e affluenza contengono dati aventi una struttura molto simile tra loro, possiamo trattarli insieme. Per entrambi viene registrata una nuova entrata per ogni ora del giorno, in ciascuna zona di Bologna coperta dal servizio BolognaWiFi.
+Considerando i dati ottenuti dalle API degli Open Data forniti dal Comune di Bologna, possiamo notare come sia affollamento che affluenza contengono entrambi dei dati aventi una struttura molto simile tra loro. Di conseguenza, questo significa che possiamo trattarli insieme, semplificando la loro gestione ed evitando di complicarla con duplicati inutili di dati.
+
+Per entrambi viene registrata una nuova entrata per ogni ora del giorno, in ciascuna zona di Bologna coperta dal servizio BolognaWiFi. Per riuscire a garantire la privacy degli utenti, per affollamento e affluenza viene creata una nuova entrata oraria avente valore diverso da 0 solo qualora vi siano stati abbastanza utenti ad essere rimasti o entrati in una certa zona, rispettivamente per affollamento e affluenza. In caso contrario, viene comunque creata una nuova entrata, tuttavia essa avrà valore impostato a 0 di default. Questo limite minimo, a giudicare dai dati, è stato fissato in 10 persone, dato che non esiste alcun valore registrato nel range tra 1 e 9, garantendo così una completa anonimizzazione dei dati.
 
 \begin{figure}[H]
     \centering
@@ -261,7 +263,7 @@ Innanzitutto, dobbiamo fare qualche considerazione sul campione di utenti preso 
 
 Riguardo all'età degli utenti, questa varia in un range tra 23 e 30 anni (media 24.7, mediana 24.0). Stiamo quindi considerando un campione abbastanza uniforme di persone giovani e aventi familiarità con il mondo digitale. L'ultima considerazione è importante perché ci permette di imputare eventuali problemi alla scarsa usabilità del sito stesso e non a una bassa capacità di interazione digitale, e viceversa rende possibile capire se un sito sia ben utilizzabile.
 
-\subsection{Feedback utente su task assegnati}
+\section{Feedback utente su task assegnati}
 Per effettuare questo test in maniera standardizzata, abbiamo definito qualche task da sottoporre agli utenti. Tali compiti sono mirati a valutare la facilità di utilizzo dell'applicazione e riguardano i seguenti aspetti:
 \begin{itemize}
     \item Visualizzazione delle zone coperte da segnale.
@@ -288,7 +290,7 @@ Le opinioni riguardanti il sito degli Open Data sono state prevalentemente negat
 % Jyulo: gran bel sito
 Riguardo al nostro sito BolognaWiFiMap, invece, le opinioni si sono radicalmente capovolte. Tutti gli utenti hanno evidenziato che l'esperienza risultasse buona o ottima, con un utente che è arrivato addirittura a definirla eccellente. Inoltre, sono rimasti tutti concordi sul fatto che questo sito sia molto più facile da utilizzare rispetto a quello degli Open Data. A vari livelli, la visualizzazione dei dati è stata ritenuta rapida e intuitiva, molto efficace a livello visivo. Solo un utente ha consigliato che potrebbe essere una buona idea rendere il sito ancora più intuitivo, offrendo spiegazioni ulteriori riguardo ai vari tipi di visualizzazioni di dati, seppur rimanendo dell'idea che già ora il sito sia facilmente utilizzabile. Quest'ultimo feedback fornisce uno spunto per un possibile sviluppo futuro dell'applicazione, volto a garantirne un'ancora maggiore accessibilità.
 
-\subsection{Questionario SUS}
+\section{Questionario SUS}
 Ottenere un feedback dagli utenti è un ottimo passo in avanti per definire possibili punti di forza e debolezze di un'applicazione, ma queste opinioni hanno una natura prettamente soggettiva. Serve quindi un modo per valutare l'usabilità di un sistema in maniera standardizzata e il più obiettiva possibile, ed è qui che entra in gioco il questionario SUS.
 
 Il questionario SUS (\textit{System Usability Scale}) è un insieme di 10 domande di carattere generale che possono essere utilizzate per valutare l'usabilità di un qualsiasi sistema su una scala da 0 (usabilità percepita molto scarsa) a 100 (usabilità percepita eccellente) \cite{SUS}.
@@ -352,7 +354,7 @@ A ciascuna di queste domande, a prescindere se sia pari o dispari, si può rispo
 
 D'ora in poi, eviteremo di riportare nuovamente la descrizione per ogni domanda, ma ci riferiremo ad esse tramite la sigla SUS01 per la prima domanda, e così via.
 
-\subsection{Risposte al questionario SUS}
+\section{Risposte al questionario SUS}
 Andiamo ora ad analizzare le risposte fornite dagli utenti. Riporteremo dapprima ciascuna delle due tabelle con i risultati individuali degli utenti, sia per il sito degli Open Data in Tabella~\ref{tab:sus_opendata}, sia per il nostro sito BolognaWiFiMap in Tabella~\ref{tab:sus_bolognawifimap}. Infine, mostreremo la Tabella~\ref{tab:sus_avg_values} contenente la media dei risultati per ciascuna domanda.
 
 \begin{center}
@@ -449,14 +451,14 @@ Andiamo ora ad analizzare le risposte fornite dagli utenti. Riporteremo dapprima
     \label{fig:sus_avg_values}
 \end{figure}
 
-\subsection{Valutazione dei risultati complessivi}
+\section{Valutazione dei risultati complessivi}
 Possiamo già notare dalla Tabella~\ref{tab:sus_avg_values} come complessivamente BolognaWiFiMap batta gli Open Data su tutte le possibili metriche, a cominciare da un punteggio SUS quasi doppio. Sia nelle domande pari, che nelle domande dispari, la differenza tra media e mediana è molto piccola, segno di un insieme di dati piuttosto consistenti e senza particolari \textit{outliers}. Questa affermazione è ulteriormente supportata, per entrambe le tipologie di domanda, da una deviazione standard (abbastanza) piccola, che indica una bassa dispersione dei dati.
 
 In particolare, diventa evidente come il valore medio e mediano delle domande dispari (positive) relativo a BolognaWiFiMap sia molto più elevato rispetto a quello degli Open Data. Allo stesso modo, il valore medio e mediano delle domande pari (negative) di BolognaWiFiMap risulta essere più basso di quello sugli Open Data, seppur con un margine inferiore rispetto alle domande dispari. Possiamo facilmente vedere queste differenze in maniera grafica in Figura~\ref{fig:sus_avg_values}. Relativamente ai criteri di valutazione delle domande pari e dispari, seppur con vario margine, non esiste nessun caso in cui il sito degli Open Data abbia performato meglio di BolognaWiFiMap.
 
 Notiamo comunque come, relativamente alle categorie di domande pari e dispari, il sito degli Open Data abbia ottenuto una varianza maggiore nelle risposte rispetto a BolognaWiFiMap, indicando opinioni leggermente più contrastanti. Ciò è riscontrabile dal valore maggiore della deviazione standard, specialmente nelle domande pari. Questo ci fa pensare che ciascun utente abbia criteri di usabilità differenti, che diventano particolarmente evidenti quando si tratta di giudicare un sito non propriamente facile da utilizzare. D'altro canto, gli utenti sono stati più concordi nel giudizio di BolognaWiFiMap, cosa visibile sempre dalla deviazione standard.
 
-\subsection{Risultati per ciascun utente}
+\section{Risultati per ciascun utente}
 Se complessivamente possiamo già decretare BolognaWiFiMap come sito avente l'usabilità migliore, non possiamo ancora trarre conclusioni relative alle preferenze di ciascun singolo utente. Andiamo quindi a vedere i risultati che ogni persona ha ottenuto nel questionario SUS relativo a entrambi i siti, in Tabella~\ref{tab:sus_scores}.
 
 \begin{center}

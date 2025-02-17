@@ -68,20 +68,20 @@
 \input{front/Dedica.tex}
 \input{front/Introduzione.tex}
 
-\tableofcontents    % Create index of contents
-\newpage
 % Set page header
 \rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
 INDICE}}
+\tableofcontents    % Create index of contents
+% \newpage
 % No numbering on last page on left side
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \listoffigures  % Create index of figures
-\newpage
+% \newpage
 % No numbering on last page on left side
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \listoftables   % List of tables
-\newpage
+% \newpage
 
 \input{main/Chapter1.tex}
 \input{main/Chapter2.tex}

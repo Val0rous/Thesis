@@ -1,8 +1,15 @@
+%\clearpage{\pagestyle{empty}\cleardoublepage}
+
+\cleardoublepage
+
+\rhead[\fancyplain{}{\bfseries BIBLIOGRAFIA}]{\fancyplain{}{\bfseries\thepage}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries BIBLIOGRAFIA}}
+
 \phantomsection % Enables an unnamed section to be referenced correctly in the table of contents
 \addcontentsline{toc}{chapter}{Bibliografia}
 
-\renewcommand{\bibname}{Bibliografia} % Change title of bibliography for article class, use {\bibname} for report or book class, use {\refname} for article class
-\newpage
+% \renewcommand{\bibname}{Bibliografia} % Change title of bibliography for article class, use {\bibname} for report or book class, use {\refname} for article class
+% \newpage
 \bibliography{back/biblio}{}
 
 %\bibliographystyle{unsrt}

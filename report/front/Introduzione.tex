@@ -8,46 +8,28 @@ INTRODUZIONE}}
 
 \addcontentsline{toc}{chapter}{Introduzione}
 
-Negli ultimi anni, il concetto di Open Data ha acquisito una sempre maggiore rilevanza, trasformandosi in un elemento chiave per l'innovazione, la trasparenza amministrativa e il miglioramento dei servizi pubblici. Le amministrazioni locali e nazionali, il settore privato e la ricerca accademica stanno investendo sempre più nell'analisi e nella gestione di questi dati per ottimizzare la pianificazione urbana e offrire ai cittadini servizi più efficienti e accessibili. In questo scenario, il progetto BolognaWiFi rappresenta un'iniziativa significativa, volta a fornire connettività pubblica gratuita e a raccogliere dati sull'uso della rete per comprendere le dinamiche della città e migliorare l'infrastruttura digitale.
+Negli ultimi anni il concetto di Open Data ha acquisito una sempre maggiore rilevanza, trasformandosi in un elemento chiave per l'innovazione, la trasparenza amministrativa e il miglioramento dei servizi pubblici. I governi locali e nazionali, il settore privato e le università stanno investendo in maniera crescente nell'analisi e nella gestione di questi dati, per ottimizzare la pianificazione urbana e offrire ai cittadini servizi più efficienti e accessibili. In questo scenario, il progetto BolognaWiFi rappresenta un'iniziativa significativa, volta a fornire una connettività pubblica gratuita e a raccogliere dati sull'utilizzo della rete, per comprendere le dinamiche della città e migliorare l'infrastruttura digitale.
 
-L'importanza degli Open Data risiede nella loro capacità di trasformare il processo decisionale basandolo su dati concreti e aggiornati. Nel caso della rete BolognaWiFi, i dati raccolti permettono di analizzare l'affluenza in specifiche aree urbane, monitorare i flussi di connessione e identificare le esigenze degli utenti. Tuttavia, la grande quantità di dati raccolti presenta la sfida della loro interpretazione. Per questo motivo, è essenziale sviluppare strumenti di visualizzazione che consentano di trasformare i dati grezzi in informazioni facilmente comprensibili e fruibili.
+L'importanza degli Open Data risiede nella loro capacità di trasformare il processo decisionale, basandolo su dati concreti e aggiornati. Nel caso della rete BolognaWiFi, i dati raccolti permettono di analizzare l'affollamento e l'affluenza in specifiche aree urbane, monitorare i flussi di connessione relativi ai dispositivi e identificare quindi le esigenze degli utenti. Tuttavia, la grande quantità di dati raccolti costituisce una sfida alla loro interpretazione. Per questo motivo, è essenziale sviluppare strumenti di visualizzazione che consentano di trasformare i dati grezzi in informazioni facilmente comprensibili e usufruibili.
 
-\section*{Obiettivo della tesi}
+Il presente lavoro di tesi si pone come obiettivo principale la progettazione e lo sviluppo di un'applicazione web interattiva per la visualizzazione dei dati relativi all'utilizzo della rete BolognaWiFi. L'intento è quello di rendere accessibili e interpretabili le informazioni raccolte, fornendo un'interfaccia intuitiva per utenti finali e amministratori pubblici. In particolare, l'applicazione permette di visualizzare graficamente l'andamento dell'utilizzo della rete WiFi nelle diverse zone della città, relativamente all'affollamento e all'affluenza di ciascuna area, insieme agli spostamenti effettuati dagli utenti. Questi dati possono essere analizzati in modo interattivo attraverso filtri temporali, mettendo in evidenza le caratteristiche geografiche. Tramite lo studio dei dati di connessione diventa possibile supportare le decisioni strategiche volte all'ottimizzazione dei servizi pubblici.
 
-Il presente lavoro di tesi si pone come obiettivo principale la progettazione e lo sviluppo di un'applicazione web interattiva per la visualizzazione dei dati relativi all'utilizzo della rete BolognaWiFi. L'intento è quello di rendere accessibili e interpretabili le informazioni raccolte, fornendo un'interfaccia intuitiva per utenti finali e amministratori pubblici. In particolare, l'applicazione permette di:
+La realizzazione dell'applicazione ha consentito di dimostrare l'efficacia della visualizzazione dati nell'ambito della gestione urbana. Grazie all'implementazione di strumenti interattivi, l'applicazione sviluppata permette di migliorare la comprensione dei dati da parte di utenti anche non esperti, facilitando l'individuazione visiva di trend significativi all'interno dei dati. Questo è reso possibile da un'interfaccia dinamica e intuitiva che consente agli utenti di esplorare i dati relativi alla rete WiFi e facilita la comprensione dei pattern di utilizzo, permettendo di monitorare il funzionamento della rete WiFi comunale \textit{quasi} in tempo reale. Tutto ciò dimostra l'importanza che rivestono gli strumenti interattivi di visualizzazione dei dati per il miglioramento della gestione urbana, fornendo un modello replicabile per altre amministrazioni e contesti.
 
-\begin{itemize}
-    \item Visualizzare graficamente l'andamento dell'affluenza e dell'utilizzo della rete WiFi nelle diverse zone della città;
-    \item Analizzare i dati in modo interattivo attraverso filtri temporali e geografici;
-    \item Integrare tecnologie di visualizzazione avanzate, come Vue.js e Leaflet, per garantire un'esperienza utente fluida e accessibile;
-    \item Supportare le decisioni strategiche per l'ottimizzazione dei servizi pubblici attraverso l'analisi dei dati di connessione.
-\end{itemize}
+Riguardo alla tesi, il contenuto è organizzato in tre sezioni principali:
 
-\section*{Risultati raggiunti}
+\begin{enumerate}
+    \item \textbf{Contesto}\\
+    Questa sezione introduce il concetto di Open Data e analizza le loro caratteristiche principali, insieme ad alcuni contesti in cui già sono utilizzati. Viene quindi presentato il progetto BolognaWiFi, evidenziando il suo legame chiave nel rendere Bologna una Smart City. Viene poi trattata l'importanza rivestita dalla visualizzazione dei dati, mostrando qualche esempio in cui gli Open Data sono stati utilizzati con successo per realizzare applicazioni di innegabile utilità. Infine, vengono analizzate le sfide e le opportunità offerte dagli stessi Open Data, con particolare riguardo al loro ruolo nella gestione urbana. Viene quindi proposta una panoramica avente l'obiettivo di consentire una comprensione del ruolo fondamentale che questi concetti hanno rivestito nella realizzazione della web app.
+    \item \textbf{Tecnologie utilizzate}\\
+    Questa sezione descrive le tecnologie utilizzate per lo sviluppo dell'applicazione. Verranno analizzati in maniera approfondita tutti i linguaggi di programmazione, librerie, framework e strumenti utilizzati, evidenziandone le caratteristiche e i vantaggi scaturiti dal loro impiego. Viene offerta una solida base tecnica, la quale consente al lettore di acquisire una comprensione completa delle competenze che si sono rivelate necessarie per la realizzazione del progetto.
+    \item \textbf{Visualizzazione dati sull'utilizzo del progetto BolognaWiFi}\\
+    Questa sezione illustra le funzionalità dell'applicazione web sviluppata, insieme a una presentazione dettagliata delle relative schermate. Inoltre, verranno esplorate anche le sfide relative alla progettazione e all'implementazione della web app, analizzando il modo in cui sono state affrontate in ciascuna fase della realizzazione del progetto, fornendo alcuni esempi riguardo al codice scritto. Infine, verrà effettuata un'analisi sull'esperienza utente, utilizzando dati raccolti tramite sondaggio. Viene quindi offerta una panoramica approfondita sulle decisioni relative all'interfaccia utente, alle scelte tecniche e alle soluzioni implementate grazie alle quali è stato possibile sviluppare questa applicazione.
+\end{enumerate}
 
-La realizzazione dell'applicazione ha consentito di dimostrare l'efficacia della visualizzazione dati nell'ambito della gestione urbana. Grazie all'implementazione di strumenti interattivi, l'applicazione sviluppata consente di identificare trend significativi e di migliorare la comprensione dei dati da parte degli utenti non esperti. Tra i principali risultati raggiunti si evidenziano:
+% Questa organizzazione consente di offrire una panoramica completa del lavoro svolto, evidenziando il contributo originale del progetto e le sue implicazioni future nel contesto dell'uso degli Open Data per la gestione urbana.
 
-\begin{itemize}
-    \item La creazione di un'interfaccia dinamica e intuitiva che permette agli utenti di esplorare i dati relativi alla rete WiFi;
-    \item L'ottimizzazione delle prestazioni del sistema attraverso l'utilizzo di tecnologie scalabili e performanti;
-    \item L'integrazione di tecniche di analisi che facilitano la comprensione dei pattern di utilizzo e affluenza;
-    \item Il supporto alla gestione delle risorse pubbliche grazie alla possibilità di monitorare in tempo reale il funzionamento della rete WiFi comunale.
-\end{itemize}
-
-Questi risultati dimostrano l'importanza di strumenti interattivi di visualizzazione dei dati per il miglioramento della gestione urbana, fornendo un modello replicabile per altre amministrazioni e contesti.
-
-\section*{Struttura della tesi}
-
-Il seguito della tesi è così organizzato:
-
-\begin{itemize}
-    \item \textbf{Capitolo 1}: Introduce il concetto di Open Data e il loro ruolo nella gestione urbana, con un approfondimento sul progetto BolognaWiFi e il contesto in cui si inserisce.
-    \item \textbf{Capitolo 2}: Descrive le tecnologie utilizzate per lo sviluppo dell'applicazione, tra cui HTML, CSS, JavaScript, Vue.js, Leaflet e database SQL, evidenziandone le caratteristiche e i vantaggi.
-    \item \textbf{Capitolo 3}: Presenta il processo di progettazione e implementazione della web app, con particolare attenzione alla struttura del database, all'architettura software e alla connessione tra frontend e backend.
-    % \item \textbf{Conclusioni}: Sintetizza i risultati ottenuti e propone possibili sviluppi futuri, con particolare attenzione alle potenzialità dell'integrazione con altri dataset e alle prospettive di miglioramento dell'applicazione.
-\end{itemize}
-
-Questa organizzazione consente di offrire una panoramica completa del lavoro svolto, evidenziando il contributo originale del progetto e le sue implicazioni future nel contesto dell'uso degli Open Data per la gestione urbana.
+Questa tesi si pone quindi l'obiettivo di sviluppare un'applicazione web interattiva per la visualizzazione dei dati relativi all'utilizzo della rete Wi-Fi pubblica del Comune di Bologna, in modo da facilitarne la comprensione e mantenere le informazioni spaziali e temporali dei relativi dati.
 
 % \newpage
 \clearpage{\pagestyle{empty}\cleardoublepage}
