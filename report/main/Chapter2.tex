@@ -34,17 +34,24 @@ Anche CSS è un \textit{living standard} come HTML e per questo viene regolarmen
 
 CSS supporta diversi selettori in grado di dare istruzioni di regole:
 \begin{itemize}
-    \item \Verb_selettore_ corrisponde al nome dell'elemento HTML a cui fa riferimento: lo stile viene applicato su tutti gli elementi HTML dello stesso tipo.
-    \item \Verb_.selettore_ si rivolge a tutti gli elementi di una classe specifica e si scrive con un punto davanti al nome della classe HTML corrispondente.
-    \item \Verb_#selettore_ si riferisce a un unico elemento con un ID specifico. L'integrazione nel codice sorgente HTML avviene grazie all'attributo id, ovvero \Verb_id="identificatore"_.
-    \item \Verb_*_ è il selettore universale e si rivolge a tutti gli elementi HTML di un documento.
+    \item \Verb_selettore_\\
+    Corrisponde al nome dell'elemento HTML a cui fa riferimento: lo stile viene applicato su tutti gli elementi HTML dello stesso tipo.
+    \item \Verb_.selettore_\\
+    Si rivolge a tutti gli elementi di una classe specifica e si scrive con un punto davanti al nome della classe HTML corrispondente.
+    \item \Verb_#selettore_\\
+    Si riferisce a un unico elemento con un ID specifico. L'integrazione nel codice sorgente HTML avviene grazie all'attributo id, ovvero \Verb_id="identificatore"_.
+    \item \Verb_*_ \textit{(selettore universale)}\\
+    Si rivolge a tutti gli elementi HTML di un documento.
 \end{itemize}
 
 Il CSS può essere dichiarato in vari modi nell'HTML:
 \begin{itemize}
-    \item Inline: viene definito direttamente sul tag dell'elemento HTML utilizzando l'attributo \Verb_style_. Ha il vantaggio che non è necessario configurare un foglio di stile apposito e ha la priorità elevata, ma nel momento in cui deve essere applicato un blocco di dichiarazioni questo metodo di stile diventa poco chiaro e ridondante.
-    \item Interno: viene definito all'interno del tag \Verb_<style>_ nella \Verb_<head>_ del documento HTML.
-    \item Esterno: viene definito in un foglio di stile separato, il quale verrà collegato al documento HTML di base utilizzando l'elemento HTML \Verb_<link>_, sempre nella \Verb_<head>_. Può essere riutilizzato in più pagine HTML, semplicemente importandolo ove necessario.
+    \item \textbf{Inline}\\
+    Viene definito direttamente sul tag dell'elemento HTML utilizzando l'attributo \Verb_style_. Ha il vantaggio che non è necessario configurare un foglio di stile apposito e ha la priorità elevata, ma nel momento in cui deve essere applicato un blocco di dichiarazioni questo metodo di stile diventa poco chiaro e ridondante.
+    \item \textbf{Interno}\\
+    Viene definito all'interno del tag \Verb_<style>_ nella \Verb_<head>_ del documento HTML.
+    \item \textbf{Esterno}\\
+    Viene definito in un foglio di stile separato, il quale verrà collegato al documento HTML di base utilizzando l'elemento HTML \Verb_<link>_, sempre nella \Verb_<head>_. Può essere riutilizzato in più pagine HTML, semplicemente importandolo ove necessario.
 \end{itemize}
 
 \section{SCSS}
@@ -66,10 +73,14 @@ JavaScript è un linguaggio di scripting, o di programmazione, che permette di i
 
 Lato client, il linguaggio JavaScript consiste delle solite funzionalità di programmazione come il salvataggio di valori in variabili, le operazioni su stringhe, e l'esecuzione di codice in risposta a certi eventi che avvengono su una pagina web, come quello di \Verb_click_. Ma ancora più importante, ci permette di utilizzare le funzionalità costruite su altro codice JavaScript client-side, mediante le \textit{Application Programming Interfaces}, o APIs. Queste sono blocchi di codice già pronto che consentono a uno sviluppatore di implementare progammi che altrimenti sarebbero difficili o impossibili da implementare, rendendo questi compiti più semplici da realizzare. Le API possono essere built-in nel browser o di terze parti. Queste ultime verranno approfondite in una sezione successiva. Le API del browser permettono di esporre dati dall'ambiente del computer, o effettuare compiti complessi. Per esempio:
 \begin{itemize}
-    \item DOM (\textit{Document Object Model}) API: permettono di manipolare HTML e CSS, creando, rimuovendo e cambiando l'HTML, applicando nuovi stili dinamicamente alla pagina, ecc. Per esempio, vengono utilizzate ogni volta che vediamo aprirsi una finestra popup su una pagina, o quando viene visualizzato del nuovo contenuto.
-    \item Geolocation API: permettono di recuperare informazioni geografiche, come la posizione GPS corrente.
-    \item Canvas e WebGL API: permettono di creare animazioni 2D e 3D.
-    \item Audio e Video API: permettono di riprodurre audio e video direttamente in una pagina web, o filmare un video dalla webcam e visualizzarlo su un altro computer.
+    \item \textbf{DOM (\textit{Document Object Model}) API}\\
+    Permettono di manipolare HTML e CSS, creando, rimuovendo e cambiando l'HTML, applicando nuovi stili dinamicamente alla pagina, ecc. Per esempio, vengono utilizzate ogni volta che vediamo aprirsi una finestra popup su una pagina, o quando viene visualizzato del nuovo contenuto.
+    \item \textbf{Geolocation API}\\
+    Permettono di recuperare informazioni geografiche, come la posizione GPS corrente.
+    \item \textbf{Canvas e WebGL API}\\
+    Permettono di creare animazioni 2D e 3D.
+    \item \textbf{Audio e Video API}\\
+    Permettono di riprodurre audio e video direttamente in una pagina web, o filmare un video dalla webcam e visualizzarlo su un altro computer.
 \end{itemize}
 
 JavaScript è un linguaggio leggermente interpretato: il browser riceve il codice JS originale e lancia lo script, e nei browser moderni viene utilizzata una tecnica di compilazione detta \textit{just-in-time} per migliorare le performance. In questo caso, il codice JS viene compilato in un formato binario più veloce mentre lo script è in esecuzione, così da lanciarlo il più rapidamente possibile. Tuttavia, JavaScript è comunque considerato un linguaggio interpretato, dato che la compilazione avviene a \textit{run-time}, invece che \textit{ahead-of-time}.
@@ -90,17 +101,17 @@ In JavaScript sono disponibili un gran numero di framework e librerie, sviluppat
 
 Le librerie sono dei pacchetti di classi e funzioni riutilizzabili per risolvere particolari problemi, sono flessibili e possono essere utilizzate liberamente. Alcuni esempi di librerie famose sono:
 \begin{itemize}
-    \item React.js, utilizzato per creare UI complesse e gestire lo stato.
-    \item jQuery, utilizzato per gestire eventi JS ed effettuare chiamate AJAX.
-    \item D3.js (\textit{Data-Driven Documents}), utilizzato per la visualizzazione dati.
-    \item Chart.js, utilizzato per disegnare vari tipi di grafici utilizzando l'elemento HTML5 \Verb_<canvas>_.
+    \item \textbf{React.js}, utilizzato per creare UI complesse e gestire lo stato.
+    \item \textbf{jQuery}, utilizzato per gestire eventi JS ed effettuare chiamate AJAX.
+    \item \textbf{D3.js} (\textit{Data-Driven Documents}), utilizzato per la visualizzazione dati.
+    \item \textbf{Chart.js}, utilizzato per disegnare vari tipi di grafici utilizzando l'elemento HTML5 \Verb_<canvas>_.
 \end{itemize}
 
 I framework, invece, offrono un approccio strutturato allo sviluppo di un progetto, mediante un insieme di strumenti utili a creare applicazioni in maniera standardizzata. Specificano dove inserire quali frammenti di codice e spesso includono funzionalità come la gestione del routing, richieste HTTP, o dei dati di backend. Questo approccio strutturato semplifica lo sviluppo e assicura consistenza tra i vari progetti. Alcuni esempi di framework famosi sono:
 \begin{itemize}
-    \item Angular, sviluppato da Google, utilizzato per lo sviluppo cross-platform.
-    \item Vue.js, utilizzato per creare UI e SPAs (\textit{Single-Page Applications}).
-    \item Next.js, framework basato su React per sviluppare webapp multipiattaforma \cite{JS_Frameworks_Libraries}.
+    \item \textbf{Angular}, sviluppato da Google, utilizzato per lo sviluppo cross-platform.
+    \item \textbf{Vue.js}, utilizzato per creare UI e SPAs (\textit{Single-Page Applications}).
+    \item \textbf{Next.js}, framework basato su React per sviluppare webapp multipiattaforma \cite{JS_Frameworks_Libraries}.
 \end{itemize}
 
 \`E possibile anche eseguire codice JavaScript al di fuori dal browser, utilizzando l'ambiente di esecuzione Node.js, che è open-source e multipiattaforma \cite{Node.js}.
@@ -112,21 +123,23 @@ Questa libreria è stata progettata avendo in mente la semplicità, le prestazio
 
 Leaflet non cerca di fare tutto, ma si focalizza sulle funzionalità di base per fare in modo che funzionino perfettamente. Le sue caratteristiche principali sono:
 \begin{itemize}
-    \item Layers\\
+    \item \textbf{Layers}\\
     Offre i cosiddetti \textit{tile layers}, i \textit{markers}, e i popup. Inoltre, si possono mettere delle immagini come overlays e i GeoJSON. Sulla mappa si possono disegnare poligoni, polylines e cerchi.
-    \item Interazione\\
+    \item \textbf{Interazione}\\
     Supporta lo scorrimento, lo zoom tramite gesture, doppio click o scroll wheel, lo spostamento dei marker, gli eventi, e altro ancora.
-    \item Funzionalità\\
+    \item \textbf{Funzionalità}\\
     Visivamente, supporta le animazioni per lo zoom e il fade. I popup possono essere customizzati tramite CSS, e si può creare un marker personalizzato tramite immagini o HTML. Riguardo alle mappe, gli sviluppatori possono utilizzare i layer che preferiscono.
-    \item Controlli\\
+    \item \textbf{Controlli}\\
     Sono presenti bottoni per lo zoom e il cambio di layer, un'indicatore per la scala, e uno per l'attribuzione \cite{Leaflet_Overview}.
 \end{itemize}
 
 \section{Vue.js}
 Vue è un framework JavaScript utilizzato per la costruzione di interfacce utente (UI). Si basa sullo standard stack HTML, CSS e JavaScript e offre un modello di programmazione dichiarativo e basato sui componenti, che aiuta a sviluppare in modo efficiente delle UI anche complesse \cite{Vue}. Le funzionalità chiave di Vue sono due:
 \begin{itemize}
-    \item Rendering dichiarativo: Vue estende lo standard HTML mediante una sintassi di template che permettono di descrivere output HTML in modo dichiarativo, basato su uno stato definito in JavaScript.
-    \item Reattività: Vue traccia automaticamente i cambiamenti di stato in JavaScript e aggiorna il DOM in modo efficiente quando avvengono queste variazioni.
+    \item \textbf{Rendering dichiarativo}\\
+    Vue estende lo standard HTML mediante una sintassi di template che permettono di descrivere output HTML in modo dichiarativo, basato su uno stato definito in JavaScript.
+    \item \textbf{Reattività}\\
+    Vue traccia automaticamente i cambiamenti di stato in JavaScript e aggiorna il DOM in modo efficiente quando avvengono queste variazioni.
 \end{itemize}
 
 Vue è un framework ed ecosistema che copre la maggioranza delle più comuni funzionalità richieste nello sviluppo frontend. Tuttavia, il web è estremamente vario e ciò che viene costruito può cambiare drasticamente in forma e scala. Vue è stato disegnato proprio per rispondere a queste esigenze, in modo da essere flessibile e adottabile in modo incrementale. In base al caso d'uso, Vue può essere utilizzato in diverse modalità:
@@ -160,9 +173,9 @@ Ciò che distingue PHP dal codice JavaScript client-side è che il codice è ese
 
 PHP riguarda principalmente lo scripting lato server, quindi può fare qualsiasi cosa che altri programmi CGI (\textit{Common Gateway Interface}) sanno fare, come raccogliere dati da un \textit{form}, generare dinamicamente il contenuto della pagina, o inviare e ricevere cookies. Due sono le aree principali dove gli script PHP vengono utilizzati:
 \begin{itemize}
-    \item Scripting lato server\\
+    \item \textbf{Scripting lato server}\\
     Questo è il più utilizzato e costituisce il principale campo di applicazione per PHP. Per funzionare, richiede un parser PHP (CGI o modulo server), un server web, e un browser web. Tutti questi possono essere eseguiti localmente per scopi di sviluppo.
-    \item Scripting a command line\\
+    \item \textbf{Scripting a command line}\\
     Uno script PHP può essere eseguito senza richiedere alcun server o browser, basta solo disporre di un parser PHP per poterlo utilizzare in questa maniera. Questo tipo di utilizzo è ideale per script eseguiti regolarmente tramite \Verb_cron_, su Unix e macOS, o con \textit{Task Scheduler} su Windows. Questi script possono essere semplicemente usati anche per processare del testo.
 \end{itemize}
 
@@ -186,25 +199,25 @@ L'architettura API è generalmente spiegata in termini di client e server. L'app
 \subsection{Tipologie di API}
 Esistono quattro diversi modi in cui le APIs possono funzionare, in base a quando e perché sono state create.
 \begin{itemize}
-    \item SOAP APIs\\
+    \item \textbf{SOAP APIs}\\
     Queste API utilizzano un protocollo chiamato \textit{Simple Object Access Protocol}, dove client e server si scambiano messaggi tramite XML. Questa tipologia di API è meno flessibile, ma è stata più popolare in passato.
-    \item RPC APIs\\
+    \item \textbf{RPC APIs}\\
     Queste API sono chiamate \textit{Remote Procedure Calls}: il client completa una funzione (o procedura) sul server, quindi il server invia il corrispondente output al client.
-    \item Websocket APIs\\
+    \item \textbf{Websocket APIs}\\
     Sono un'altra tipologia di API utilizzate nel moderno sviluppo web e utilizzano oggetti JSON per il passaggio dei dati. Un'API di tipo WebSocket supporta la comunicazione a due vie tra le app client e il server. Il server, a sua volta, può inviare messaggi di callback ai client connessi, rendendolo così più efficiente delle API di tipo REST.
-    \item REST APIs\\
+    \item \textbf{REST APIs}\\
     Sono le API più popolari e flessibili che possiamo trovare, ad oggi, sul web. Il client invia richieste al server sotto forma di dati, quindi il server utilizza questo input fornito dal client per eseguire funzioni interne e ritorna i dati di output, inviandoli indietro al client.
 \end{itemize}
 
 Oltre all'architettura, le API sono classificate anche in base al loro scopo di utilizzo:
 \begin{itemize}
-    \item API Private\\
+    \item \textbf{API Private}\\
     Sono interne a un'azienda e vengono utilizzate solamente per connettere sistemi e dati all'interno di essa.
-    \item API Pubbliche\\
+    \item \textbf{API Pubbliche}\\
     Sono aperte al pubblico e possono essere utilizzate da chiunque. Tuttavia, potrebbe esserci qualche tipo di autorizzazione e costo associato al loro utilizzo, anche se non necessariamente.
-    \item API Partner\\
+    \item \textbf{API Partner}\\
     Sono accessibili solo agli sviluppatori esterni autorizzati, per incoraggiare le partnership tra business (B2B).
-    \item API Composite\\
+    \item \textbf{API Composite}\\
     Combinano due o più APIs per risolvere requisiti di sistema o comportamenti complessi.
 \end{itemize}
 
@@ -222,28 +235,30 @@ Le integrazioni delle API sono componenti software che aggiornano automaticament
 
 Le REST APIs offrono quattro principali benefici:
 \begin{enumerate}
-    \item Integrazione\\
+    \item \textbf{Integrazione}\\
     Le API sono utilizzate per integrare nuove applicazioni con sistemi software esistenti. Questo accelera la velocità di sviluppo, in quanto ciascuna funzionalità non ha bisogno di essere riscritta da zero, ma possiamo utilizzare le API per sfruttare codice già esistente.
-    \item Innovazione\\
+    \item \textbf{Innovazione}\\
     L'arrivo di una nuova app è in grado di cambiare intere industrie, quindi le aziende devono essere in grado di rispondere velocemente e supportare il rilascio rapido di servizi innovativi. Questo può avvenire apportando cambiamenti a livello delle API, senza dover riscrivere l'intero codice.
-    \item Espansione\\
+    \item \textbf{Espansione}\\
     Le API presentano un'opportunità unica per le aziende di soddisfare le esigenze dei clienti su diverse piattaforme. Per esempio, le Maps API permettono l'integrazione di informazioni relative alle mappe su siti web, Android, iOS, e altri. Qualunque azienda può offrire un simile accesso ai propri database interni, utilizzando API gratuite o a pagamento.
-    \item Facilità di manutenzione\\
+    \item \textbf{Facilità di manutenzione}\\
     Una API funge da porta di passaggio tra due sistemi. Ciascun sistema è obbligato ad apportare cambiamenti interni così da non influenzare il funzionamento delle API. In questo modo, ogni cambiamento futuro al codice effettuato da una qualunque delle due parti non impatterà l'altra.
 \end{enumerate}
 
 Gli API endpoints sono il punto finale del sistema di comunicazione delle API e includono URL di server, servizi, e altre locazioni specifiche digitali da cui vengono inviate e ricevute le informazioni tra i diversi sistemi. Gli API endpoints sono di importanza critica per le aziende per due ragioni principli:
 \begin{enumerate}
-    \item Sicurezza\\
+    \item \textbf{Sicurezza}\\
     Gli API endpoints rendono il sistema vulnerabile agli attacchi, quindi il monitoraggio delle API è cruciale per prevenire un utilizzo improprio.
-    \item Prestazioni\\
+    \item \textbf{Prestazioni}\\
     Gli API endpoints, specialmente quelli ad alto traffico, possono causare bottlenecks (colli di bottiglia) e influenzare le performance del sistema.
 \end{enumerate}
 
 Tutte le API quindi devono essere rese sicure tramite appropriata autenticazione e monitoraggio. I due modi principali per mettere in sicurezza le REST APIs includono:
 \begin{enumerate}
-    \item Token di autenticazione: sono utilizzati per autorizzare gli utenti a effettuare le chiamate alle API, controllano che gli utenti siano correttamente identificati e che abbiano effettivi diritti di accesso per quella particolare chiamata API. Per esempio, quando effettuiamo l'accesso al server email, il client email utilizza token di autenticazione per un accesso sicuro.
-    \item Chiavi API: verificano il programma o l'applicazione che effettua la chiamata alle API. Identificano l'applicazione e assicurano che abbia i diritti di accesso richiesti per effettuare quella particolare chiamata API. Le chiavi API non sono sicure come i tokens, ma permettono di monitorare le API per raccogliere dati sul loro utilizzo. Ad esempio, quando visitiamo un sito web e notiamo una lunga stringa di caratteri e numeri nel suo URL, questa stringa è una chiave API che il sito utilizza per effettuare chiamate alle API interne.
+    \item \textbf{Token di autenticazione}\\
+    Sono utilizzati per autorizzare gli utenti a effettuare le chiamate alle API, controllano che gli utenti siano correttamente identificati e che abbiano effettivi diritti di accesso per quella particolare chiamata API. Per esempio, quando effettuiamo l'accesso al server email, il client email utilizza token di autenticazione per un accesso sicuro.
+    \item \textbf{Chiavi API}\\
+    Verificano il programma o l'applicazione che effettua la chiamata alle API. Identificano l'applicazione e assicurano che abbia i diritti di accesso richiesti per effettuare quella particolare chiamata API. Le chiavi API non sono sicure come i tokens, ma permettono di monitorare le API per raccogliere dati sul loro utilizzo. Ad esempio, quando visitiamo un sito web e notiamo una lunga stringa di caratteri e numeri nel suo URL, questa stringa è una chiave API che il sito utilizza per effettuare chiamate alle API interne.
 \end{enumerate}
 
 \subsection{Documentazione}
@@ -274,13 +289,20 @@ Due capacità principali di MySQL sono il suo supporto alle transazioni ACID e l
 
 MySQL è veloce, affidabile, scalabile e facile da utilizzare. Originariamente venne sviluppato per gestire rapidamente grandi database ed è stato utilizzato da molti anni in ambienti di produzione con requisiti molto elevati. MySQL offre un ampio insieme di funzioni di utilità ed è sviluppato costantemente da Oracle, così da restare al passo con le nuove richieste tecnologiche e aziendali. La connettività, velocità, e sicurezza di MySQL lo rendono altamente qualificato per l'accesso ai database su Internet. Alcuni dei principali benefici di MySQL includono:
 \begin{itemize}
-    \item Facilità d'uso: gli sviluppatori possono installare MySQL nel tempo di qualche minuto e il database è facile da gestire.
-    \item Affidabilità: MySQL è uno dei database più maturi e ampiamente utilizzati, ed è stato testato in una grande varietà di scenari per quasi 30 anni, incluse molte delle aziende più grosse al mondo, le quali dipendono da MySQL per eseguire applicazioni critiche, data la sua affidabilità.
-    \item Scalabilità: MySQL è in grado di scalare per soddisfare i bisogni delle applicazioni con il maggior numero di accessi. La sua architettura a replicazione nativa permette alle aziende, tra cui Facebook, Netflix e Uber, di scalare le applicazioni per supportare decine di milioni di utenti, se non di più.
-    \item Prestazioni: MySQL è un sistema di database ad alte prestazioni e con zero necessità di amministrazione, viene rilasciato in diverse edizioni per soddisfare quasi tutte le richieste.
-    \item Elevata disponibilità: MySQL offre un insieme completo di tecnologie di replicazione native e pienamente integrate per permettere una grande disponibilità e al contempo il recupero dei disastri. Per le applicazioni di business critiche e gli accordi di servizio, i clienti possono raggiungere l'obiettivo di zero perdite di dati, con un tempo di recupero istantaneo.
-    \item Sicurezza: la sicurezza dei dati riguarda sia la protezione degli stessi dati, che il rispetto delle leggi dell'industria e del governo, ingluso il GDPR nell'Unione Europea. MySQL Enterprise è in grado di offrire funzionalità di sicurezza avanzate, come l'autenticazione/autorizzazione, la crittografia trasparente dei dati, l'auditing, il data masking e un firewall per il database.
-    \item Flessibilità: il Document Store di MySQL offre agli utenti una massima flessibilità nel sviluppare tradizionali applicazioni database che utilizzino sia SQL che NoSQL, queste ultime senza schemi. Gli sviluppatori possono mischiare tabelle relazionali con documenti JSON nello stesso database e nella stessa applicazione.
+    \item \textbf{Facilità d'uso}\\
+    Gli sviluppatori possono installare MySQL nel tempo di qualche minuto e il database è facile da gestire.
+    \item \textbf{Affidabilità}\\
+    MySQL è uno dei database più maturi e ampiamente utilizzati, ed è stato testato in una grande varietà di scenari per quasi 30 anni, incluse molte delle aziende più grosse al mondo, le quali dipendono da MySQL per eseguire applicazioni critiche, data la sua affidabilità.
+    \item \textbf{Scalabilità}\\
+    MySQL è in grado di scalare per soddisfare i bisogni delle applicazioni con il maggior numero di accessi. La sua architettura a replicazione nativa permette alle aziende, tra cui Facebook, Netflix e Uber, di scalare le applicazioni per supportare decine di milioni di utenti, se non di più.
+    \item \textbf{Prestazioni}\\
+    MySQL è un sistema di database ad alte prestazioni e con zero necessità di amministrazione, viene rilasciato in diverse edizioni per soddisfare quasi tutte le richieste.
+    \item \textbf{Elevata disponibilità}\\
+    MySQL offre un insieme completo di tecnologie di replicazione native e pienamente integrate per permettere una grande disponibilità e al contempo il recupero dei disastri. Per le applicazioni di business critiche e gli accordi di servizio, i clienti possono raggiungere l'obiettivo di zero perdite di dati, con un tempo di recupero istantaneo.
+    \item \textbf{Sicurezza}\\
+    La sicurezza dei dati riguarda sia la protezione degli stessi dati, che il rispetto delle leggi dell'industria e del governo, ingluso il GDPR nell'Unione Europea. MySQL Enterprise è in grado di offrire funzionalità di sicurezza avanzate, come l'autenticazione/autorizzazione, la crittografia trasparente dei dati, l'auditing, il data masking e un firewall per il database.
+    \item \textbf{Flessibilità}\\
+    Il Document Store di MySQL offre agli utenti una massima flessibilità nel sviluppare tradizionali applicazioni database che utilizzino sia SQL che NoSQL, queste ultime senza schemi. Gli sviluppatori possono mischiare tabelle relazionali con documenti JSON nello stesso database e nella stessa applicazione.
 \end{itemize}
 
 \subsection{Utilizzo nelle applicazioni web}
@@ -329,18 +351,30 @@ XAMPP aiuta un host locale o un server a testare il suo sito e client tramite co
 \subsection{Componenti}
 XAMPP è utilizzato per simboleggiare la classificazione di soluzioni per tecnologie differenti. Fornisce una base per il testing di progetti basati su diverse tecnologie attraverso un server personale. XAMPP è un insieme di software che contiene un web server chiamato Apache, un sistema di gestione di database chiamato MariaDB e linguaggi di scripting e programmazione come PHP e Perl. Può funzionare su Windows, Linux e macOS.
 \begin{itemize}
-    \item Cross-Platform: diversi sistemi locali hanno diverse configurazioni dovute ai sistemi operativi che vi sono installati. I componenti multipiattaforma sono inclusi per aumentare l'utilità e il pubblico a cui si rivolge questa distribuzione, supportando varie piattaforme come Windows, Linux e macOS.
-    \item Apache: si tratta di un web server HTTP multipiattaforma, utilizzato in tutto il mondo per la distribuzione di contenuto web. L'applicazione server è stata resa gratuita per l'installazione ed è utilizzata dalla community di sviluppatori sotto l'egida di Apache Software Foundation. Il server remoto di Apache consegna i file richiesti, le immagini e altri documenti all'utente.
-    \item MariaDB: in origine, il DBMS MySQL era parte di XAMPP, ma ad oggi è stato sostituito da MariaDB. Questo è uno dei DBMS più utilizzati, sviluppato da MySQL, e offre servizi online di data storage, manipolazione dati, recupero dati, riordinamento e cancellazione.
-    \item PHP: è il linguaggio di scripting per backend principalmente utilizzato per lo sviluppo web. PHP permette agli utenti di creare siti web e applicazioni dinamiche. Può essere installato su ogni piattaforma e supporta una grande varietà di DBMS (\textit{Database Management Systems}). Inoltre, è stato implementato utilizzando il linguaggio C. Il nome PHP è stato derivato da \textit{Personal Home Page tools}, il che spiega la sua semplicità e funzionalità.
-    \item Perl: è una combinazione di due linguaggi dinamici ad alto livello, ovvero Perl 5 e Perl 6. Perl può essere applicato per trovare soluzioni a problemi basati sull'amministrazione di sistema, sviluppo web e networking. Perl permette ai suoi utenti di programmare applicazioni web dinamiche ed è molto flessibile e robusto.
-    \item phpMyAdmin: questo strumento è utilizzato per gestire MariaDB e si occupa dell'amministrazioe di DBMS.
-    \item OpenSSL: è l'implementazione open-source del protocollo \textit{Secure Socket Layer / Transport Layer Protocol} (SSL / TLS).
-    \item XAMPP Control Panel: questo pannello aiuta a operare e regolare altri componenti di XAMPP.
-    \item Webalizer: questa soluzione software di Web Analytics è utilizzata per i log utenti e fornisce dettagli sull'utilizzo.
-    \item Mercury: è un sistema di trasporto di email, ovvero un mail server, che aiuta a gestire le email attraverso il web.
-    \item Tomcat: è un servlet basato su Java che fornisce funzionalità di Java.
-    \item Filezilla: è un server avente protocollo FTP (\textit{File Transfer Protocol}), che supporta e facilita le operazioni di trasferimento eseguite sui file \cite{XAMPP}.
+    \item \textbf{Cross-Platform}\\
+    Diversi sistemi locali hanno diverse configurazioni dovute ai sistemi operativi che vi sono installati. I componenti multipiattaforma sono inclusi per aumentare l'utilità e il pubblico a cui si rivolge questa distribuzione, supportando varie piattaforme come Windows, Linux e macOS.
+    \item \textbf{Apache}\\
+    Si tratta di un web server HTTP multipiattaforma, utilizzato in tutto il mondo per la distribuzione di contenuto web. L'applicazione server è stata resa gratuita per l'installazione ed è utilizzata dalla community di sviluppatori sotto l'egida di Apache Software Foundation. Il server remoto di Apache consegna i file richiesti, le immagini e altri documenti all'utente.
+    \item \textbf{MariaDB}\\
+    In origine, il DBMS MySQL era parte di XAMPP, ma ad oggi è stato sostituito da MariaDB. Questo è uno dei DBMS più utilizzati, sviluppato da MySQL, e offre servizi online di data storage, manipolazione dati, recupero dati, riordinamento e cancellazione.
+    \item \textbf{PHP}\\
+    \`E il linguaggio di scripting per backend principalmente utilizzato per lo sviluppo web. PHP permette agli utenti di creare siti web e applicazioni dinamiche. Può essere installato su ogni piattaforma e supporta una grande varietà di DBMS (\textit{Database Management Systems}). Inoltre, è stato implementato utilizzando il linguaggio C. Il nome PHP è stato derivato da \textit{Personal Home Page tools}, il che spiega la sua semplicità e funzionalità.
+    \item \textbf{Perl}\\
+    \`E una combinazione di due linguaggi dinamici ad alto livello, ovvero Perl 5 e Perl 6. Perl può essere applicato per trovare soluzioni a problemi basati sull'amministrazione di sistema, sviluppo web e networking. Perl permette ai suoi utenti di programmare applicazioni web dinamiche ed è molto flessibile e robusto.
+    \item \textbf{phpMyAdmin}\\
+    Questo strumento è utilizzato per gestire MariaDB e si occupa dell'amministrazioe di DBMS.
+    \item \textbf{OpenSSL}\\
+    \`E l'implementazione open-source del protocollo \textit{Secure Socket Layer / Transport Layer Protocol} (SSL / TLS).
+    \item \textbf{XAMPP Control Panel}\\
+    Questo pannello aiuta a operare e regolare altri componenti di XAMPP.
+    \item \textbf{Webalizer}\\
+    Questa soluzione software di Web Analytics è utilizzata per i log utenti e fornisce dettagli sull'utilizzo.
+    \item \textbf{Mercury}\\
+    \`E un sistema di trasporto di email, ovvero un mail server, che aiuta a gestire le email attraverso il web.
+    \item \textbf{Tomcat}\\
+    \`E un servlet basato su Java che fornisce funzionalità di Java.
+    \item \textbf{Filezilla}\\
+    \`E un server avente protocollo FTP (\textit{File Transfer Protocol}), che supporta e facilita le operazioni di trasferimento eseguite sui file \cite{XAMPP}.
 \end{itemize}
 
 % \subsection{Configurazione e gestione}
@@ -375,12 +409,18 @@ Adottando questo approccio, i team possono tracciare l'evoluzione del codice, co
 \subsection{Vantaggi di Git}
 Git offre numerosi benefici:
 \begin{itemize}
-    \item Gestione del versioning decentralizzata: con Git, ogni sviluppatore possiede una copia completa della storia del progetto, permettendo loro di lavorare indipendentemente.
-    \item Sicurezza: a differenza di altri VCS, Git assicura l'integrità di tutti gli elementi all'interno del repository mediante un algoritmo crittografico di hash detto \textit{Secure Hash Algorithm} (SHA-1 e SHA-256). Questo algoritmo protegge il codice e la storia del progetto da ogni modifica benevola o malevola. Inoltre, ogni commit (creazione di una nuova versione) può essere automaticamente firmato (GPG) per assicurare la tracciabilità dei cambiamenti. Questo rende Git uno strumento particolarmente sicuro e affidabile, garantendo l'integrità e l'autenticità del codice e della sua storia.
-    \item Veloce ed efficiente: Git massimizza l'efficienza durante lo sviluppo e la sua velocità permette agli sviluppatori di svolgere operazioni complesse, come i commit, branching e merging, in un tempo minimo, anche su grandi codebase. Assicura inoltre un impatto minimo sull'hard disk e anche durante gli scambi su rete. Questa efficienza si traduce in tempi di risposta rapidi durante i backup, le consultazioni e i cambiamenti della storia del progetto.
-    \item Maggiore flessibilità di lavoro: Git supporta una grande varietà di workflow di sviluppo, dai modelli centralizzati fino agli approcci lineari. Questa abilità di gestire diversi workflow fornisce ai team numerose opzioni per le possibilità con cui possono lavorare.
-    \item Facilità di integrazione: Git eccelle nella sua abilità di integrarsi con una grande varietà di strumenti e piattaforme di sviluppo. Questa larga compatibilità permette ai team di gestire i progetti più efficientemente, sfruttando i migliori tool e pratiche di DevSecOps.
-    \item Progetto open-source molto popolare: Git viene supportato da una community dinamica e dedicata, che assicura il suo miglioramento costante. Questa partecipazione attiva da individui e aziende garantisce la regolare aggiunta di nuove funzionalità e miglioramenti attraverso aggiornamenti continui.
+    \item \textbf{Gestione del versioning decentralizzata}\\
+    Con Git, ogni sviluppatore possiede una copia completa della storia del progetto, permettendo loro di lavorare indipendentemente.
+    \item \textbf{Sicurezza}\\
+    A differenza di altri VCS, Git assicura l'integrità di tutti gli elementi all'interno del repository mediante un algoritmo crittografico di hash detto \textit{Secure Hash Algorithm} (SHA-1 e SHA-256). Questo algoritmo protegge il codice e la storia del progetto da ogni modifica benevola o malevola. Inoltre, ogni commit (creazione di una nuova versione) può essere automaticamente firmato (GPG) per assicurare la tracciabilità dei cambiamenti. Questo rende Git uno strumento particolarmente sicuro e affidabile, garantendo l'integrità e l'autenticità del codice e della sua storia.
+    \item \textbf{Veloce ed efficiente}\\
+    Git massimizza l'efficienza durante lo sviluppo e la sua velocità permette agli sviluppatori di svolgere operazioni complesse, come i commit, branching e merging, in un tempo minimo, anche su grandi codebase. Assicura inoltre un impatto minimo sull'hard disk e anche durante gli scambi su rete. Questa efficienza si traduce in tempi di risposta rapidi durante i backup, le consultazioni e i cambiamenti della storia del progetto.
+    \item \textbf{Maggiore flessibilità di lavoro}\\
+    Git supporta una grande varietà di workflow di sviluppo, dai modelli centralizzati fino agli approcci lineari. Questa abilità di gestire diversi workflow fornisce ai team numerose opzioni per le possibilità con cui possono lavorare.
+    \item \textbf{Facilità di integrazione}\\
+    Git eccelle nella sua abilità di integrarsi con una grande varietà di strumenti e piattaforme di sviluppo. Questa larga compatibilità permette ai team di gestire i progetti più efficientemente, sfruttando i migliori tool e pratiche di DevSecOps.
+    \item \textbf{Progetto open-source molto popolare}\\
+    Git viene supportato da una community dinamica e dedicata, che assicura il suo miglioramento costante. Questa partecipazione attiva da individui e aziende garantisce la regolare aggiunta di nuove funzionalità e miglioramenti attraverso aggiornamenti continui.
 \end{itemize}
 
 \subsection{Principali comandi di Git}
