@@ -24,7 +24,7 @@ Come possiamo notare dai dati ottenuti dalle API degli Open Data forniti dal Com
 
 Tali spostamenti sono direzionati, quindi uno spostamento dalla Biblioteca Salaborsa a Palazzo D'Accursio verrà registrato separatamente da quello effettuato, inversamente, da Palazzo D'Accursio a Biblioteca Salaborsa. Anche in questo caso, entrambe le direzioni degli spostamenti sono indipendenti l'una dall'altra, e non è detto che esistano entrambe in una certa ora. Per esempio, potremmo avere una direzione in cui si spostano 100 persone (o meglio, dispositivi), mentre nell'altra se ne spostano 0 o comunque una quantità trascurabile ai fini del rilevamento dati di BolognaWiFi, quindi in entrambi questi ultimi due casi non verrebbe creata nessuna nuova entrata sul database di Open Data. A giudicare dai dati, il limite minimo necessario per creare un'entrata sul database è stato fissato in una quantità di 10 persone, in quanto non esistono spostamenti aventi valore minore. Questo aiuta anche a garantire la privacy degli utenti, in quanto se venissero pubblicati i dati di un singolo dispositivo in una certa direzione il diritto alla privacy potrebbe venire violato.
 
-\subsection{Affollamento e Affluenza}
+\subsection{Affollamento e affluenza}
 Considerando i dati ottenuti dalle API degli Open Data forniti dal Comune di Bologna, possiamo notare come sia affollamento che affluenza contengono entrambi dei dati aventi una struttura molto simile tra loro. Di conseguenza, questo significa che possiamo trattarli insieme, semplificando la loro gestione ed evitando di complicarla con duplicati inutili di dati.
 
 Per entrambi viene registrata una nuova entrata per ogni ora del giorno, in ciascuna zona di Bologna coperta dal servizio BolognaWiFi. Per riuscire a garantire la privacy degli utenti, per affollamento e affluenza viene creata una nuova entrata oraria avente valore diverso da 0 solo qualora vi siano stati abbastanza utenti ad essere rimasti o entrati in una certa zona, rispettivamente per affollamento e affluenza. In caso contrario, viene comunque creata una nuova entrata, tuttavia essa avrà valore impostato a 0 di default. Questo limite minimo, a giudicare dai dati, è stato fissato in 10 persone, dato che non esiste alcun valore registrato nel range tra 1 e 9, garantendo così una completa anonimizzazione dei dati.
@@ -62,7 +62,7 @@ Riguardo al significato degli attributi, \textit{tot\_pass} è il numero di pass
 
 In questo caso, l'aggregazione dei dati è semplice perché nel dataset, nessun giorno ha un numero di entrate superiore a 24, cosa non scontata considerando che il cambio dell'ora genera un giorno con 23 ore in primavera e uno con 25 in autunno. Tale affermazione è affidabile in quanto la registrazione dei dati sugli spostamenti è cominciata l'1 aprile 2021.
 
-\subsection{Affollamento e Affluenza}
+\subsection{Affollamento e affluenza}
 Ancora una volta, questi due dataset si rivelano simili: avendo un insieme di attributi molto simili e lo stesso set di coordinate dei poligoni, basta scegliere uno qualunque dei due dataset per popolare le tabelle di area e coordinate che abbiamo visto prima.
 
 In questo modo, entrambe le sezioni di \textit{geo\_shape} e \textit{geo\_point\_2d} vengono assorbite in area e coordinate, alleggerendo la struttura delle tabelle di affollamento e affluenza che andremo a realizzare. Possiamo notare che tutti i dati relativi ad affollamento e affluenza hanno un \textit{"type": "Feature"} e \textit{"type": "Polygon"}, che possono essere tranquillamente ignorati essendo uguali in tutto il dataset.
@@ -74,18 +74,18 @@ Tuttavia, in questo caso in entrambi i dataset vi sono giorni con 23 o 25 entrat
 Inoltre, sorge un ulteriore problema iniziale dovuto al fatto che i dati di affluenza sono disponibili a partire dal 1 gennaio 2024, mentre quelli riguardanti l'affollamento cominciano dal 15 gennaio 2024. Ancora una volta si risolve semplicemente assegnando uno 0 ai valori mancanti, ovvero a tutti quelli nelle due settimane in cui non vi sono dati riguardanti l'affollamento.
 
 \subsection{Raggruppamento dei dati giornalieri}
-Tutti i dati relativi allo stesso giorno vengono raggruppati all'interno della stessa riga a database, permettendo di ridurre il numero di queries che vengono effettuate al server e migliorando così le performance dell'applicazione.
+Tutti i dati relativi allo stesso giorno vengono raggruppati all'interno della medesima riga a database, permettendo di ridurre il numero di queries che vengono effettuate al server e migliorando così le performance dell'applicazione.
 
-Per i movimenti, non essendoci conflitti relativi al cambio dell'ora, ogni dato viene salvato in base all'attributo \textit{ora} degli Open Data, quindi uno spostamento relativo alle ore 16 salverà i passeggeri totali nell'attributo giornaliero \textit{tot\_pass\_16} e i passeggeri mediani in \textit{percentile\_50\_16}. L'orario salvato a database è quindi in fuso orario GMT+1 durante l'ora solare, mentre durante l'ora legale diventa GMT+2, seguendo quindi il fuso orario locale.
+Per i movimenti, non essendoci conflitti relativi al cambio dell'ora, ogni dato viene salvato in base all'attributo \textit{ora} degli Open Data, di conseguenza uno spostamento relativo alle ore 16 salverà i passeggeri totali nell'attributo giornaliero \textit{tot\_pass\_16} e i passeggeri mediani in \textit{percentile\_50\_16}. L'orario salvato a database è quindi in fuso orario GMT+1 durante l'ora solare, mentre durante l'ora legale diventa GMT+2, seguendo il fuso orario locale.
 
 Una considerazione analoga viene effettuata per i dati di affollamento e affluenza, con la differenza che qui l'attributo \textit{ora} degli Open Data non è utilizzabile come identificatore dell'attributo in quanto viene influenzato dal cambio dell'ora. Questo si risolve facilmente utilizzando l'orario definito all'interno del timestamp \textit{data} ottenuto dagli Open Data, mediante parsing della stringa, in quanto viene specificato sempre seguendo il fuso orario UTC. In questo modo, affollamento e affluenza vengono sempre salvati in GMT, a prescindere dal fuso orario locale.
 
 \subsection{Schema finale}
-Dopo tutte le precedenti considerazioni, riportiamo in Figura~\ref{fig:database} lo schema finale del database. Per evitare di ottenere un database enorme in termini di spazio su disco, abbiamo prestato particolare attenzione ad utilizzare la quantità di memoria minore possibile per ogni attributo delle tabelle.
+Dopo aver elencato tutte le precedenti considerazioni, riportiamo in Figura~\ref{fig:database} lo schema finale del database. Per evitare di ottenere un database enorme in termini di spazio su disco, abbiamo prestato particolare attenzione ad utilizzare la quantità di memoria minore possibile per ogni attributo delle tabelle.
 
-In particolare, considerando che gli spostamenti (sia totali che mediani), l'affollamento e l'affluenza orari raggiungono valori sempre interi che non superano mai la quantità di 10~000 e non sono mai inferiori a zero. Di conseguenza, possiamo utilizzare un tipo di dato \textit{unsigned short} senza avere timori relativi ad un possibile overflow, anzi possiamo mantenere pure una certa quantità di margine, occupando solo 2 bytes per numero, dimezzando lo spazio richiesto in confronto ai 4 bytes occupati da un normale \textit{unsigned int}.
+In particolare, possiamo considerare il fatto che gli spostamenti (sia totali che mediani), l'affollamento e l'affluenza orari assumono valori sempre interi che non superano mai la quantità di 10~000, senza mai essere inferiori a zero. Di conseguenza, possiamo utilizzare un tipo di dato \textit{unsigned short} senza avere timori relativi ad un possibile overflow, anzi in questo caso possiamo mantenere addirittura una certa quantità di margine, occupando solo 2 bytes per numero, dimezzando lo spazio richiesto in confronto ai 4 bytes occupati da un normale \textit{unsigned int}.
 
-Inoltre, una simile considerazione può essere effettuata per i numeri decimali relativi alle coordinate dei punti dei poligoni, in quanto vi sono sempre due cifre intere e 14 o 15 cifre decimali. Riguardo alle due cifre intere, possiamo utilizzarne sempre due solamente considerando la posizione geografica di Bologna, in quanto se la latitudine non rappresenta un problema, la longitudine talvolta può assumere valori a tre cifre intere in base alla posizione sulla Terra. In questo modo, su MySQL gli viene assegnato il tipo di dato \textit{decimal(17,15)}, con 15 cifre decimali su 17 cifre totali, escludendo la virgola.
+Inoltre, una simile considerazione può essere effettuata per i numeri decimali relativi alle coordinate dei punti dei poligoni, in quanto vengono sempre salvati con due cifre intere e 14 o 15 cifre decimali. Riguardo alle due cifre intere, possiamo utilizzarne sempre due solamente considerando la posizione geografica di Bologna, in quanto se la latitudine non rappresenta un problema, la longitudine talvolta può assumere valori a tre cifre intere in base alla posizione sulla Terra. In questo modo, su MySQL gli viene assegnato il tipo di dato \textit{decimal(17,15)}, con 15 cifre decimali su 17 cifre totali, escludendo la virgola.
 
 \begin{figure}[H]
     \centering
@@ -105,7 +105,7 @@ Dopo aver installato Vue.js e creato il progetto utilizzando Vite, ovvero un plu
 \end{figure}
 
 \section{Single-Page App}
-Questa applicazione è stata realizzata seguendo il modello della \textit{Single-Page App}, ovvero una sola pagina web che carica selettivamente i suoi componenti o aggiorna i suoi dati senza necessità di ricaricare la pagina. Questo è permesso sia dallo stesso framework Vue.js, sia dall'implementazione di richieste AJAX che il client effettua al server.
+Questa applicazione è stata realizzata seguendo il modello della \textit{Single-Page App}, ovvero una sola pagina web che è in grado di caricare selettivamente i suoi componenti o aggiornare i suoi dati senza alcuna necessità di ricaricare la pagina. Questo è permesso sia dallo stesso framework Vue.js, sia dall'implementazione di richieste AJAX che il client effettua al server.
 
 \section{Implementazione richieste AJAX}
 Le richieste AJAX sono effettuate in modo asincrono dal client al server per ottenere dei dati che verranno utilizzati per aggiornare la pagina, evitando di dover effettuare un ricaricamento della stessa. Per la sua implementazione abbiamo utilizzato la funzione \Verb_fetch()_ built-in di JavaScript, creando tre funzioni per aggiornare rispettivamente le aree, con \Verb_fetchAreas()_, gli spostamenti, con \Verb_fetchMovements()_, e infine l'affollamento insieme all'affluenza, con \Verb_fetchCrowdingAttendance()_. 
@@ -206,14 +206,14 @@ Scegliendo il terzo bottone vengono visualizzati tutti i relativi spostamenti in
     \label{fig:desktop_passengers}
 \end{figure}
 
-Scegliendo il quarto bottone possiamo effettuare un ragionamento totalmente analogo con i dati relativi al numero mediano di passeggeri, i quali verranno visualizzati in colore fucsia. Analogamente, si applica la stessa logica per il click su poligoni e linee, con i dati relativi ai mediani.
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{desktop_medians}
     \caption[Screenshot degli spostamenti mediani su desktop]{Screenshot dell'applicazione su desktop, relativo alla schermata di visualizzazione degli spostamenti mediani.}
     \label{fig:desktop_medians}
 \end{figure}
+
+Scegliendo il quarto bottone possiamo effettuare un ragionamento totalmente analogo con i dati relativi al numero mediano di passeggeri, i quali verranno visualizzati in colore fucsia. Analogamente, si applica la stessa logica per il click su poligoni e linee, con i dati relativi ai mediani.
 
 \section{Calcolo delle opzioni di visualizzazione}
 Discutere di colori sembra molto facile, ma la loro scelta è cruciale affinché la visualizzazione risulti efficace e semplice da comprendere a colpo d'occhio.
@@ -226,10 +226,6 @@ Per semplificare la visualizzazione, i poligoni aventi affollamento o affluenza 
 
 Per determinare le sfumature di colori da utilizzare in ogni caso abbiamo utilizzato il codice riportato in Figura~\ref{fig:map_options_factory}, il quale innanzitutto determina se si tratta di un poligono o di una polilinea.
 
-Per evitare un bias troppo grande nei confronti dei dati piccoli e permettere agli stessi di essere visualizzati con la giusta importanza, non abbiamo utilizzato una scala lineare bensì una pseudologaritmica, visibile in \Verb_shadeFactory()_, in cui si considera la radice quadrata del valore corrente diviso il valore massimo, così da normalizzarli in un range tra 0 e 1. I valori massimi per ciascuno delle quattro tipologie di dati sono stati salvati in un file JSON separato, così da essere facilmente accessibili e potenzialmente aggiornabili.
-
-Una volta ottenuto il valore pseudologaritmico, si seleziona la sfumatura di colore corrispondente dall'array \Verb_shades[]_, nel caso dei poligoni, o dall'array \Verb_lineShades[]_ per le polilinee. In quest'ultimo caso, si utilizza lo stesso valore pseudologaritmico per determinare lo spessore della linea da visualizzare. Tutti i colori sono stati definiti in un file a parte, che viene richiamato così da permettere un incapsulamento migliore del codice.
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{map_options_factory}
@@ -237,7 +233,15 @@ Una volta ottenuto il valore pseudologaritmico, si seleziona la sfumatura di col
     \label{fig:map_options_factory}
 \end{figure}
 
-Per vedere un esempio di questo \textit{color coding}, in Figura~\ref{fig:mobile} possiamo vedere le quattro schermate di visualizzazione dati relative alla versione mobile, notando come il design sia sostanzialmente simile a quello già visto per quella desktop.
+Per evitare un bias troppo grande nei confronti dei dati aventi valori piccoli e permettere agli stessi di essere visualizzati apportando loro la giusta importanza, non abbiamo utilizzato una scala lineare bensì una pseudologaritmica, come visibile in \Verb_shadeFactory()_, in cui si considera la radice quadrata del valore corrente diviso il valore massimo, normalizzando così i dati in un range tra 0 e 1.
+
+I valori massimi per ciascuna delle quattro tipologie di dati sono stati salvati separatamente all'interno di un singolo file JSON, in modo tale da essere facilmente accessibili e potenzialmente aggiornabili in futuro, se dovessero registrarsi dei nuovi valori massimi maggiori di quelli correnti. Qualora si decidesse di non aggiornare tali valori, l'applicazione funzionerebbe con gli attuali valori massimi, assegnando agli outliers la sfumatura di livello massimo.
+
+Una volta ottenuto il valore pseudologaritmico normalizzato, non ci resta che selezionare la sfumatura di colore corrispondente dall'array \Verb_shades[]_, nel caso dei poligoni, o dall'array \Verb_lineShades[]_ per le polilinee. Tale differenza è stata volutamente creata per permettere una maggiore distinzione tra le singole aree e gli spostamenti effettuati tra le stesse.
+
+In quest'ultimo caso, si utilizza il medesimo valore pseudologaritmico per determinare lo spessore della linea da visualizzare, facilitando la percezione visiva del flusso di passeggeri da una zona all'altra. Tutti i colori utilizzati sono stati definiti in un file a parte, \Verb_colors.js_, che viene richiamato ogni volta che serva accedere a una specifica sfumatura, permettendo in questo modo di ottenere un incapsulamento migliore del codice.
+
+In Figura~\ref{fig:mobile} illustriamo un esempio di questo \textit{color coding}, nel quale possiamo vedere le quattro schermate di visualizzazione dati relative alla versione mobile, notando come il design sia sostanzialmente simile a quello già visto per quella desktop.
 Vale la pena notare come l'applicazione sia stata realizzata seguendo il pattern mobile-first, quindi è per principio nata per essere mobile-friendly. Inoltre, è in grado di seguire il tema chiaro e scuro del sistema in cui si trova.
 
 \begin{figure}[H]
@@ -261,7 +265,7 @@ Una volta realizzata l'applicazione web, abbiamo reclutato un gruppo di utenti a
 
 Innanzitutto, dobbiamo fare qualche considerazione sul campione di utenti preso in esame, avente dimensione \( n = 9 \), con \( n \) numero di utenti. Questo campione è indubbiamente piccolo, ma sufficiente a trarre le conclusioni necessarie alla valutazione della qualità del sistema realizzato.
 
-Riguardo all'età degli utenti, questa varia in un range tra 23 e 30 anni (media 24.7, mediana 24.0). Stiamo quindi considerando un campione abbastanza uniforme di persone giovani e aventi familiarità con il mondo digitale. L'ultima considerazione è importante perché ci permette di imputare eventuali problemi alla scarsa usabilità del sito stesso e non a una bassa capacità di interazione digitale, e viceversa rende possibile capire se un sito sia ben utilizzabile.
+L'età degli utenti varia in un range tra 23 e 30 anni (media 24.7, mediana 24.0). Stiamo quindi considerando un campione abbastanza uniforme di persone giovani e aventi familiarità con il mondo digitale. L'ultima considerazione è importante perché ci permette di imputare eventuali problemi alla scarsa usabilità del sito stesso e non a una bassa capacità di interazione digitale, e viceversa rende possibile capire se un sito sia ben utilizzabile.
 
 \section{Feedback utente su task assegnati}
 Per effettuare questo test in maniera standardizzata, abbiamo definito qualche task da sottoporre agli utenti. Tali compiti sono mirati a valutare la facilità di utilizzo dell'applicazione e riguardano i seguenti aspetti:
@@ -355,57 +359,7 @@ A ciascuna di queste domande, a prescindere se sia pari o dispari, si può rispo
 D'ora in poi, eviteremo di riportare nuovamente la descrizione per ogni domanda, ma ci riferiremo ad esse tramite la sigla SUS01 per la prima domanda, e così via.
 
 \section{Risposte al questionario SUS}
-Andiamo ora ad analizzare le risposte fornite dagli utenti. Riporteremo dapprima ciascuna delle due tabelle con i risultati individuali degli utenti, sia per il sito degli Open Data in Tabella~\ref{tab:sus_opendata}, sia per il nostro sito BolognaWiFiMap in Tabella~\ref{tab:sus_bolognawifimap}. Infine, mostreremo la Tabella~\ref{tab:sus_avg_values} contenente la media dei risultati per ciascuna domanda. Per motivi di spazio, in Tabella~\ref{tab:sus_opendata} e Tabella~\ref{tab:sus_bolognawifimap} abbiamo abbreviato i nomi delle domande, scrivendo ad esempio S01 al posto di SUS01.
-
-\begin{center}
-    \begin{table}[H]
-        \centering
-        \begin{tabularx}{\textwidth}{|c|c|c|c|c|c|c|c|c|c|X|}
-            \hline
-            \multicolumn{11}{|c|}{\textbf{Risposte SUS Open Data}} \\
-            \hline
-            \textbf{S01} & \textbf{S02} & \textbf{S03} & \textbf{S04} & \textbf{S05} & \textbf{S06} & \textbf{S07} & \textbf{S08} & \textbf{S09} & \textbf{S10} & \textbf{SUS} \\
-            \hline
-            1 & 4 & 2 & 4 & 3 & 4 & 2 & 4 & 1 & 4 & 22.5 \\
-            4 & 4 & 2 & 3 & 3 & 4 & 5 & 4 & 1 & 3 & 42.5 \\
-            3 & 3 & 3 & 4 & 5 & 2 & 4 & 2 & 3 & 3 & 60.0 \\
-            2 & 2 & 3 & 3 & 3 & 2 & 4 & 2 & 3 & 1 & 62.5 \\
-            1 & 5 & 1 & 4 & 1 & 4 & 2 & 2 & 2 & 1 & 27.5 \\
-            3 & 2 & 4 & 2 & 4 & 1 & 5 & 2 & 5 & 1 & 82.5 \\
-            1 & 2 & 3 & 5 & 2 & 4 & 1 & 4 & 2 & 4 & 25.0 \\
-            4 & 2 & 3 & 4 & 5 & 2 & 3 & 3 & 5 & 2 & 67.5 \\
-            1 & 4 & 2 & 3 & 1 & 3 & 1 & 4 & 1 & 3 & 22.5 \\
-            \hline
-        \end{tabularx}
-        \caption[Risposte del questionario SUS sul sito degli Open Data]{Risposte fornite dagli utenti sul questionario SUS relativo al sito degli Open Data, in forma anonima.}
-        \label{tab:sus_opendata}
-    \end{table}
-\end{center}
-
-\begin{center}
-    \begin{table}[h]
-        \centering
-        \begin{tabularx}{\textwidth}{|c|c|c|c|c|c|c|c|c|c|X|}
-            \hline
-            \multicolumn{11}{|c|}{\textbf{Risposte SUS BolognaWiFiMap}} \\
-            \hline
-            \textbf{S01} & \textbf{S02} & \textbf{S03} & \textbf{S04} & \textbf{S05} & \textbf{S06} & \textbf{S07} & \textbf{S08} & \textbf{S09} & \textbf{S10} & \textbf{SUS} \\
-            \hline
-            5 & 1 & 5 & 2 & 5 & 1 & 5 & 1 & 5 & 1 & 97.5 \\
-            5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 100 \\
-            4 & 2 & 4 & 3 & 4 & 1 & 4 & 2 & 3 & 1 & 75.0 \\
-            3 & 1 & 5 & 1 & 5 & 2 & 5 & 1 & 5 & 2 & 90.0 \\
-            3 & 2 & 4 & 2 & 4 & 2 & 4 & 2 & 4 & 1 & 75.0 \\
-            4 & 2 & 5 & 1 & 4 & 2 & 4 & 2 & 5 & 1 & 85.0 \\
-            4 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 97.5 \\
-            5 & 2 & 3 & 4 & 5 & 2 & 3 & 2 & 4 & 2 & 70.0 \\
-            4 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 97.5 \\
-            \hline
-        \end{tabularx}
-        \caption[Risposte del questionario SUS sul sito BolognaWiFiMap]{Risposte fornite dagli utenti sul questionario SUS relativo al sito BolognaWiFiMap, in forma anonima.}
-        \label{tab:sus_bolognawifimap}
-    \end{table}
-\end{center}
+Analizziamo ora le risposte fornite dagli utenti, mostrando innanzitutto la Tabella~\ref{tab:sus_avg_values} contenente la media dei risultati per ciascuna domanda. In seguito, riporteremo ciascuna delle due tabelle con i risultati individuali degli utenti, sia per il sito degli Open Data in Tabella~\ref{tab:sus_opendata}, sia per il nostro sito BolognaWiFiMap in Tabella~\ref{tab:sus_bolognawifimap}. Per motivi di spazio, in queste ultime due tabelle abbrevieremo i nomi delle domande, scrivendo S01 al posto di SUS01.
 
 \begin{center}
     \begin{table}[H]
@@ -439,20 +393,70 @@ Andiamo ora ad analizzare le risposte fornite dagli utenti. Riporteremo dapprima
             \textbf{Dev. Std. Pari} & 0.401 & 0.199 \\
             \hline
         \end{tabularx}
-        \caption[Valori medi totali e per domanda del questionario SUS]{Valori medi per ciascuna domanda del questionario SUS. Viene inoltre calcolato per ciascun sito il punteggio medio complessivo risultante da tutti gli utenti. Quindi, distinguendo tra domande dispari e pari, si determinano media, mediana e deviazione standard per ciascuna delle due categorie positive e negative.}
+        \caption[Valori medi totali e per domanda del questionario SUS]{Valori medi per ciascuna domanda del questionario SUS. Per ciascun sito viene calcolato il punteggio medio complessivo risultante da tutti gli utenti, quindi si determinano media, mediana e deviazione standard.}
         \label{tab:sus_avg_values}
     \end{table}
 \end{center}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{sus_avg_values_legend}
-    \caption[Valori medi per ciascuna domanda del questionario SUS]{Valori medi per ciascuna domanda del questionario SUS. In rosso, quelli relativi al sito degli Open Data. In blu, quelli su BolognaWiFiMap.}
-    \label{fig:sus_avg_values}
-\end{figure}
+\begin{center}
+    \begin{table}[H]
+        \centering
+        \begin{tabularx}{\textwidth}{|c|c|c|c|c|c|c|c|c|c|X|}
+            \hline
+            \multicolumn{11}{|c|}{\textbf{Risposte SUS Open Data}} \\
+            \hline
+            \textbf{S01} & \textbf{S02} & \textbf{S03} & \textbf{S04} & \textbf{S05} & \textbf{S06} & \textbf{S07} & \textbf{S08} & \textbf{S09} & \textbf{S10} & \textbf{SUS} \\
+            \hline
+            1 & 4 & 2 & 4 & 3 & 4 & 2 & 4 & 1 & 4 & 22.5 \\
+            4 & 4 & 2 & 3 & 3 & 4 & 5 & 4 & 1 & 3 & 42.5 \\
+            3 & 3 & 3 & 4 & 5 & 2 & 4 & 2 & 3 & 3 & 60.0 \\
+            2 & 2 & 3 & 3 & 3 & 2 & 4 & 2 & 3 & 1 & 62.5 \\
+            1 & 5 & 1 & 4 & 1 & 4 & 2 & 2 & 2 & 1 & 27.5 \\
+            3 & 2 & 4 & 2 & 4 & 1 & 5 & 2 & 5 & 1 & 82.5 \\
+            1 & 2 & 3 & 5 & 2 & 4 & 1 & 4 & 2 & 4 & 25.0 \\
+            4 & 2 & 3 & 4 & 5 & 2 & 3 & 3 & 5 & 2 & 67.5 \\
+            1 & 4 & 2 & 3 & 1 & 3 & 1 & 4 & 1 & 3 & 22.5 \\
+            \hline
+        \end{tabularx}
+        \caption[Risposte del questionario SUS sul sito degli Open Data]{Risposte fornite dagli utenti sul questionario SUS relativo al sito degli Open Data, in forma anonima.}
+        \label{tab:sus_opendata}
+    \end{table}
+\end{center}
+
+\begin{center}
+    \begin{table}[H]
+        \centering
+        \begin{tabularx}{\textwidth}{|c|c|c|c|c|c|c|c|c|c|X|}
+            \hline
+            \multicolumn{11}{|c|}{\textbf{Risposte SUS BolognaWiFiMap}} \\
+            \hline
+            \textbf{S01} & \textbf{S02} & \textbf{S03} & \textbf{S04} & \textbf{S05} & \textbf{S06} & \textbf{S07} & \textbf{S08} & \textbf{S09} & \textbf{S10} & \textbf{SUS} \\
+            \hline
+            5 & 1 & 5 & 2 & 5 & 1 & 5 & 1 & 5 & 1 & 97.5 \\
+            5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 100 \\
+            4 & 2 & 4 & 3 & 4 & 1 & 4 & 2 & 3 & 1 & 75.0 \\
+            3 & 1 & 5 & 1 & 5 & 2 & 5 & 1 & 5 & 2 & 90.0 \\
+            3 & 2 & 4 & 2 & 4 & 2 & 4 & 2 & 4 & 1 & 75.0 \\
+            4 & 2 & 5 & 1 & 4 & 2 & 4 & 2 & 5 & 1 & 85.0 \\
+            4 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 97.5 \\
+            5 & 2 & 3 & 4 & 5 & 2 & 3 & 2 & 4 & 2 & 70.0 \\
+            4 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 97.5 \\
+            \hline
+        \end{tabularx}
+        \caption[Risposte del questionario SUS sul sito BolognaWiFiMap]{Risposte fornite dagli utenti sul questionario SUS relativo al sito BolognaWiFiMap, in forma anonima.}
+        \label{tab:sus_bolognawifimap}
+    \end{table}
+\end{center}
 
 \section{Valutazione dei risultati complessivi}
 Possiamo già notare dalla Tabella~\ref{tab:sus_avg_values} come complessivamente BolognaWiFiMap batta gli Open Data su tutte le possibili metriche, a cominciare da un punteggio SUS quasi doppio. Sia nelle domande pari, che nelle domande dispari, la differenza tra media e mediana è molto piccola, segno di un insieme di dati piuttosto consistenti e senza particolari \textit{outliers}. Questa affermazione è ulteriormente supportata, per entrambe le tipologie di domanda, da una deviazione standard (abbastanza) piccola, che indica una bassa dispersione dei dati.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{sus_avg_values_legend}
+    \caption[Valori medi per ciascuna domanda del questionario SUS]{Valori medi per ciascuna domanda del questionario SUS, visualizzati come in Tabella~\ref{tab:sus_avg_values}. In rosso, quelli relativi al sito degli Open Data. In blu, quelli su BolognaWiFiMap.}
+    \label{fig:sus_avg_values}
+\end{figure}
 
 In particolare, diventa evidente come il valore medio e mediano delle domande dispari (positive) relativo a BolognaWiFiMap sia molto più elevato rispetto a quello degli Open Data. Allo stesso modo, il valore medio e mediano delle domande pari (negative) di BolognaWiFiMap risulta essere più basso di quello sugli Open Data, seppur con un margine inferiore rispetto alle domande dispari. Possiamo facilmente vedere queste differenze in maniera grafica in Figura~\ref{fig:sus_avg_values}. Relativamente ai criteri di valutazione delle domande pari e dispari, seppur con vario margine, non esiste nessun caso in cui il sito degli Open Data abbia performato meglio di BolognaWiFiMap.
 
@@ -460,6 +464,8 @@ Notiamo comunque come, relativamente alle categorie di domande pari e dispari, i
 
 \section{Risultati per ciascun utente}
 Se complessivamente possiamo già decretare BolognaWiFiMap come sito avente l'usabilità migliore, non possiamo ancora trarre conclusioni relative alle preferenze di ciascun singolo utente. Andiamo quindi a vedere i risultati che ogni persona ha ottenuto nel questionario SUS relativo a entrambi i siti, in Tabella~\ref{tab:sus_scores}.
+
+Anche qui notiamo chiaramente come nessun utente abbia mostrato una netta preferenza per il sito degli Open Data, seppur in due casi BolognaWiFiMap abbia ottenuto solo un leggerissimo vantaggio. Questo diventa particolarmente facile da vedere in maniera grafica dalla Figura~\ref{fig:sus_scores}.
 
 \begin{center}
     \begin{table}[H]
@@ -502,11 +508,16 @@ Se complessivamente possiamo già decretare BolognaWiFiMap come sito avente l'us
     \end{table}
 \end{center}
 
-Anche qui notiamo chiaramente come nessun utente abbia mostrato una netta preferenza per il sito degli Open Data, seppur in due casi BolognaWiFiMap abbia ottenuto solo un leggerissimo vantaggio. Questo diventa particolarmente facile da vedere in maniera grafica dalla Figura~\ref{fig:sus_scores}.
+Analogamente a prima, possiamo notare come la media dei punteggi complessivi non si discosti di molto dalla mediana, in linea con quanto è avvenuto per ciascuna risposta all'interno della Tabella~\ref{tab:sus_avg_values}, di conseguenza possiamo dedurre che l'insieme di dati sia piuttosto consistente e non presenti particolari \textit{outliers}.
 
-Come prima, la media dei punteggi complessivi non si discosta molto dalla mediana, in linea con quanto è avvenuto per ciascuna risposta in Tabella~\ref{tab:sus_avg_values}, quindi l'insieme di dati è piuttosto consistente e non presenta particolari \textit{outliers}.
+La deviazione standard, anche in questo caso, risulta maggiore per gli Open Data rispetto che a BolognaWiFiMap, segno di una più grande varianza tra le risposte e quindi di opinioni leggermente più contrastanti.
 
-La deviazione standard, anche in questo caso, è maggiore per gli Open Data rispetto che a BolognaWiFiMap, segno di una più grande varianza tra le risposte e quindi di opinioni leggermente più contrastanti.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{sus_scores_legend}
+    \caption[Punteggi ottenuti nel questionario SUS]{Punteggi ottenuti dagli utenti nel questionario SUS, evidenziando l'età di ciascun utente in ascissa. In rosso, quelli relativi al sito degli Open Data. In blu, quelli su BolognaWiFiMap.}
+    \label{fig:sus_scores}
+\end{figure}
 
 Per valutare la relazione tra l'età degli utenti e la percezione dell'usabilità, abbiamo utilizzato il coefficiente di correlazione \( \rho \) di Spearman , in quanto a differenza di quello di Pearson \( r \), non assume una distribuzione normale, è meno sensibile agli \textit{outliers} e misura la correlazione monotona tra due variabili. Di conseguenza è più adatto per piccoli campioni di dati e per relazioni non necessariamente lineari, come nel nostro caso.
 
@@ -515,6 +526,8 @@ Il coefficiente di correlazione di Spearman ( \( \rho \) ) è calcolato utilizza
     \rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}
     \label{eq:spearman_correlation_coefficient}
 \end{equation}
+
+\newpage
 
 Dove \( n \) è il numero di punti (dati) a disposizione e \( d_i^2 \) è il quadrato della differenza tra i ranghi di \( x_i \) e \( y_i \), ovvero:
 
@@ -538,7 +551,7 @@ Dove \( R(x_i) \) e \( R(y_i) \) sono definiti come:
 \begin{equation}
     R(y_i) = \text{Rango di } y_i \quad \text{(posizione di } y_i \text{ nella lista dei valori } y_1, ..., y_n \text{)}
     \label{eq:rank_y}
-\end{equation}
+\end{equation}\\
 
 Il coefficiente di correlazione \( \rho \) di Spearman varia tra -1 e +1:
 \begin{itemize}
@@ -551,20 +564,7 @@ Se \( \rho > 0 \) esiste una correlazione positiva, mentre se \( \rho < 0 \) esi
 
 I risultati ottenuti indicano che non esiste alcuna correlazione significativa tra l'età degli utenti e i punteggi SUS, suggerendo quindi che la percezione dell'usabilità dell'applicazione sia indipendente dall'età.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{sus_scores_legend}
-    \caption[Punteggi ottenuti nel questionario SUS]{Punteggi ottenuti dagli utenti nel questionario SUS, evidenziando l'età di ciascun utente in ascissa. In rosso, quelli relativi al sito degli Open Data. In blu, quelli su BolognaWiFiMap.}
-    \label{fig:sus_scores}
-\end{figure}
-
 Il punteggio SUS può essere convertito in un voto utilizzando una tabella di conversione che lo trasforma utilizzando il sistema di valutazione americano \cite{SUS}. Tali criteri sono visibili in Tabella~\ref{tab:sus_grading_system}.
-
-La valutazione dei punteggi SUS di ciascun utente è visibile in Tabella~\ref{tab:sus_grades}. In base alla scala di valutazione del SUS, il sito degli Open Data otterrebbe mediamente come voto F, mentre BolognaWiFiMap si guadagnerebbe in media un solido A+. La mediana assumerebbe gli stessi valori.
-
-Riguardo agli estremi, il voto minimo di Open Data sarebbe sempre una F, mentre quello massimo sarebbe una A. BolognaWiFiMap, invece, ha come voto minimo una C, ma quello massimo rimane sempre una A+.
-
-Possiamo notare come solo due utenti abbiano fornito una valutazione dei due siti pressoché equivalente, mentre in tutti gli altri casi la differenza è ben più drastica e a favore di BolognaWiFiMap.
 
 \begin{center}
     \begin{table}[H]
@@ -590,6 +590,14 @@ Possiamo notare come solo due utenti abbiano fornito una valutazione dei due sit
         \label{tab:sus_grading_system}
     \end{table}
 \end{center}
+
+La valutazione dei punteggi SUS di ciascun utente è visibile in Tabella~\ref{tab:sus_grades}. In base alla scala di valutazione del SUS, il sito degli Open Data otterrebbe mediamente come voto F, mentre BolognaWiFiMap si guadagnerebbe in media un solido A+. La mediana assumerebbe gli stessi valori.
+
+Riguardo agli estremi, il voto minimo di Open Data sarebbe sempre una F, mentre quello massimo sarebbe una A. BolognaWiFiMap, invece, ha come voto minimo una C, ma quello massimo rimane sempre una A+.
+
+Possiamo notare come solo due utenti abbiano fornito una valutazione dei due siti pressoché equivalente, mentre in tutti gli altri casi la differenza è ben più drastica e a favore di BolognaWiFiMap.
+
+Da queste tabelle possiamo dedurre come per gli utenti, mediamente, il sito BolognaWiFiMap da noi sviluppato sia risultato largamente più facile da utilizzare rispetto al sito già esistente degli Open Data, migliorando di conseguenza l'esperienza utente.
 
 \begin{center}
     \begin{table}[H]

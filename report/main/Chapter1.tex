@@ -261,7 +261,7 @@ La maggior parte degli strumenti di visualizzazione dei dati è in grado di conn
 
 Un grafico dovrebbe prendere sempre in considerazione il tipo e lo scopo dei dati, in quanto alcune informazioni si adattano meglio a un tipo di grafico rispetto che a un altro, per esempio un grafico a barre invece di un grafico a torta. Con la maggior parte degli strumenti, l'utente ha una vasta scelta di opzioni di analytics visuali, da diagrammi comuni come grafici a linee e a barre, fino a sequenze temporali, mappe, tracciati, istogrammi e design personalizzati.
 
-La visualizzazione dei dati può aiutare a raccontare la storia, trasmettendo in modo chiaro problemi complessi. Può svolgere un ruolo chiare nell'identificazione delle informazioni significative estraendole dal rumore, includendo sia anomalie che eccezioni. Inoltre, è in grado di aiutare con il crescente volume di dati, dato che l'interazione visuale con grandi dataset può semplificare l'analisi, rivelando nuovi insight. Tutto questo è permesso dalla visualizzazione dei dati, ma è necessario scegliere lo strumento giusto \cite{Oracle_Visualizzazione_Dati}.
+La visualizzazione dei dati può aiutare a raccontare la storia, trasmettendo in modo chiaro problemi complessi, e ricopre un ruolo chiave nell'identificazione delle informazioni significative, estraendole dal rumore, includendo sia anomalie che eccezioni. Inoltre, è in grado di aiutare con il crescente volume di dati, dato che l'interazione visuale con grandi dataset può semplificare l'analisi, rivelando nuovi insight. Tutto questo è permesso dalla visualizzazione dei dati, ma è necessario scegliere lo strumento giusto \cite{Oracle_Visualizzazione_Dati}.
 
 \subsection{Caratteristiche di una buona visualizzazione}
 % Chiarezza e semplicità
@@ -274,16 +274,17 @@ Per costruire una buona visualizzazione dati, ci sono tre aspetti fondamentali:
     \item Deve rendere facilmente comprensibili a chiunque sia le informazioni presentate, sia le possibili soluzioni al problema che si sta presentando.
 \end{enumerate}
 Ne è un esempio la seguente visualizzazione in Figura~\ref{fig:nintendo_sales} relativa alle vendite della console Nintendo Switch \texttrademark nel corso del tempo, ripartite tra software e hardware.
-\begin{figure}
+
+Queste regole di base sono molto generiche, ma devono restare una necessità sia quando di dati da gestire e presentare sono tanti, sia quando sono pochi. La complessità del lavoro non deve far desistere dal seguire queste linee guida, al contrario, maggiore è la mole di dati e più si rivela necessario seguire queste regole per arrivare a un buon risultato.
+
+La prima cosa da fare quando si pensa a una visualizzazione dati è capire esattamente qual è il messaggio che vogliamo trasmettere, e con quali dati. Inoltre, è molto importante avere chiaro qual è il tipo di utente che utilizzerà la nostra dashboard, per evitare di presentare informazioni giuste alle persone sbagliate, e viceversa. Per esempio, all'interno di un'azienda è molto difficile il direttore finanziario sia interessato ai \textit{conversion rate} delle ultime campagne di marketing, ma è molto più probabile che sia interessato alla spesa di queste campagne messa in relazione con i profitti che ha generato.
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{nintendo_sales.png}
     \caption[Dataviz: vendite di console Nintendo Switch]{Quando pensiamo alla Nintendo Switch \texttrademark, la prima cosa che viene in mente è la console stessa. Tuttavia, i dati ci mostrano che l'89\% delle vendite nel 2020 hanno riguardato software compatibile con la console, e non il relativo hardware \cite{DataVisualization_Caratteristiche}.}
     \label{fig:nintendo_sales}
 \end{figure}
-
-Queste regole di base sono molto generiche, ma devono restare una necessità sia quando di dati da gestire e presentare sono tanti, sia quando sono pochi. La complessità del lavoro non deve far desistere dal seguire queste linee guida, al contrario, maggiore è la mole di dati e più si rivela necessario seguire queste regole per arrivare a un buon risultato.
-
-La prima cosa da fare quando si pensa a una visualizzazione dati è capire esattamente qual è il messaggio che vogliamo trasmettere, e con quali dati. Inoltre, è molto importante avere chiaro qual è il tipo di utente che utilizzerà la nostra dashboard, per evitare di presentare informazioni giuste alle persone sbagliate, e viceversa. Per esempio, all'interno di un'azienda è molto difficile il direttore finanziario sia interessato ai \textit{conversion rate} delle ultime campagne di marketing, ma è molto più probabile che sia interessato alla spesa di queste campagne messa in relazione con i profitti che ha generato.
 
 Solitamente la complessità del lavoro deriva dal numero di variabili che entrano in gioco, di conseguenza è cruciale scegliere il tipo di grafico giusto.
 
